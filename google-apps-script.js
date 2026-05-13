@@ -10,7 +10,7 @@
 //  5. Deploy → Manage Deployments → edit the existing deployment → New version → Deploy
 // ============================================================
 
-var SHEET_ID = 'PASTE_YOUR_SHEET_ID_HERE';
+var SHEET_ID = '13LO7P7JyZLt5euFeULdrV6f9m67Nsa25ZaAfKC39QgI';
 
 function doGet(e) {
   try {
