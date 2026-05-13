@@ -4,6 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Votre devis RC Décennale avec Ringassur à partir de 70 € / mois</title>
+
+  <!-- ============ META PIXEL 944605845074489 ============ -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- ============ END META PIXEL ============ -->
+
   <style>
     /* ---- Reset & Base ---- */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,7 +38,6 @@
     button { cursor: pointer; font-family: inherit; border: none; background: none; }
     h1,h2,h3,h4,h5,h6 { font-weight: 700; letter-spacing: -0.02em; }
 
-    /* ---- Variables ---- */
     :root {
       --blue: #0071cc;
       --dark-blue: #002d52;
@@ -68,21 +85,12 @@
       display: flex; align-items: center; justify-content: center;
     }
     .logo-icon svg { width: 22px; height: 22px; fill: #fff; }
-    .logo-text {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--dark-blue);
-      letter-spacing: -0.03em;
-    }
+    .logo-text { font-size: 1.5rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.03em; }
     .logo-text span { color: var(--orange); }
     .header-spacer { width: 120px; }
 
     /* ---- Progress Bar ---- */
-    .progress-bar-container {
-      height: 8px;
-      background: #e5e5e5;
-      position: relative;
-    }
+    .progress-bar-container { height: 8px; background: #e5e5e5; position: relative; }
     .progress-bar-fill {
       height: 100%;
       background: var(--orange);
@@ -91,8 +99,7 @@
     }
     .progress-badge {
       position: absolute;
-      right: -18px;
-      top: 50%;
+      right: -18px; top: 50%;
       transform: translateY(-50%);
       background: var(--orange);
       color: #fff;
@@ -103,18 +110,11 @@
       white-space: nowrap;
     }
 
-    /* ---- Main Layout ---- */
-    .page-wrapper {
-      padding-top: 80px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .main-content {
-      flex: 1;
-    }
+    /* ---- Layout ---- */
+    .page-wrapper { padding-top: 80px; min-height: 100vh; display: flex; flex-direction: column; }
+    .main-content { flex: 1; }
 
-    /* ---- Step Sections ---- */
+    /* ---- Steps ---- */
     .step-section {
       display: none;
       padding: 3rem 1rem 2rem;
@@ -123,28 +123,12 @@
       text-align: center;
     }
     .step-section.active { display: block; }
-
-    .step-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #1e1e1e;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
-    }
+    .step-title { font-size: 1.75rem; font-weight: 700; color: #1e1e1e; line-height: 1.2; margin-bottom: 0.4rem; }
     .step-title span { color: var(--blue); }
-    .step-subtitle {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-      font-style: italic;
-    }
+    .step-subtitle { font-size: 0.9rem; color: var(--text-light); margin-bottom: 2rem; font-style: italic; }
 
-    /* ---- Input / Select ---- */
-    .input-wrapper {
-      position: relative;
-      max-width: 350px;
-      margin: 0 auto 1.5rem;
-    }
+    /* ---- Inputs ---- */
+    .input-wrapper { position: relative; max-width: 350px; margin: 0 auto 1.5rem; }
     .input-wrapper label {
       position: absolute;
       top: 8px; left: 14px;
@@ -167,6 +151,7 @@
       transition: border-color 0.2s;
     }
     .styled-select:focus, .styled-input:focus { border-color: var(--dark-blue); }
+    .styled-input.error { border-color: #e53935; }
     .select-chevron {
       position: absolute;
       right: 14px; top: 50%;
@@ -182,6 +167,14 @@
       color: #1e1e1e;
       font-size: 0.9rem;
     }
+    .field-error {
+      color: #e53935;
+      font-size: 0.75rem;
+      text-align: left;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .field-error.visible { display: block; }
 
     /* ---- Buttons ---- */
     .btn-primary {
@@ -195,15 +188,11 @@
       font-size: 1.05rem;
       font-weight: 700;
       border-radius: 8px;
-      transition: background 0.2s;
+      transition: background 0.2s, opacity 0.2s;
       letter-spacing: 0.01em;
     }
     .btn-primary:hover { background: var(--orange-hover); }
-    .btn-primary:disabled {
-      background: #ccc;
-      color: #888;
-      cursor: not-allowed;
-    }
+    .btn-primary:disabled { background: #ccc; color: #888; cursor: not-allowed; }
     .btn-back {
       color: var(--blue);
       font-size: 0.9rem;
@@ -213,15 +202,6 @@
       gap: 0.3rem;
       margin-bottom: 1.5rem;
     }
-    .btn-skip {
-      display: block;
-      text-align: center;
-      margin-top: 1rem;
-      color: var(--blue);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .btn-skip:hover { text-decoration: underline; }
 
     /* ---- Info Box ---- */
     .info-box {
@@ -240,37 +220,13 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .info-box ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .info-box ul li {
-      padding-left: 1.2rem;
-      position: relative;
-      font-size: 0.9rem;
-      color: #1e1e1e;
-    }
-    .info-box ul li::before {
-      content: '•';
-      color: var(--blue);
-      position: absolute;
-      left: 0;
-      font-weight: 700;
-    }
+    .info-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .info-box ul li { padding-left: 1.2rem; position: relative; font-size: 0.9rem; color: #1e1e1e; }
+    .info-box ul li::before { content: '•'; color: var(--blue); position: absolute; left: 0; font-weight: 700; }
 
-    /* ---- Why Ringassur Section ---- */
-    .why-section {
-      padding: 3rem 1.5rem;
-      text-align: center;
-      background: #fff;
-    }
-    .why-section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 2.5rem;
-      color: #1e1e1e;
-    }
+    /* ---- Why Section ---- */
+    .why-section { padding: 3rem 1.5rem; text-align: center; background: #fff; }
+    .why-section h2 { font-size: 1.6rem; margin-bottom: 2.5rem; color: #1e1e1e; }
     .why-section h2 span { color: var(--blue); }
     .advantages-grid {
       display: grid;
@@ -279,51 +235,22 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    @media (min-width: 640px) {
-      .advantages-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (min-width: 900px) {
-      .advantages-grid { grid-template-columns: repeat(6, 1fr); }
-    }
-    .advantage-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-    }
+    @media (min-width: 640px) { .advantages-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px) { .advantages-grid { grid-template-columns: repeat(6, 1fr); } }
+    .advantage-item { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
     .advantage-icon {
       width: 56px; height: 56px;
       background: var(--light-blue);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
     .advantage-icon svg { width: 28px; height: 28px; }
-    .advantage-title {
-      color: var(--blue);
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-align: center;
-    }
-    .advantage-desc {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      text-align: center;
-      line-height: 1.4;
-    }
+    .advantage-title { color: var(--blue); font-weight: 700; font-size: 0.8rem; text-align: center; }
+    .advantage-desc { font-size: 0.75rem; color: var(--text-light); text-align: center; line-height: 1.4; }
 
-    /* ---- Reviews Section ---- */
-    .reviews-section {
-      padding: 3rem 1.5rem;
-      background: #f9f9f9;
-      text-align: center;
-    }
-    .reviews-section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 2rem;
-      color: #1e1e1e;
-    }
+    /* ---- Reviews ---- */
+    .reviews-section { padding: 3rem 1.5rem; background: #f9f9f9; text-align: center; }
+    .reviews-section h2 { font-size: 1.6rem; margin-bottom: 2rem; color: #1e1e1e; }
     .reviews-section h2 span { color: var(--blue); }
     .reviews-grid {
       display: grid;
@@ -332,9 +259,7 @@
       max-width: 900px;
       margin: 0 auto;
     }
-    @media (min-width: 640px) {
-      .reviews-grid { grid-template-columns: repeat(3, 1fr); }
-    }
+    @media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
     .review-card {
       background: #fff;
       border-radius: 12px;
@@ -342,32 +267,16 @@
       text-align: left;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    .review-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
     .review-stars { color: #f8aa36; font-size: 1rem; }
     .review-date { color: var(--text-gray); font-size: 0.78rem; }
     .review-text { font-size: 0.875rem; color: #1e1e1e; line-height: 1.5; }
 
-    /* ---- FAQ Section ---- */
-    .faq-section {
-      padding: 3rem 1.5rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .faq-section h2 {
-      font-size: 1.6rem;
-      text-align: center;
-      margin-bottom: 2rem;
-      color: #1e1e1e;
-    }
+    /* ---- FAQ ---- */
+    .faq-section { padding: 3rem 1.5rem; max-width: 800px; margin: 0 auto; }
+    .faq-section h2 { font-size: 1.6rem; text-align: center; margin-bottom: 2rem; color: #1e1e1e; }
     .faq-section h2 span { color: var(--blue); }
-    .faq-item {
-      border-bottom: 1px solid var(--border);
-    }
+    .faq-item { border-bottom: 1px solid var(--border); }
     .faq-question {
       width: 100%;
       display: flex;
@@ -385,53 +294,19 @@
       width: 24px; height: 24px;
       border: 1.5px solid var(--border);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
       color: var(--text-light);
       transition: transform 0.25s;
     }
     .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-answer {
-      display: none;
-      padding: 0 0 1.1rem;
-      font-size: 0.875rem;
-      color: var(--text-light);
-      line-height: 1.6;
-    }
+    .faq-answer { display: none; padding: 0 0 1.1rem; font-size: 0.875rem; color: var(--text-light); line-height: 1.6; }
     .faq-item.open .faq-answer { display: block; }
 
     /* ---- Mention ---- */
-    .mention {
-      font-size: 0.75rem;
-      color: var(--text-gray);
-      font-style: italic;
-      text-align: center;
-      padding: 1rem 1.5rem 0;
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    .mention { font-size: 0.75rem; color: var(--text-gray); font-style: italic; text-align: center; padding: 1rem 1.5rem 0; max-width: 800px; margin: 0 auto; }
 
-    /* ---- Footer ---- */
-    .site-footer {
-      background: #1e1e1e;
-      color: #ccc;
-      font-size: 0.78rem;
-      padding: 1.2rem 1.5rem;
-      text-align: center;
-    }
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.4rem 1.5rem;
-    }
-    .footer-links a { color: #ccc; }
-    .footer-links a:hover { color: #fff; }
-    .footer-sep { color: #555; }
-
-    /* ---- Step 4 — Contact Form ---- */
+    /* ---- Contact Form ---- */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -456,29 +331,34 @@
       transition: border-color 0.2s;
     }
     .form-field input:focus, .form-field select:focus { border-color: var(--blue); }
+    .form-field input.error { border-color: #e53935; }
+    .form-field .err { color: #e53935; font-size: 0.72rem; display: none; }
+    .form-field .err.show { display: block; }
 
-    /* ---- Confirmation Step ---- */
-    .confirmation-section {
-      padding: 4rem 1.5rem;
-      text-align: center;
-      max-width: 540px;
-      margin: 0 auto;
+    /* ---- Loading Spinner ---- */
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---- Confirmation ---- */
+    .confirmation-section { padding: 4rem 1.5rem; text-align: center; max-width: 540px; margin: 0 auto; }
     .check-circle {
       width: 72px; height: 72px;
       background: #e6f4ea;
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.5rem;
     }
     .check-circle svg { width: 38px; height: 38px; }
-    .confirmation-section h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #1e1e1e;
-    }
+    .confirmation-section h2 { font-size: 1.5rem; margin-bottom: 1rem; color: #1e1e1e; }
     .confirmation-section h2 span { color: var(--blue); }
     .confirmation-section p { color: var(--text-light); margin-bottom: 2rem; }
     .confirmation-info {
@@ -499,7 +379,6 @@
     .confirmation-info .row span:first-child { color: var(--text-light); }
     .confirmation-info .row span:last-child { font-weight: 600; }
 
-    /* ---- Responsive ---- */
     @media (min-width: 768px) {
       .step-title { font-size: 2.1rem; }
       .header-top { padding: 0 3rem; }
@@ -517,9 +396,7 @@
     </div>
     <a href="#" class="logo">
       <div class="logo-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 7v10l9 5 9-5V7L12 2z"/></svg>
       </div>
       <span class="logo-text">Ring<span>assur</span></span>
     </a>
@@ -545,31 +422,29 @@
       <label for="activite">Votre activité principale</label>
       <select class="styled-select" id="activite">
         <option value="">-- Sélectionnez --</option>
-        <option value="electricite" selected>Electricité</option>
-        <option value="plomberie">Plomberie</option>
-        <option value="maconnerie">Maçonnerie</option>
-        <option value="carrelage">Carrelage</option>
-        <option value="peinture">Peinture / Revêtements</option>
-        <option value="menuiserie">Menuiserie</option>
-        <option value="couverture">Couverture / Toiture</option>
-        <option value="isolation">Isolation</option>
-        <option value="charpente">Charpente</option>
-        <option value="chauffage">Chauffage / Climatisation</option>
-        <option value="platrerie">Plâtrerie / Cloisons</option>
-        <option value="demolition">Démolition / Terrassement</option>
-        <option value="etancheite">Etanchéité</option>
-        <option value="serrurerie">Serrurerie / Métallerie</option>
-        <option value="multiactivite">Multi-activité BTP</option>
-        <option value="autre">Autre activité BTP</option>
+        <option value="Electricité">Electricité</option>
+        <option value="Plomberie">Plomberie</option>
+        <option value="Maçonnerie">Maçonnerie</option>
+        <option value="Carrelage">Carrelage</option>
+        <option value="Peinture / Revêtements">Peinture / Revêtements</option>
+        <option value="Menuiserie">Menuiserie</option>
+        <option value="Couverture / Toiture">Couverture / Toiture</option>
+        <option value="Isolation">Isolation</option>
+        <option value="Charpente">Charpente</option>
+        <option value="Chauffage / Climatisation">Chauffage / Climatisation</option>
+        <option value="Plâtrerie / Cloisons">Plâtrerie / Cloisons</option>
+        <option value="Démolition / Terrassement">Démolition / Terrassement</option>
+        <option value="Etanchéité">Etanchéité</option>
+        <option value="Serrurerie / Métallerie">Serrurerie / Métallerie</option>
+        <option value="Multi-activité BTP">Multi-activité BTP</option>
+        <option value="Autre activité BTP">Autre activité BTP</option>
       </select>
       <span class="select-chevron">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </span>
     </div>
 
-    <button class="btn-primary" onclick="goToStep(2)">Suivant</button>
+    <button class="btn-primary" onclick="step1Next()">Suivant</button>
 
     <!-- Why Ringassur -->
     <div class="why-section">
@@ -577,61 +452,42 @@
       <div class="advantages-grid">
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.08 19.79 19.79 0 01.12 3.5 2 2 0 012.1 1.5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.22a16 16 0 006.69 6.69l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.08 19.79 19.79 0 01.12 3.5 2 2 0 012.1 1.5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.22a16 16 0 006.69 6.69l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
           </div>
           <p class="advantage-title">Suivi de votre dossier décennale</p>
           <p class="advantage-desc">Une équipe professionnelle à votre service pour le suivi de votre dossier</p>
         </div>
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <circle cx="12" cy="8" r="7"/>
-              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
           </div>
           <p class="advantage-title">La qualité Ringassur</p>
           <p class="advantage-desc">Des partenaires assureurs reconnus sur le marché de l'assurance RC Décennale</p>
         </div>
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-              <line x1="16" y1="13" x2="8" y2="13"/>
-              <line x1="16" y1="17" x2="8" y2="17"/>
-              <polyline points="10 9 9 9 8 9"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
           <p class="advantage-title">Des offres adaptées</p>
           <p class="advantage-desc">Des produits d'assurance RC Décennale adaptés à votre activité et vos besoins</p>
         </div>
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <p class="advantage-title">Des garanties complètes</p>
           <p class="advantage-desc">Ringassur couvre l'ensemble de votre activité d'artisan du bâtiment</p>
         </div>
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-              <line x1="12" y1="18" x2="12.01" y2="18"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
           </div>
           <p class="advantage-title">Attestation numérique</p>
           <p class="advantage-desc">Votre attestation décennale numérisée sur votre smartphone sous format de carte wallet</p>
         </div>
         <div class="advantage-item">
           <div class="advantage-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
-              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
           </div>
           <p class="advantage-title">Services Partenaires</p>
           <p class="advantage-desc">Une plateforme avec de nombreux avantages partenaires négociés</p>
@@ -644,24 +500,15 @@
       <h2>Derniers avis des <span>assurés RC Décennale</span></h2>
       <div class="reviews-grid">
         <div class="review-card">
-          <div class="review-header">
-            <span class="review-stars">★★★★★</span>
-            <span class="review-date">12/02/2026</span>
-          </div>
+          <div class="review-header"><span class="review-stars">★★★★★</span><span class="review-date">12/02/2026</span></div>
           <p class="review-text">Equipe très professionnelle et à l'écoute de mes attentes.</p>
         </div>
         <div class="review-card">
-          <div class="review-header">
-            <span class="review-stars">★★★★★</span>
-            <span class="review-date">17/12/2025</span>
-          </div>
+          <div class="review-header"><span class="review-stars">★★★★★</span><span class="review-date">17/12/2025</span></div>
           <p class="review-text">Très bon rapport garantie/prix. Très bon interlocuteur au téléphone.</p>
         </div>
         <div class="review-card">
-          <div class="review-header">
-            <span class="review-stars">★★★★★</span>
-            <span class="review-date">22/10/2025</span>
-          </div>
+          <div class="review-header"><span class="review-stars">★★★★★</span><span class="review-date">22/10/2025</span></div>
           <p class="review-text">Vous êtes très bien, j'ai eu de bons retours de vous de la part d'un collègue et je suis content de vos services.</p>
         </div>
       </div>
@@ -670,62 +517,31 @@
     <!-- FAQ -->
     <div class="faq-section">
       <h2>Vos questions sur <span>l'assurance RC Décennale</span></h2>
-
       <div class="faq-item" onclick="toggleFaq(this)">
-        <button class="faq-question">
-          <span><strong>L'assurance décennale est-elle obligatoire</strong> pour mon activité ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          Oui, l'assurance décennale (Responsabilité Civile Décennale) est obligatoire pour tout professionnel du bâtiment qui réalise des travaux de construction. Elle couvre les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à sa destination, pendant 10 ans après la réception des travaux.
-        </div>
+        <button class="faq-question"><span><strong>L'assurance décennale est-elle obligatoire</strong> pour mon activité ?</span><span class="faq-icon">+</span></button>
+        <div class="faq-answer">Oui, l'assurance décennale (Responsabilité Civile Décennale) est obligatoire pour tout professionnel du bâtiment qui réalise des travaux de construction. Elle couvre les dommages qui compromettent la solidité de l'ouvrage pendant 10 ans après la réception des travaux.</div>
       </div>
-
       <div class="faq-item" onclick="toggleFaq(this)">
-        <button class="faq-question">
-          <span><strong>Combien coûte une assurance décennale</strong> pour un artisan du BTP ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          Le prix d'une assurance décennale dépend principalement de votre activité et de votre chiffre d'affaires. Chez Ringassur, les tarifs démarrent à 70 € / mois pour un électricien en création avec un CA de 30 000 €. Obtenez votre devis personnalisé en quelques clics.
-        </div>
+        <button class="faq-question"><span><strong>Combien coûte une assurance décennale</strong> pour un artisan du BTP ?</span><span class="faq-icon">+</span></button>
+        <div class="faq-answer">Le prix dépend de votre activité et de votre chiffre d'affaires. Chez Ringassur, les tarifs démarrent à 70 € / mois pour un électricien en création avec un CA de 30 000 €. Obtenez votre devis personnalisé en quelques clics.</div>
       </div>
-
       <div class="faq-item" onclick="toggleFaq(this)">
-        <button class="faq-question">
-          <span><strong>Quels documents fournir</strong> pour obtenir un devis d'assurance décennale ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          Pour obtenir votre devis, vous aurez besoin de : votre numéro SIREN, vos diplômes ou qualifications professionnelles, un descriptif de vos activités, votre chiffre d'affaires prévisionnel, et vos éventuelles sinistralités passées. Ringassur vous accompagne dans la constitution de votre dossier.
-        </div>
+        <button class="faq-question"><span><strong>Quels documents fournir</strong> pour obtenir un devis d'assurance décennale ?</span><span class="faq-icon">+</span></button>
+        <div class="faq-answer">Votre numéro SIREN, vos diplômes ou qualifications, un descriptif de vos activités, votre chiffre d'affaires prévisionnel, et vos éventuelles sinistralités passées. Ringassur vous accompagne dans la constitution du dossier.</div>
       </div>
-
       <div class="faq-item" onclick="toggleFaq(this)">
-        <button class="faq-question">
-          <span>Est-ce qu'une <strong>assurance décennale me couvre et me protège</strong> si je crée mon entreprise et n'ai pas encore de chantiers ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          Oui ! Vous pouvez souscrire une assurance décennale dès la création de votre entreprise, même sans chantier en cours. Cette démarche est même recommandée, car vous devrez présenter une attestation d'assurance avant le début de chaque chantier. Une simulation prévisionnelle de chiffre d'affaires est suffisante.
-        </div>
+        <button class="faq-question"><span>Est-ce qu'une <strong>assurance décennale me couvre</strong> si je crée mon entreprise sans chantiers ?</span><span class="faq-icon">+</span></button>
+        <div class="faq-answer">Oui ! Vous pouvez souscrire dès la création de votre entreprise, même sans chantier en cours. Une estimation prévisionnelle de chiffre d'affaires est suffisante.</div>
       </div>
-
       <div class="faq-item" onclick="toggleFaq(this)">
-        <button class="faq-question">
-          <span>Combien de temps faut-il pour obtenir mon <strong>attestation d'assurance décennale</strong> ?</span>
-          <span class="faq-icon">+</span>
-        </button>
-        <div class="faq-answer">
-          Chez Ringassur, une fois votre dossier complet transmis et accepté, vous recevez votre attestation sous 24 à 48 heures ouvrées. Dans certains cas, nous pouvons vous fournir une attestation provisoire sous quelques heures pour vous permettre de démarrer votre chantier rapidement.
-        </div>
+        <button class="faq-question"><span>Combien de temps pour obtenir mon <strong>attestation d'assurance décennale</strong> ?</span><span class="faq-icon">+</span></button>
+        <div class="faq-answer">Une fois votre dossier complet transmis et accepté, vous recevez votre attestation sous 24 à 48 heures ouvrées. Une attestation provisoire peut être émise sous quelques heures.</div>
       </div>
     </div>
-
     <p class="mention">(1) Tarif pour un électricien en création / CA : 30 000 €</p>
   </section>
 
-  <!-- STEP 2 — Chiffre d'affaires -->
+  <!-- STEP 2 — CA -->
   <section class="step-section" id="step2">
     <button class="btn-back" onclick="goToStep(1)">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
@@ -735,11 +551,12 @@
 
     <div class="input-wrapper" style="margin-top:2rem">
       <label for="ca">Chiffre d'affaires estimé sur 12 mois</label>
-      <input class="styled-input" type="number" id="ca" value="30000" min="0">
+      <input class="styled-input" type="number" id="ca" placeholder="Ex : 30000" min="0" oninput="validateCa()">
       <span class="input-suffix">€ HT</span>
     </div>
+    <p class="field-error" id="caError">Veuillez saisir votre chiffre d'affaires.</p>
 
-    <button class="btn-primary" onclick="goToStep(3)">Suivant</button>
+    <button class="btn-primary" onclick="step2Next()">Suivant</button>
 
     <div class="info-box">
       <div class="info-box-title">
@@ -754,7 +571,7 @@
     </div>
   </section>
 
-  <!-- STEP 3 — SIREN -->
+  <!-- STEP 3 — SIREN (required) -->
   <section class="step-section" id="step3">
     <button class="btn-back" onclick="goToStep(2)">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
@@ -764,16 +581,16 @@
     <p class="step-subtitle">Renseignez votre n° SIREN pour préremplir automatiquement vos informations.</p>
 
     <div class="input-wrapper">
-      <label for="siren">N° SIREN (facultatif)</label>
-      <input class="styled-input" type="text" id="siren" maxlength="9" placeholder="Ex : 123 456 789" oninput="checkSiren()">
+      <label for="siren">N° SIREN *</label>
+      <input class="styled-input" type="text" id="siren" maxlength="9" placeholder="Ex : 123 456 789" oninput="validateSiren()">
     </div>
+    <p class="field-error" id="sirenError">Le numéro SIREN doit contenir exactement 9 chiffres.</p>
     <p style="font-size:0.78rem;color:var(--text-gray);max-width:350px;margin:-0.5rem auto 1.5rem;text-align:left;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      Si vous ne le connaissez pas, ignorez cette étape.
+      Le SIREN est obligatoire pour valider votre devis.
     </p>
 
-    <button class="btn-primary" id="btnSirenNext" onclick="goToStep(4)" disabled>Suivant</button>
-    <a href="#" class="btn-skip" onclick="goToStep(4); return false;">Ignorer cette étape</a>
+    <button class="btn-primary" id="btnSirenNext" onclick="step3Next()">Suivant</button>
   </section>
 
   <!-- STEP 4 — Informations personnelles -->
@@ -788,34 +605,36 @@
     <div class="form-grid">
       <div class="form-field">
         <label>Civilité</label>
-        <select>
-          <option>M.</option>
-          <option>Mme</option>
-        </select>
+        <select id="civilite"><option value="M.">M.</option><option value="Mme">Mme</option></select>
       </div>
       <div class="form-field">
         <label>Prénom *</label>
-        <input type="text" placeholder="Jean">
+        <input type="text" id="prenom" placeholder="Jean">
+        <span class="err" id="prenomErr">Champ requis.</span>
       </div>
       <div class="form-field">
         <label>Nom *</label>
-        <input type="text" placeholder="Dupont">
+        <input type="text" id="nom" placeholder="Dupont">
+        <span class="err" id="nomErr">Champ requis.</span>
       </div>
       <div class="form-field full">
         <label>E-mail *</label>
-        <input type="email" placeholder="jean.dupont@email.com">
+        <input type="email" id="email" placeholder="jean.dupont@email.com">
+        <span class="err" id="emailErr">E-mail invalide.</span>
       </div>
       <div class="form-field full">
         <label>Téléphone *</label>
-        <input type="tel" placeholder="06 00 00 00 00">
+        <input type="tel" id="telephone" placeholder="06 00 00 00 00">
+        <span class="err" id="telephoneErr">Téléphone invalide.</span>
       </div>
       <div class="form-field full">
         <label>Code postal *</label>
-        <input type="text" maxlength="5" placeholder="75001">
+        <input type="text" id="codePostal" placeholder="75001" maxlength="5">
+        <span class="err" id="codePostalErr">Code postal invalide.</span>
       </div>
     </div>
 
-    <button class="btn-primary" onclick="goToStep(5)">Obtenir mon devis gratuit</button>
+    <button class="btn-primary" id="btnSubmit" onclick="submitForm()">Obtenir mon devis gratuit</button>
 
     <p style="font-size:0.75rem;color:var(--text-gray);max-width:350px;margin:1rem auto 0;text-align:center;">
       En cliquant, j'accepte d'être contacté par Ringassur dans le cadre de ma demande de devis. Vos données ne seront pas cédées à des tiers.
@@ -834,19 +653,11 @@
       <h2>Votre demande a bien été <span>enregistrée !</span></h2>
       <p>Un conseiller Ringassur vous contactera sous 24h pour finaliser votre devis RC Décennale personnalisé.</p>
 
-      <div class="confirmation-info" id="confirmationInfo">
-        <div class="row">
-          <span>Activité</span>
-          <span id="confActivite">—</span>
-        </div>
-        <div class="row">
-          <span>CA estimé</span>
-          <span id="confCa">—</span>
-        </div>
-        <div class="row">
-          <span>Tarif indicatif</span>
-          <span style="color:var(--blue)">À partir de 70 € / mois</span>
-        </div>
+      <div class="confirmation-info">
+        <div class="row"><span>Activité</span><span id="confActivite">—</span></div>
+        <div class="row"><span>CA estimé</span><span id="confCa">—</span></div>
+        <div class="row"><span>SIREN</span><span id="confSiren">—</span></div>
+        <div class="row"><span>Tarif indicatif</span><span style="color:var(--blue)">À partir de 70 € / mois</span></div>
       </div>
 
       <button class="btn-primary" onclick="restartForm()">Faire un nouveau devis</button>
@@ -856,88 +667,207 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="site-footer">
-  <div class="footer-links">
-    <a href="#">Conditions générales d'utilisation</a>
-    <span class="footer-sep">•</span>
-    <a href="#">Faire une réclamation</a>
-    <span class="footer-sep">•</span>
-    <a href="#">Données personnelles</a>
-    <span class="footer-sep">•</span>
-    <a href="#">Gestion des cookies</a>
-    <span class="footer-sep">•</span>
-    <a href="#">Fonctionnement du tarificateur</a>
-    <span class="footer-sep">•</span>
-    <a href="#">Accessibilité</a>
+<footer class="site-footer" style="background:#1e1e1e;color:#ccc;font-size:0.78rem;padding:1.2rem 1.5rem;text-align:center;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.4rem 1.5rem;">
+    <a href="#" style="color:#ccc;">Conditions générales d'utilisation</a>
+    <span style="color:#555;">•</span>
+    <a href="#" style="color:#ccc;">Faire une réclamation</a>
+    <span style="color:#555;">•</span>
+    <a href="#" style="color:#ccc;">Données personnelles</a>
+    <span style="color:#555;">•</span>
+    <a href="#" style="color:#ccc;">Gestion des cookies</a>
+    <span style="color:#555;">•</span>
+    <a href="#" style="color:#ccc;">Fonctionnement du tarificateur</a>
+    <span style="color:#555;">•</span>
+    <a href="#" style="color:#ccc;">Accessibilité</a>
   </div>
 </footer>
 </div>
 
 <!-- ============ SCRIPTS ============ -->
 <script>
-  const stepProgress = { 1: 0, 2: 33, 3: 50, 4: 75, 5: 100 };
-  let currentStep = 1;
+  // ---- CONFIG — paste your Google Apps Script URL here ----
+  var GOOGLE_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE';
 
+  var stepProgress = { 1: 0, 2: 33, 3: 50, 4: 75, 5: 100 };
+  var currentStep = 1;
+
+  // ---- Navigation ----
   function goToStep(n) {
     document.getElementById('step' + currentStep).classList.remove('active');
     currentStep = n;
     document.getElementById('step' + n).classList.add('active');
-    updateProgress(n);
+    var pct = stepProgress[n] || 0;
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressBadge').textContent = pct + '%';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
     if (n === 5) fillConfirmation();
   }
 
-  function updateProgress(n) {
-    const pct = stepProgress[n] || 0;
-    const bar = document.getElementById('progressBar');
-    const badge = document.getElementById('progressBadge');
-    bar.style.width = pct + '%';
-    badge.textContent = pct + '%';
+  // ---- Meta Pixel helpers ----
+  function pixelTrack(event, params) {
+    if (typeof fbq !== 'undefined') fbq('track', event, params || {});
+  }
+  function pixelCustom(event, params) {
+    if (typeof fbq !== 'undefined') fbq('trackCustom', event, params || {});
   }
 
-  function toggleFaq(item) {
-    item.classList.toggle('open');
+  // ---- Step 1 ----
+  function step1Next() {
+    var act = document.getElementById('activite').value;
+    if (!act) { alert('Veuillez sélectionner votre activité principale.'); return; }
+    pixelCustom('SelectActivity', { activity: act, content_category: 'RC_Decennale' });
+    pixelTrack('ViewContent', { content_name: 'Devis RC Decennale', content_category: 'Insurance', content_type: 'quote' });
+    goToStep(2);
   }
 
-  function checkSiren() {
-    const val = document.getElementById('siren').value.replace(/\s/g, '');
-    document.getElementById('btnSirenNext').disabled = val.length !== 9;
+  // ---- Step 2 ----
+  function validateCa() {
+    var val = document.getElementById('ca').value;
+    var err = document.getElementById('caError');
+    if (!val || Number(val) <= 0) {
+      document.getElementById('ca').classList.add('error');
+      err.classList.add('visible');
+      return false;
+    }
+    document.getElementById('ca').classList.remove('error');
+    err.classList.remove('visible');
+    return true;
+  }
+  function step2Next() {
+    if (!validateCa()) return;
+    var ca = document.getElementById('ca').value;
+    pixelCustom('EnterRevenue', { revenue: Number(ca), currency: 'EUR', activity: document.getElementById('activite').value });
+    goToStep(3);
   }
 
-  const activityLabels = {
-    electricite: 'Electricité',
-    plomberie: 'Plomberie',
-    maconnerie: 'Maçonnerie',
-    carrelage: 'Carrelage',
-    peinture: 'Peinture / Revêtements',
-    menuiserie: 'Menuiserie',
-    couverture: 'Couverture / Toiture',
-    isolation: 'Isolation',
-    charpente: 'Charpente',
-    chauffage: 'Chauffage / Climatisation',
-    platrerie: 'Plâtrerie / Cloisons',
-    demolition: 'Démolition / Terrassement',
-    etancheite: 'Etanchéité',
-    serrurerie: 'Serrurerie / Métallerie',
-    multiactivite: 'Multi-activité BTP',
-    autre: 'Autre activité BTP'
-  };
+  // ---- Step 3 ----
+  function validateSiren() {
+    var raw = document.getElementById('siren').value.replace(/\s/g, '');
+    var err = document.getElementById('sirenError');
+    if (!/^\d{9}$/.test(raw)) {
+      document.getElementById('siren').classList.add('error');
+      err.classList.add('visible');
+      return false;
+    }
+    document.getElementById('siren').classList.remove('error');
+    err.classList.remove('visible');
+    return true;
+  }
+  function step3Next() {
+    if (!validateSiren()) return;
+    pixelCustom('EnterSiren', { activity: document.getElementById('activite').value });
+    goToStep(4);
+  }
 
+  // ---- Step 4 — Validation ----
+  function validateField(id, test, errId) {
+    var val = document.getElementById(id).value.trim();
+    var ok = test(val);
+    document.getElementById(id).classList.toggle('error', !ok);
+    document.getElementById(errId).classList.toggle('show', !ok);
+    return ok;
+  }
+  function validateContactForm() {
+    var ok = true;
+    ok = validateField('prenom', function(v){ return v.length >= 2; }, 'prenomErr') && ok;
+    ok = validateField('nom', function(v){ return v.length >= 2; }, 'nomErr') && ok;
+    ok = validateField('email', function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }, 'emailErr') && ok;
+    ok = validateField('telephone', function(v){ return /^[0-9\s\+\-\.]{8,}$/.test(v); }, 'telephoneErr') && ok;
+    ok = validateField('codePostal', function(v){ return /^\d{5}$/.test(v); }, 'codePostalErr') && ok;
+    return ok;
+  }
+
+  // ---- Submit to Google Sheets + Pixel ----
+  function submitForm() {
+    if (!validateContactForm()) return;
+
+    var btn = document.getElementById('btnSubmit');
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours…';
+    btn.disabled = true;
+
+    var data = {
+      activite:   document.getElementById('activite').value,
+      ca:         document.getElementById('ca').value,
+      siren:      document.getElementById('siren').value.replace(/\s/g, ''),
+      civilite:   document.getElementById('civilite').value,
+      prenom:     document.getElementById('prenom').value.trim(),
+      nom:        document.getElementById('nom').value.trim(),
+      email:      document.getElementById('email').value.trim(),
+      telephone:  document.getElementById('telephone').value.trim(),
+      codePostal: document.getElementById('codePostal').value.trim(),
+      utm:        window.location.search,
+      ua:         navigator.userAgent.substring(0, 120)
+    };
+
+    // Fire Meta Pixel Lead event — most important for Facebook CAPI optimisation
+    pixelTrack('Lead', {
+      content_name: 'RC Decennale Quote',
+      content_category: 'Insurance',
+      value: estimatedPrice(data.ca),
+      currency: 'EUR'
+    });
+    pixelTrack('CompleteRegistration', {
+      content_name: 'Ringassur Devis RC Decennale',
+      currency: 'EUR',
+      value: estimatedPrice(data.ca)
+    });
+
+    // Send to Google Sheets
+    if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
+      var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+      }).join('&');
+      fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
+    }
+
+    // Small delay for pixel to fire, then confirm
+    setTimeout(function() {
+      btn.innerHTML = 'Obtenir mon devis gratuit';
+      btn.disabled = false;
+      goToStep(5);
+    }, 800);
+  }
+
+  function estimatedPrice(ca) {
+    var n = Number(ca) || 0;
+    if (n < 50000) return 70;
+    if (n < 100000) return 100;
+    if (n < 200000) return 150;
+    return 200;
+  }
+
+  // ---- Confirmation summary ----
   function fillConfirmation() {
-    const act = document.getElementById('activite').value;
-    const ca = document.getElementById('ca').value;
-    document.getElementById('confActivite').textContent = activityLabels[act] || act || '—';
+    document.getElementById('confActivite').textContent = document.getElementById('activite').value || '—';
+    var ca = document.getElementById('ca').value;
     document.getElementById('confCa').textContent = ca ? Number(ca).toLocaleString('fr-FR') + ' € HT' : '—';
+    var siren = document.getElementById('siren').value.replace(/\s/g,'');
+    document.getElementById('confSiren').textContent = siren || '—';
   }
 
+  // ---- FAQ ----
+  function toggleFaq(item) { item.classList.toggle('open'); }
+
+  // ---- Restart ----
   function restartForm() {
-    goToStep(1);
-    document.getElementById('activite').value = 'electricite';
-    document.getElementById('ca').value = '30000';
+    document.getElementById('activite').value = '';
+    document.getElementById('ca').value = '';
     document.getElementById('siren').value = '';
-    document.getElementById('btnSirenNext').disabled = true;
+    goToStep(1);
   }
+
+  // ---- Pixel: track scroll depth for retargeting ----
+  var scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
+  window.addEventListener('scroll', function() {
+    var pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    Object.keys(scrollMilestones).forEach(function(m) {
+      if (!scrollMilestones[m] && pct >= Number(m)) {
+        scrollMilestones[m] = true;
+        pixelCustom('ScrollDepth', { depth: m + '%', page: 'devis_rc_decennale' });
+      }
+    });
+  });
 </script>
 
 </body>
