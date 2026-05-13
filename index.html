@@ -874,7 +874,11 @@
   }
 
   // ---- FAQ ----
-  function toggleFaq(item) { item.classList.toggle('open'); }
+  function toggleFaq(item) {
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(el) { el.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  }
 
   // ---- Restart ----
   function restartForm() {
