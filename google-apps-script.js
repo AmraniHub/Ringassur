@@ -1,18 +1,21 @@
 // ============================================================
-//  RINGASSUR — Google Apps Script
-//  1. Go to https://script.google.com → New project
-//  2. Paste ALL this code, replacing the default content
-//  3. Click Deploy → New deployment → Web App
-//     - Execute as: Me
-//     - Who has access: Anyone
-//  4. Click Deploy → copy the Web App URL
-//  5. Paste that URL into index.html where it says GOOGLE_SCRIPT_URL
+//  RINGASSUR — Google Apps Script (Fixed)
+//
+//  SETUP STEPS:
+//  1. Go to sheets.google.com → create a new sheet → name it "Ringassur Leads"
+//  2. Copy the Sheet ID from the URL:
+//     https://docs.google.com/spreadsheets/d/  >>>COPY_THIS<<<  /edit
+//  3. Paste it below replacing PASTE_YOUR_SHEET_ID_HERE
+//  4. Go to script.google.com → open your project → replace ALL code with this
+//  5. Deploy → Manage Deployments → edit the existing deployment → New version → Deploy
 // ============================================================
+
+var SHEET_ID = 'PASTE_YOUR_SHEET_ID_HERE';
 
 function doGet(e) {
   try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = ss.getActiveSheet();
+    var ss    = SpreadsheetApp.openById(SHEET_ID);
+    var sheet = ss.getActiveSheet();
 
     // Write headers on first use
     if (sheet.getLastRow() === 0) {
@@ -30,25 +33,29 @@ function doGet(e) {
         'Source UTM',
         'User Agent'
       ]);
-      sheet.getRange(1, 1, 1, 12).setFontWeight('bold').setBackground('#002d52').setFontColor('#ffffff');
+      var header = sheet.getRange(1, 1, 1, 12);
+      header.setFontWeight('bold')
+            .setBackground('#002d52')
+            .setFontColor('#ffffff');
       sheet.setFrozenRows(1);
+      sheet.setName('Leads');
     }
 
-    const p = e.parameter;
+    var p = e.parameter;
 
     sheet.appendRow([
       new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }),
-      p.activite  || '',
-      p.ca        || '',
-      p.siren     || '',
-      p.civilite  || '',
-      p.prenom    || '',
-      p.nom       || '',
-      p.email     || '',
-      p.telephone || '',
+      p.activite   || '',
+      p.ca         || '',
+      p.siren      || '',
+      p.civilite   || '',
+      p.prenom     || '',
+      p.nom        || '',
+      p.email      || '',
+      p.telephone  || '',
       p.codePostal || '',
-      p.utm       || '',
-      p.ua        || ''
+      p.utm        || '',
+      p.ua         || ''
     ]);
 
     return ContentService
