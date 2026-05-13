@@ -15,6 +15,7 @@
 
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
+    fbq('track', 'ViewContent', { content_name: 'Devis RC Decennale', content_category: 'Artisans BTP', content_type: 'quote_form' });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
@@ -713,8 +714,7 @@
   function step1Next() {
     var act = document.getElementById('activite').value;
     if (!act) { alert('Veuillez sélectionner votre activité principale.'); return; }
-    pixelCustom('SelectActivity', { activity: act, content_category: 'RC_Decennale' });
-    pixelTrack('ViewContent', { content_name: 'Devis RC Decennale', content_category: 'Insurance', content_type: 'quote' });
+    pixelCustom('SelectActivity', { activity: act, content_category: 'Artisans BTP' });
     goToStep(2);
   }
 
@@ -734,7 +734,7 @@
   function step2Next() {
     if (!validateCa()) return;
     var ca = document.getElementById('ca').value;
-    pixelCustom('EnterRevenue', { revenue: Number(ca), currency: 'EUR', activity: document.getElementById('activite').value });
+    pixelCustom('EnterRevenue', { revenue: Number(ca), activity: document.getElementById('activite').value });
     goToStep(3);
   }
 
