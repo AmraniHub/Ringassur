@@ -5,6 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Votre devis RC Décennale avec Ringassur à partir de 70 € / mois</title>
 
+  <!-- ============ GOOGLE ANALYTICS GA4 ============ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2', {
+      send_page_view: true,
+      cookie_flags: 'SameSite=None;Secure'
+    });
+  </script>
+  <!-- ============ END GA4 ============ -->
+
   <!-- ============ META PIXEL 944605845074489 ============ -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -702,6 +715,11 @@
     if (n === 5) fillConfirmation();
   }
 
+  // ---- GA4 helper ----
+  function gaEvent(name, params) {
+    if (typeof gtag !== 'undefined') gtag('event', name, params || {});
+  }
+
   // ---- Meta Pixel helpers ----
   function pixelTrack(event, params) {
     if (typeof fbq !== 'undefined') fbq('track', event, params || {});
@@ -715,6 +733,8 @@
     var act = document.getElementById('activite').value;
     if (!act) { alert('Veuillez sélectionner votre activité principale.'); return; }
     pixelCustom('SelectActivity', { activity: act, content_category: 'Artisans BTP' });
+    gaEvent('select_activity', { activity: act, step: 1 });
+    gaEvent('funnel_step', { step_name: 'activite', step_number: 1 });
     goToStep(2);
   }
 
@@ -735,6 +755,8 @@
     if (!validateCa()) return;
     var ca = document.getElementById('ca').value;
     pixelCustom('EnterRevenue', { revenue: Number(ca), activity: document.getElementById('activite').value });
+    gaEvent('enter_revenue', { revenue: Number(ca), activity: document.getElementById('activite').value, step: 2 });
+    gaEvent('funnel_step', { step_name: 'chiffre_affaires', step_number: 2 });
     goToStep(3);
   }
 
@@ -754,6 +776,8 @@
   function step3Next() {
     if (!validateSiren()) return;
     pixelCustom('EnterSiren', { activity: document.getElementById('activite').value });
+    gaEvent('enter_siren', { step: 3 });
+    gaEvent('funnel_step', { step_name: 'siren', step_number: 3 });
     goToStep(4);
   }
 
@@ -797,11 +821,19 @@
       ua:         navigator.userAgent.substring(0, 120)
     };
 
-    // Fire Meta Pixel Lead event — single clean event, no value/currency to avoid Finance category flag
+    // Meta Pixel — clean Lead event
     pixelTrack('Lead', {
       content_name: 'Devis RC Decennale',
       content_category: 'Artisans BTP'
     });
+
+    // GA4 — generate_lead is the recommended event for lead gen funnels
+    gaEvent('generate_lead', {
+      activity:    data.activite,
+      revenue:     Number(data.ca),
+      step_number: 4
+    });
+    gaEvent('funnel_step', { step_name: 'contact_info', step_number: 4 });
 
     // Send to Google Sheets
     if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
@@ -855,6 +887,7 @@
       if (!scrollMilestones[m] && pct >= Number(m)) {
         scrollMilestones[m] = true;
         pixelCustom('ScrollDepth', { depth: m + '%', page: 'devis_rc_decennale' });
+        gaEvent('scroll_depth', { depth: m + '%', page: 'devis_rc_decennale' });
       }
     });
   });
