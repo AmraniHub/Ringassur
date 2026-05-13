@@ -800,17 +800,10 @@
       ua:         navigator.userAgent.substring(0, 120)
     };
 
-    // Fire Meta Pixel Lead event — most important for Facebook CAPI optimisation
+    // Fire Meta Pixel Lead event — single clean event, no value/currency to avoid Finance category flag
     pixelTrack('Lead', {
-      content_name: 'RC Decennale Quote',
-      content_category: 'Insurance',
-      value: estimatedPrice(data.ca),
-      currency: 'EUR'
-    });
-    pixelTrack('CompleteRegistration', {
-      content_name: 'Ringassur Devis RC Decennale',
-      currency: 'EUR',
-      value: estimatedPrice(data.ca)
+      content_name: 'Devis RC Decennale',
+      content_category: 'Artisans BTP'
     });
 
     // Send to Google Sheets
