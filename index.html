@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre devis RC Décennale avec Ringassur à partir de 70 € / mois</title>
+  <style>
+    /* ---- Reset & Base ---- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #1e1e1e;
+      background: #fff;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: #0071cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
+    h1,h2,h3,h4,h5,h6 { font-weight: 700; letter-spacing: -0.02em; }
+
+    /* ---- Variables ---- */
+    :root {
+      --blue: #0071cc;
+      --dark-blue: #002d52;
+      --orange: #f8aa36;
+      --orange-hover: #e69a20;
+      --light-blue: #ebf6ff;
+      --border: #ccc;
+      --text-light: #525252;
+      --text-gray: #858585;
+    }
+
+    /* ---- Header ---- */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+    }
+    .rating-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .stars { color: #f8aa36; font-size: 1.1rem; }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #0071cc 40%, #f8aa36 100%);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-icon svg { width: 22px; height: 22px; fill: #fff; }
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark-blue);
+      letter-spacing: -0.03em;
+    }
+    .logo-text span { color: var(--orange); }
+    .header-spacer { width: 120px; }
+
+    /* ---- Progress Bar ---- */
+    .progress-bar-container {
+      height: 8px;
+      background: #e5e5e5;
+      position: relative;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--orange);
+      transition: width 0.4s ease;
+      position: relative;
+    }
+    .progress-badge {
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* ---- Main Layout ---- */
+    .page-wrapper {
+      padding-top: 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-content {
+      flex: 1;
+    }
+
+    /* ---- Step Sections ---- */
+    .step-section {
+      display: none;
+      padding: 3rem 1rem 2rem;
+      max-width: 580px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .step-section.active { display: block; }
+
+    .step-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #1e1e1e;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+    .step-title span { color: var(--blue); }
+    .step-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    /* ---- Input / Select ---- */
+    .input-wrapper {
+      position: relative;
+      max-width: 350px;
+      margin: 0 auto 1.5rem;
+    }
+    .input-wrapper label {
+      position: absolute;
+      top: 8px; left: 14px;
+      font-size: 0.7rem;
+      color: var(--blue);
+      font-weight: 600;
+    }
+    .styled-select, .styled-input {
+      width: 100%;
+      padding: 28px 14px 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 2px solid var(--blue);
+      border-radius: 8px;
+      background: #fff;
+      color: #1e1e1e;
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .styled-select:focus, .styled-input:focus { border-color: var(--dark-blue); }
+    .select-chevron {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: var(--blue);
+    }
+    .input-suffix {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      font-weight: 700;
+      color: #1e1e1e;
+      font-size: 0.9rem;
+    }
+
+    /* ---- Buttons ---- */
+    .btn-primary {
+      display: block;
+      width: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 1rem;
+      background: var(--orange);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 8px;
+      transition: background 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: var(--orange-hover); }
+    .btn-primary:disabled {
+      background: #ccc;
+      color: #888;
+      cursor: not-allowed;
+    }
+    .btn-back {
+      color: var(--blue);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-bottom: 1.5rem;
+    }
+    .btn-skip {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--blue);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .btn-skip:hover { text-decoration: underline; }
+
+    /* ---- Info Box ---- */
+    .info-box {
+      background: var(--light-blue);
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 350px;
+      margin: 2rem auto 0;
+      text-align: left;
+    }
+    .info-box-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .info-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .info-box ul li {
+      padding-left: 1.2rem;
+      position: relative;
+      font-size: 0.9rem;
+      color: #1e1e1e;
+    }
+    .info-box ul li::before {
+      content: '•';
+      color: var(--blue);
+      position: absolute;
+      left: 0;
+      font-weight: 700;
+    }
+
+    /* ---- Why Ringassur Section ---- */
+    .why-section {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      background: #fff;
+    }
+    .why-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 2.5rem;
+      color: #1e1e1e;
+    }
+    .why-section h2 span { color: var(--blue); }
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .advantages-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .advantages-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+    .advantage-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .advantage-icon {
+      width: 56px; height: 56px;
+      background: var(--light-blue);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .advantage-icon svg { width: 28px; height: 28px; }
+    .advantage-title {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .advantage-desc {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ---- Reviews Section ---- */
+    .reviews-section {
+      padding: 3rem 1.5rem;
+      background: #f9f9f9;
+      text-align: center;
+    }
+    .reviews-section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+    }
+    .reviews-section h2 span { color: var(--blue); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (min-width: 640px) {
+      .reviews-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .review-stars { color: #f8aa36; font-size: 1rem; }
+    .review-date { color: var(--text-gray); font-size: 0.78rem; }
+    .review-text { font-size: 0.875rem; color: #1e1e1e; line-height: 1.5; }
+
+    /* ---- FAQ Section ---- */
+    .faq-section {
+      padding: 3rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-section h2 {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1e1e1e;
+    }
+    .faq-section h2 span { color: var(--blue); }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 0;
+      font-size: 0.95rem;
+      color: #1e1e1e;
+      text-align: left;
+      gap: 1rem;
+    }
+    .faq-question strong { color: var(--blue); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--text-light);
+      transition: transform 0.25s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      display: none;
+      padding: 0 0 1.1rem;
+      font-size: 0.875rem;
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* ---- Mention ---- */
+    .mention {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      font-style: italic;
+      text-align: center;
+      padding: 1rem 1.5rem 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ---- Footer ---- */
+    .site-footer {
+      background: #1e1e1e;
+      color: #ccc;
+      font-size: 0.78rem;
+      padding: 1.2rem 1.5rem;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 1.5rem;
+    }
+    .footer-links a { color: #ccc; }
+    .footer-links a:hover { color: #fff; }
+    .footer-sep { color: #555; }
+
+    /* ---- Step 4 — Contact Form ---- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      max-width: 350px;
+      margin: 0 auto 1.5rem;
+      text-align: left;
+    }
+    @media (min-width: 480px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid .full { grid-column: 1 / -1; }
+    }
+    .form-field { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-field label { font-size: 0.78rem; font-weight: 600; color: var(--text-light); }
+    .form-field input, .form-field select {
+      padding: 0.6rem 0.8rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-field input:focus, .form-field select:focus { border-color: var(--blue); }
+
+    /* ---- Confirmation Step ---- */
+    .confirmation-section {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .check-circle {
+      width: 72px; height: 72px;
+      background: #e6f4ea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .check-circle svg { width: 38px; height: 38px; }
+    .confirmation-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #1e1e1e;
+    }
+    .confirmation-section h2 span { color: var(--blue); }
+    .confirmation-section p { color: var(--text-light); margin-bottom: 2rem; }
+    .confirmation-info {
+      background: var(--light-blue);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      text-align: left;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .confirmation-info .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid #d6edff;
+    }
+    .confirmation-info .row:last-child { border-bottom: none; }
+    .confirmation-info .row span:first-child { color: var(--text-light); }
+    .confirmation-info .row span:last-child { font-weight: 600; }
+
+    /* ---- Responsive ---- */
+    @media (min-width: 768px) {
+      .step-title { font-size: 2.1rem; }
+      .header-top { padding: 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="rating-badge">
+      <span class="stars">★★★★</span><span class="stars" style="opacity:0.5">★</span>
+      <span>4.4</span>
+    </div>
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L3 7v10l9 5 9-5V7L12 2z"/>
+        </svg>
+      </div>
+      <span class="logo-text">Ring<span>assur</span></span>
+    </a>
+    <div class="header-spacer"></div>
+  </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar-fill" id="progressBar" style="width:0%">
+      <span class="progress-badge" id="progressBadge">0%</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<div class="page-wrapper">
+<main class="main-content">
+
+  <!-- STEP 1 — Activité -->
+  <section class="step-section active" id="step1">
+    <h1 class="step-title">Pour commencer, quelle est <span>votre activité principale ?</span></h1>
+    <p class="step-subtitle">Votre devis RC Décennale avec Ringassur à partir de 70 € / mois (1)</p>
+
+    <div class="input-wrapper">
+      <label for="activite">Votre activité principale</label>
+      <select class="styled-select" id="activite">
+        <option value="">-- Sélectionnez --</option>
+        <option value="electricite" selected>Electricité</option>
+        <option value="plomberie">Plomberie</option>
+        <option value="maconnerie">Maçonnerie</option>
+        <option value="carrelage">Carrelage</option>
+        <option value="peinture">Peinture / Revêtements</option>
+        <option value="menuiserie">Menuiserie</option>
+        <option value="couverture">Couverture / Toiture</option>
+        <option value="isolation">Isolation</option>
+        <option value="charpente">Charpente</option>
+        <option value="chauffage">Chauffage / Climatisation</option>
+        <option value="platrerie">Plâtrerie / Cloisons</option>
+        <option value="demolition">Démolition / Terrassement</option>
+        <option value="etancheite">Etanchéité</option>
+        <option value="serrurerie">Serrurerie / Métallerie</option>
+        <option value="multiactivite">Multi-activité BTP</option>
+        <option value="autre">Autre activité BTP</option>
+      </select>
+      <span class="select-chevron">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </span>
+    </div>
+
+    <button class="btn-primary" onclick="goToStep(2)">Suivant</button>
+
+    <!-- Why Ringassur -->
+    <div class="why-section">
+      <h2>Pourquoi <span>s'assurer avec Ringassur ?</span></h2>
+      <div class="advantages-grid">
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.08 19.79 19.79 0 01.12 3.5 2 2 0 012.1 1.5h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 9.22a16 16 0 006.69 6.69l1.08-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </div>
+          <p class="advantage-title">Suivi de votre dossier décennale</p>
+          <p class="advantage-desc">Une équipe professionnelle à votre service pour le suivi de votre dossier</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <circle cx="12" cy="8" r="7"/>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
+            </svg>
+          </div>
+          <p class="advantage-title">La qualité Ringassur</p>
+          <p class="advantage-desc">Des partenaires assureurs reconnus sur le marché de l'assurance RC Décennale</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <p class="advantage-title">Des offres adaptées</p>
+          <p class="advantage-desc">Des produits d'assurance RC Décennale adaptés à votre activité et vos besoins</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <p class="advantage-title">Des garanties complètes</p>
+          <p class="advantage-desc">Ringassur couvre l'ensemble de votre activité d'artisan du bâtiment</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+          </div>
+          <p class="advantage-title">Attestation numérique</p>
+          <p class="advantage-desc">Votre attestation décennale numérisée sur votre smartphone sous format de carte wallet</p>
+        </div>
+        <div class="advantage-item">
+          <div class="advantage-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="1.8">
+              <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/>
+            </svg>
+          </div>
+          <p class="advantage-title">Services Partenaires</p>
+          <p class="advantage-desc">Une plateforme avec de nombreux avantages partenaires négociés</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-section">
+      <h2>Derniers avis des <span>assurés RC Décennale</span></h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-stars">★★★★★</span>
+            <span class="review-date">12/02/2026</span>
+          </div>
+          <p class="review-text">Equipe très professionnelle et à l'écoute de mes attentes.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-stars">★★★★★</span>
+            <span class="review-date">17/12/2025</span>
+          </div>
+          <p class="review-text">Très bon rapport garantie/prix. Très bon interlocuteur au téléphone.</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <span class="review-stars">★★★★★</span>
+            <span class="review-date">22/10/2025</span>
+          </div>
+          <p class="review-text">Vous êtes très bien, j'ai eu de bons retours de vous de la part d'un collègue et je suis content de vos services.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-section">
+      <h2>Vos questions sur <span>l'assurance RC Décennale</span></h2>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          <span><strong>L'assurance décennale est-elle obligatoire</strong> pour mon activité ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Oui, l'assurance décennale (Responsabilité Civile Décennale) est obligatoire pour tout professionnel du bâtiment qui réalise des travaux de construction. Elle couvre les dommages qui compromettent la solidité de l'ouvrage ou le rendent impropre à sa destination, pendant 10 ans après la réception des travaux.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          <span><strong>Combien coûte une assurance décennale</strong> pour un artisan du BTP ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Le prix d'une assurance décennale dépend principalement de votre activité et de votre chiffre d'affaires. Chez Ringassur, les tarifs démarrent à 70 € / mois pour un électricien en création avec un CA de 30 000 €. Obtenez votre devis personnalisé en quelques clics.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          <span><strong>Quels documents fournir</strong> pour obtenir un devis d'assurance décennale ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Pour obtenir votre devis, vous aurez besoin de : votre numéro SIREN, vos diplômes ou qualifications professionnelles, un descriptif de vos activités, votre chiffre d'affaires prévisionnel, et vos éventuelles sinistralités passées. Ringassur vous accompagne dans la constitution de votre dossier.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          <span>Est-ce qu'une <strong>assurance décennale me couvre et me protège</strong> si je crée mon entreprise et n'ai pas encore de chantiers ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Oui ! Vous pouvez souscrire une assurance décennale dès la création de votre entreprise, même sans chantier en cours. Cette démarche est même recommandée, car vous devrez présenter une attestation d'assurance avant le début de chaque chantier. Une simulation prévisionnelle de chiffre d'affaires est suffisante.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <button class="faq-question">
+          <span>Combien de temps faut-il pour obtenir mon <strong>attestation d'assurance décennale</strong> ?</span>
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          Chez Ringassur, une fois votre dossier complet transmis et accepté, vous recevez votre attestation sous 24 à 48 heures ouvrées. Dans certains cas, nous pouvons vous fournir une attestation provisoire sous quelques heures pour vous permettre de démarrer votre chantier rapidement.
+        </div>
+      </div>
+    </div>
+
+    <p class="mention">(1) Tarif pour un électricien en création / CA : 30 000 €</p>
+  </section>
+
+  <!-- STEP 2 — Chiffre d'affaires -->
+  <section class="step-section" id="step2">
+    <button class="btn-back" onclick="goToStep(1)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Précédent
+    </button>
+    <h1 class="step-title">Quel est votre <span>chiffre d'affaires HT estimé</span> sur les 12 prochains mois ?</h1>
+
+    <div class="input-wrapper" style="margin-top:2rem">
+      <label for="ca">Chiffre d'affaires estimé sur 12 mois</label>
+      <input class="styled-input" type="number" id="ca" value="30000" min="0">
+      <span class="input-suffix">€ HT</span>
+    </div>
+
+    <button class="btn-primary" onclick="goToStep(3)">Suivant</button>
+
+    <div class="info-box">
+      <div class="info-box-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0071cc" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Pourquoi nous vous demandons votre chiffre d'affaires ?
+      </div>
+      <ul>
+        <li>Votre chiffre d'affaires nous permet de calculer un tarif personnalisé.</li>
+        <li>Une estimation prévisionnelle est suffisante.</li>
+        <li>Cette information ne sera jamais communiquée à des tiers.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- STEP 3 — SIREN -->
+  <section class="step-section" id="step3">
+    <button class="btn-back" onclick="goToStep(2)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Précédent
+    </button>
+    <h1 class="step-title"><span>Gagnez du temps,</span> retrouvez votre entreprise en 1 clic</h1>
+    <p class="step-subtitle">Renseignez votre n° SIREN pour préremplir automatiquement vos informations.</p>
+
+    <div class="input-wrapper">
+      <label for="siren">N° SIREN (facultatif)</label>
+      <input class="styled-input" type="text" id="siren" maxlength="9" placeholder="Ex : 123 456 789" oninput="checkSiren()">
+    </div>
+    <p style="font-size:0.78rem;color:var(--text-gray);max-width:350px;margin:-0.5rem auto 1.5rem;text-align:left;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;margin-right:3px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Si vous ne le connaissez pas, ignorez cette étape.
+    </p>
+
+    <button class="btn-primary" id="btnSirenNext" onclick="goToStep(4)" disabled>Suivant</button>
+    <a href="#" class="btn-skip" onclick="goToStep(4); return false;">Ignorer cette étape</a>
+  </section>
+
+  <!-- STEP 4 — Informations personnelles -->
+  <section class="step-section" id="step4">
+    <button class="btn-back" onclick="goToStep(3)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Précédent
+    </button>
+    <h1 class="step-title">Vos <span>informations personnelles</span></h1>
+    <p class="step-subtitle">Pour recevoir votre devis par e-mail et être contacté par nos conseillers.</p>
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Civilité</label>
+        <select>
+          <option>M.</option>
+          <option>Mme</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Prénom *</label>
+        <input type="text" placeholder="Jean">
+      </div>
+      <div class="form-field">
+        <label>Nom *</label>
+        <input type="text" placeholder="Dupont">
+      </div>
+      <div class="form-field full">
+        <label>E-mail *</label>
+        <input type="email" placeholder="jean.dupont@email.com">
+      </div>
+      <div class="form-field full">
+        <label>Téléphone *</label>
+        <input type="tel" placeholder="06 00 00 00 00">
+      </div>
+      <div class="form-field full">
+        <label>Code postal *</label>
+        <input type="text" maxlength="5" placeholder="75001">
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="goToStep(5)">Obtenir mon devis gratuit</button>
+
+    <p style="font-size:0.75rem;color:var(--text-gray);max-width:350px;margin:1rem auto 0;text-align:center;">
+      En cliquant, j'accepte d'être contacté par Ringassur dans le cadre de ma demande de devis. Vos données ne seront pas cédées à des tiers.
+    </p>
+  </section>
+
+  <!-- STEP 5 — Confirmation -->
+  <section class="step-section" id="step5">
+    <div class="confirmation-section">
+      <div class="check-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h2>Votre demande a bien été <span>enregistrée !</span></h2>
+      <p>Un conseiller Ringassur vous contactera sous 24h pour finaliser votre devis RC Décennale personnalisé.</p>
+
+      <div class="confirmation-info" id="confirmationInfo">
+        <div class="row">
+          <span>Activité</span>
+          <span id="confActivite">—</span>
+        </div>
+        <div class="row">
+          <span>CA estimé</span>
+          <span id="confCa">—</span>
+        </div>
+        <div class="row">
+          <span>Tarif indicatif</span>
+          <span style="color:var(--blue)">À partir de 70 € / mois</span>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="restartForm()">Faire un nouveau devis</button>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="#">Conditions générales d'utilisation</a>
+    <span class="footer-sep">•</span>
+    <a href="#">Faire une réclamation</a>
+    <span class="footer-sep">•</span>
+    <a href="#">Données personnelles</a>
+    <span class="footer-sep">•</span>
+    <a href="#">Gestion des cookies</a>
+    <span class="footer-sep">•</span>
+    <a href="#">Fonctionnement du tarificateur</a>
+    <span class="footer-sep">•</span>
+    <a href="#">Accessibilité</a>
+  </div>
+</footer>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  const stepProgress = { 1: 0, 2: 33, 3: 50, 4: 75, 5: 100 };
+  let currentStep = 1;
+
+  function goToStep(n) {
+    document.getElementById('step' + currentStep).classList.remove('active');
+    currentStep = n;
+    document.getElementById('step' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (n === 5) fillConfirmation();
+  }
+
+  function updateProgress(n) {
+    const pct = stepProgress[n] || 0;
+    const bar = document.getElementById('progressBar');
+    const badge = document.getElementById('progressBadge');
+    bar.style.width = pct + '%';
+    badge.textContent = pct + '%';
+  }
+
+  function toggleFaq(item) {
+    item.classList.toggle('open');
+  }
+
+  function checkSiren() {
+    const val = document.getElementById('siren').value.replace(/\s/g, '');
+    document.getElementById('btnSirenNext').disabled = val.length !== 9;
+  }
+
+  const activityLabels = {
+    electricite: 'Electricité',
+    plomberie: 'Plomberie',
+    maconnerie: 'Maçonnerie',
+    carrelage: 'Carrelage',
+    peinture: 'Peinture / Revêtements',
+    menuiserie: 'Menuiserie',
+    couverture: 'Couverture / Toiture',
+    isolation: 'Isolation',
+    charpente: 'Charpente',
+    chauffage: 'Chauffage / Climatisation',
+    platrerie: 'Plâtrerie / Cloisons',
+    demolition: 'Démolition / Terrassement',
+    etancheite: 'Etanchéité',
+    serrurerie: 'Serrurerie / Métallerie',
+    multiactivite: 'Multi-activité BTP',
+    autre: 'Autre activité BTP'
+  };
+
+  function fillConfirmation() {
+    const act = document.getElementById('activite').value;
+    const ca = document.getElementById('ca').value;
+    document.getElementById('confActivite').textContent = activityLabels[act] || act || '—';
+    document.getElementById('confCa').textContent = ca ? Number(ca).toLocaleString('fr-FR') + ' € HT' : '—';
+  }
+
+  function restartForm() {
+    goToStep(1);
+    document.getElementById('activite').value = 'electricite';
+    document.getElementById('ca').value = '30000';
+    document.getElementById('siren').value = '';
+    document.getElementById('btnSirenNext').disabled = true;
+  }
+</script>
+
+</body>
+</html>
