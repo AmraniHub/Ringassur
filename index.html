@@ -30,7 +30,7 @@
 
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
-    fbq('track', 'ViewContent', { content_name: 'Devis RC Decennale', content_category: 'Artisans BTP', content_type: 'quote_form' });
+    fbq('track', 'ViewContent', { content_name: 'Formulaire Artisans BTP', content_category: 'Artisans BTP', content_type: 'quote_form' });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
@@ -903,7 +903,7 @@
   function step2Next() {
     if (!validateCa()) return;
     var ca = document.getElementById('ca').value;
-    pixelCustom('EnterRevenue', { revenue: Number(ca), activity: document.getElementById('activite').value });
+    pixelCustom('EnterCA', { ca: Number(ca), activity: document.getElementById('activite').value });
     gaEvent('enter_revenue', { revenue: Number(ca), activity: document.getElementById('activite').value, step: 2 });
     gaEvent('funnel_step', { step_name: 'chiffre_affaires', step_number: 2 });
     goToStep(3);
@@ -972,7 +972,7 @@
 
     // Meta Pixel — clean Lead event
     pixelTrack('Lead', {
-      content_name: 'Devis RC Decennale',
+      content_name: 'Formulaire Artisans BTP',
       content_category: 'Artisans BTP'
     });
 
@@ -1039,7 +1039,7 @@
     Object.keys(scrollMilestones).forEach(function(m) {
       if (!scrollMilestones[m] && pct >= Number(m)) {
         scrollMilestones[m] = true;
-        pixelCustom('ScrollDepth', { depth: m + '%', page: 'devis_rc_decennale' });
+        pixelCustom('ScrollDepth', { depth: m + '%', page: 'formulaire_artisans' });
         gaEvent('scroll_depth', { depth: m + '%', page: 'devis_rc_decennale' });
       }
     });
