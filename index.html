@@ -970,12 +970,6 @@
       ua:         navigator.userAgent.substring(0, 120)
     };
 
-    // Meta Pixel — clean Lead event
-    pixelTrack('Lead', {
-      content_name: 'Formulaire Artisans BTP',
-      content_category: 'Artisans BTP'
-    });
-
     // GA4 — generate_lead is the recommended event for lead gen funnels
     gaEvent('generate_lead', {
       activity:    data.activite,
