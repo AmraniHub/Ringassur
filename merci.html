@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci — Ringassur</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2');
+    gtag('event', 'generate_lead', { content_name: 'Formulaire Artisans BTP' });
+  </script>
+
+  <!-- META PIXEL — fires Lead on page load, bypasses browser restrictions -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+    fbq('track', 'Lead');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=944605845074489&ev=Lead&noscript=1"/>
+  </noscript>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f5f9ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      color: #1e1e1e;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .check {
+      width: 80px; height: 80px;
+      background: #e6f4ea;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .check svg { width: 44px; height: 44px; }
+    h1 { font-size: 1.6rem; font-weight: 700; color: #002d52; margin-bottom: 0.75rem; }
+    h1 span { color: #0071cc; }
+    p { font-size: 0.95rem; color: #525252; line-height: 1.6; margin-bottom: 1.5rem; }
+    .info-box {
+      background: #ebf6ff;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.875rem;
+      color: #1e1e1e;
+      margin-bottom: 1.5rem;
+    }
+    .info-box .row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #d6edff;
+    }
+    .info-box .row:last-child { border-bottom: none; }
+    .info-box .dot { color: #0071cc; font-size: 1.2rem; }
+    .btn {
+      display: inline-block;
+      background: #f8aa36;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #e69a20; }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #002d52;
+      margin-bottom: 2rem;
+      letter-spacing: -0.03em;
+    }
+    .logo span { color: #f8aa36; }
+  </style>
+</head>
+<body>
+  <div class="logo">Ring<span>assur</span></div>
+
+  <div class="card">
+    <div class="check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#2e7d32" stroke-width="2.5">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+
+    <h1>Votre demande a bien été <span>enregistrée !</span></h1>
+    <p>Un conseiller Ringassur vous contactera dans les <strong>24 heures</strong> pour finaliser votre devis RC Décennale personnalisé.</p>
+
+    <div class="info-box">
+      <div class="row"><span class="dot">✓</span><span>Devis gratuit et sans engagement</span></div>
+      <div class="row"><span class="dot">✓</span><span>Réponse sous 24h par téléphone ou e-mail</span></div>
+      <div class="row"><span class="dot">✓</span><span>À partir de 47 € / mois</span></div>
+    </div>
+
+    <a href="/" class="btn">Faire un nouveau devis</a>
+  </div>
+</body>
+</html>

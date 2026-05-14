@@ -992,11 +992,9 @@
       fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
     }
 
-    // Small delay for pixel to fire, then confirm
+    // Redirect to /merci — Lead pixel fires on that page load (bypasses restrictions)
     setTimeout(function() {
-      btn.innerHTML = 'Obtenir mon devis gratuit';
-      btn.disabled = false;
-      goToStep(5);
+      window.location.href = '/merci';
     }, 800);
   }
 
