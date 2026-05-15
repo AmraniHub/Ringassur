@@ -970,23 +970,48 @@
       ua:         navigator.userAgent.substring(0, 120)
     };
 
-    // GA4 — generate_lead is the recommended event for lead gen funnels
-    gaEvent('generate_lead', {
-      activity:    data.activite,
-      revenue:     Number(data.ca),
-      step_number: 4
-    });
+    // GA4
+    gaEvent('generate_lead', { activity: data.activite, step_number: 4 });
     gaEvent('funnel_step', { step_name: 'contact_info', step_number: 4 });
+
+    // Unique event ID for pixel <-> CAPI deduplication
+    var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
+    // Get fbp/fbc cookies for better match quality
+    function getCookie(name) {
+      var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return match ? match[2] : '';
+    }
 
     // Send to Google Sheets
     if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE') {
-      var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
+      var sheetsUrl = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
       }).join('&');
-      fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
+      fetch(sheetsUrl, { method: 'GET', mode: 'no-cors' }).catch(function(){});
     }
 
-    // Redirect to /merci — Lead pixel fires on that page load (bypasses restrictions)
+    // Send to Meta CAPI (server-side)
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prenom:     data.prenom,
+        nom:        data.nom,
+        email:      data.email,
+        telephone:  data.telephone,
+        codePostal: data.codePostal,
+        activite:   data.activite,
+        eventId:    eventId,
+        fbp:        getCookie('_fbp'),
+        fbc:        getCookie('_fbc')
+      })
+    }).catch(function(){});
+
+    // Store eventId for browser pixel deduplication on /merci.html
+    sessionStorage.setItem('leadEventId', eventId);
+
+    // Redirect to /merci.html
     setTimeout(function() {
       window.location.href = '/merci.html';
     }, 800);

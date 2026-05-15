@@ -25,7 +25,9 @@
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
-    fbq('track', 'Lead');
+    // Use same eventId as CAPI call for deduplication — Facebook matches them and counts once
+    var eventId = sessionStorage.getItem('leadEventId') || ('lead_browser_' + Date.now());
+    fbq('track', 'Lead', {}, { eventID: eventId });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
