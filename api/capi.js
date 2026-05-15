@@ -63,6 +63,7 @@ module.exports = async (req, res) => {
       }]
     };
 
+    // ---- Send to Facebook CAPI ----
     const fbRes = await fetch(
       `https://graph.facebook.com/v19.0/944605845074489/events?access_token=${process.env.META_CAPI_TOKEN}`,
       {
@@ -76,8 +77,32 @@ module.exports = async (req, res) => {
 
     if (!fbRes.ok) {
       console.error('CAPI error:', JSON.stringify(result));
-      return res.status(500).json({ error: result });
     }
+
+    // ---- Send Telegram notification ----
+    const now = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
+    const message =
+      `🔔 <b>Nouveau Lead Ringassur</b>\n\n` +
+      `📅 <b>Date :</b> ${now}\n` +
+      `👤 <b>Nom :</b> ${prenom || ''} ${nom || ''}\n` +
+      `📧 <b>Email :</b> ${email || '-'}\n` +
+      `📞 <b>Téléphone :</b> ${telephone || '-'}\n` +
+      `📍 <b>Code Postal :</b> ${codePostal || '-'}\n` +
+      `🏗️ <b>Activité :</b> ${activite || '-'}\n` +
+      `💶 <b>CA estimé :</b> ${req.body.ca ? Number(req.body.ca).toLocaleString('fr-FR') + ' € HT' : '-'}`;
+
+    await fetch(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
+      {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          chat_id:    process.env.TELEGRAM_CHAT_ID,
+          text:       message,
+          parse_mode: 'HTML'
+        })
+      }
+    ).catch(err => console.error('Telegram error:', err.message));
 
     return res.status(200).json({ success: true, events_received: result.events_received });
 
