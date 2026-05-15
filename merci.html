@@ -44,17 +44,23 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
       color: #1e1e1e;
+      -webkit-font-smoothing: antialiased;
     }
     .card {
       background: #fff;
       border-radius: 16px;
-      padding: 3rem 2rem;
+      padding: 2.5rem 1.5rem;
       max-width: 500px;
       width: 100%;
       text-align: center;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.2rem; border-radius: 12px; }
+      h1 { font-size: 1.3rem !important; }
+      .btn { width: 100%; display: block; }
     }
     .check {
       width: 80px; height: 80px;

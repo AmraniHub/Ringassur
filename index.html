@@ -402,6 +402,91 @@
       .step-title { font-size: 2.1rem; }
       .header-top { padding: 0 3rem; }
     }
+
+    /* ============================================================
+       MOBILE OPTIMISATIONS
+    ============================================================ */
+
+    /* Prevent iOS Safari from zooming in on input focus
+       (any input with font-size < 16px triggers auto-zoom) */
+    .form-field input,
+    .form-field select {
+      font-size: 1rem !important;
+    }
+
+    /* Bigger touch targets for form fields (min 44px Apple HIG) */
+    .form-field input,
+    .form-field select {
+      min-height: 44px;
+      padding: 0.65rem 0.85rem;
+    }
+
+    /* Remove tap highlight flash on buttons/links */
+    button, a, select, input {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Prevent accidental double-tap zoom on buttons */
+    .btn-primary, .btn-back, .faq-question {
+      touch-action: manipulation;
+    }
+
+    /* Full-width inputs on mobile — remove fixed max-width constraint */
+    @media (max-width: 480px) {
+      .input-wrapper {
+        max-width: 100%;
+      }
+      .btn-primary {
+        max-width: 100%;
+      }
+      .info-box {
+        max-width: 100%;
+      }
+      .form-grid {
+        max-width: 100%;
+      }
+      .step-section {
+        padding: 2rem 1rem 2rem;
+      }
+      .step-title {
+        font-size: 1.45rem;
+      }
+      /* Header: shrink rating badge text on very small screens */
+      .rating-badge {
+        font-size: 0.85rem;
+      }
+      .header-spacer {
+        width: 70px;
+      }
+      /* Progress badge: hide text, show only bar on tiny screens */
+      .progress-badge {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+      }
+      /* Confirmation info rows: stack on very small screens */
+      .confirmation-info .row {
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+      .confirmation-info .row span:last-child {
+        font-weight: 700;
+      }
+      /* Footer links: bigger tap area */
+      footer a {
+        padding: 0.3rem 0;
+        display: inline-block;
+      }
+    }
+
+    /* Smooth scrolling on iOS */
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Fix modal scroll on iOS */
+    #modal-box {
+      -webkit-overflow-scrolling: touch;
+    }
   </style>
 </head>
 <body>
@@ -567,7 +652,7 @@
 
     <div class="input-wrapper" style="margin-top:2rem">
       <label for="ca">Chiffre d'affaires estimé sur 12 mois</label>
-      <input class="styled-input" type="number" id="ca" placeholder="Ex : 30000" min="0" oninput="validateCa()">
+      <input class="styled-input" type="text" inputmode="numeric" id="ca" placeholder="Ex : 30000" autocomplete="off" oninput="validateCa()">
       <span class="input-suffix">€ HT</span>
     </div>
     <p class="field-error" id="caError">Veuillez saisir votre chiffre d'affaires.</p>
@@ -598,7 +683,7 @@
 
     <div class="input-wrapper">
       <label for="siren">N° SIREN *</label>
-      <input class="styled-input" type="text" id="siren" maxlength="9" placeholder="Ex : 123 456 789" oninput="validateSiren()">
+      <input class="styled-input" type="text" inputmode="numeric" id="siren" maxlength="9" placeholder="Ex : 123 456 789" autocomplete="off" oninput="validateSiren()">
     </div>
     <p class="field-error" id="sirenError">Le numéro SIREN doit contenir exactement 9 chiffres.</p>
     <p style="font-size:0.78rem;color:var(--text-gray);max-width:350px;margin:-0.5rem auto 1.5rem;text-align:left;">
@@ -621,31 +706,31 @@
     <div class="form-grid">
       <div class="form-field">
         <label>Civilité</label>
-        <select id="civilite"><option value="M.">M.</option><option value="Mme">Mme</option></select>
+        <select id="civilite" autocomplete="honorific-prefix"><option value="M.">M.</option><option value="Mme">Mme</option></select>
       </div>
       <div class="form-field">
         <label>Prénom *</label>
-        <input type="text" id="prenom" placeholder="Jean">
+        <input type="text" id="prenom" placeholder="Jean" autocomplete="given-name" autocapitalize="words">
         <span class="err" id="prenomErr">Champ requis.</span>
       </div>
       <div class="form-field">
         <label>Nom *</label>
-        <input type="text" id="nom" placeholder="Dupont">
+        <input type="text" id="nom" placeholder="Dupont" autocomplete="family-name" autocapitalize="words">
         <span class="err" id="nomErr">Champ requis.</span>
       </div>
       <div class="form-field full">
         <label>E-mail *</label>
-        <input type="email" id="email" placeholder="jean.dupont@email.com">
+        <input type="email" id="email" placeholder="jean.dupont@email.com" autocomplete="email" autocapitalize="none" autocorrect="off">
         <span class="err" id="emailErr">E-mail invalide.</span>
       </div>
       <div class="form-field full">
         <label>Téléphone *</label>
-        <input type="tel" id="telephone" placeholder="06 00 00 00 00">
+        <input type="tel" id="telephone" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
         <span class="err" id="telephoneErr">Téléphone invalide.</span>
       </div>
       <div class="form-field full">
         <label>Code postal *</label>
-        <input type="text" id="codePostal" placeholder="75001" maxlength="5">
+        <input type="text" id="codePostal" placeholder="75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
         <span class="err" id="codePostalErr">Code postal invalide.</span>
       </div>
     </div>
