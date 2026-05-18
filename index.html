@@ -30,7 +30,27 @@
 
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
-    fbq('track', 'ViewContent', { content_name: 'Formulaire Artisans BTP', content_category: 'Artisans BTP', content_type: 'quote_form' });
+
+    // ViewContent — generate eventId so CAPI can deduplicate
+    var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'ViewContent', { content_name: 'Formulaire Artisans BTP', content_category: 'Artisans BTP', content_type: 'quote_form' }, { eventID: vcEventId });
+
+    // Mirror ViewContent to CAPI (server-side) for coverage
+    function getCookiePixel(name) {
+      var m = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      return m ? m[2] : '';
+    }
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'ViewContent',
+        eventId:   vcEventId,
+        sourceUrl: window.location.href,
+        fbp: getCookiePixel('_fbp'),
+        fbc: getCookiePixel('_fbc')
+      })
+    }).catch(function(){});
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"
