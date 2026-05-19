@@ -64,18 +64,6 @@
       );
     }
 
-    /* ── LOGO BAR ───────────────────────────── */
-    .logo-bar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
-      height: 52px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(5, 10, 30, 0.6);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-    }
-    .logo-bar a { text-decoration: none; font-size: 1.3rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; }
-    .logo-bar a span { color: #f8aa36; }
-
     /* ── CARD ───────────────────────────────── */
     .card {
       position: relative; z-index: 2;
@@ -85,7 +73,7 @@
       border-radius: 22px;
       padding: 2.5rem 2rem 2rem;
       max-width: 440px; width: calc(100% - 2rem);
-      margin-top: 52px;
+      margin-top: 0;
       box-shadow:
         0 32px 80px rgba(0,0,0,0.6),
         0 0 0 1px rgba(255,255,255,0.04) inset;
@@ -246,10 +234,6 @@
 
 <div class="bg-photo"></div>
 <div class="bg-overlay"></div>
-
-<nav class="logo-bar">
-  <a href="#">Ring<span>assur</span></a>
-</nav>
 
 <div class="card">
 
