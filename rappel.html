@@ -246,9 +246,9 @@
       <span>J'accepte d'être contacté par un conseiller Ringassur</span>
     </label>
 
-    <button class="btn-cta" id="rp-btn" onclick="rappelSubmit()">
+    <button type="button" class="btn-cta" id="rp-btn" onclick="rappelSubmit()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-      ÊTRE RAPPELÉ
+      ETRE RAPPELE
     </button>
 
     <div class="secure-note">
@@ -257,7 +257,7 @@
     </div>
   </div>
 
-  <div class="success-state" id="rappel-success">
+  <div class="success-state" id="rappel-success" style="display:none;">
     <div class="success-icon">
       <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     </div>
@@ -285,46 +285,116 @@
 
 <script>
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNLQGEOj01TzuoqIEagETI57nTYXxsEb6H9N_Mhfh_gNNCPqzoaf0IGL5Pb-lMZ-Q/exec';
-  function gaEvent(n,p){ if(typeof gtag!=='undefined') gtag('event',n,p||{}); }
-  function fbTrack(e,p,o){ if(typeof fbq!=='undefined') fbq('track',e,p||{},o||{}); }
 
   function rappelSubmit() {
-    var nom = document.getElementById('rp-nom').value.trim();
-    var tel = document.getElementById('rp-tel').value.trim();
-    var cp  = document.getElementById('rp-cp').value.trim();
-    var ok  = true;
-    function se(id,s){ document.getElementById(id).classList.toggle('show',s); }
-    function mi(id,s){ document.getElementById(id).classList.toggle('err',s); }
-    if(!nom){ se('rp-nom-err',true); mi('rp-nom',true); ok=false; } else { se('rp-nom-err',false); mi('rp-nom',false); }
-    if(!tel||tel.replace(/\D/g,'').length<9){ se('rp-tel-err',true); mi('rp-tel',true); ok=false; } else { se('rp-tel-err',false); mi('rp-tel',false); }
-    if(!cp||!/^\d{5}$/.test(cp)){ se('rp-cp-err',true); mi('rp-cp',true); ok=false; } else { se('rp-cp-err',false); mi('rp-cp',false); }
-    if(!ok) return;
+    var nomEl = document.getElementById('rp-nom');
+    var telEl = document.getElementById('rp-tel');
+    var cpEl  = document.getElementById('rp-cp');
+    var nom   = nomEl.value.trim();
+    var tel   = telEl.value.trim();
+    var cp    = cpEl.value.trim();
+    var ok    = true;
 
+    // reset errors
+    document.getElementById('rp-nom-err').style.display = 'none';
+    document.getElementById('rp-tel-err').style.display = 'none';
+    document.getElementById('rp-cp-err').style.display  = 'none';
+    nomEl.style.borderColor = '';
+    telEl.style.borderColor = '';
+    cpEl.style.borderColor  = '';
+
+    // validate
+    if (!nom) {
+      document.getElementById('rp-nom-err').style.display = 'block';
+      nomEl.style.borderColor = '#e53935';
+      ok = false;
+    }
+    var telDigits = tel.replace(/\D/g, '');
+    if (!tel || telDigits.length < 9) {
+      document.getElementById('rp-tel-err').style.display = 'block';
+      telEl.style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!cp || cp.length !== 5 || isNaN(Number(cp))) {
+      document.getElementById('rp-cp-err').style.display = 'block';
+      cpEl.style.borderColor = '#e53935';
+      ok = false;
+    }
+
+    if (!ok) return;
+
+    // disable button
     var btn = document.getElementById('rp-btn');
-    btn.innerHTML = '<span class="spinner"></span> Envoi en cours…';
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours...';
     btn.disabled = true;
-    var eventId = 'lead_rappel_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
-    gaEvent('generate_lead', { niche: 'rappel' });
 
-    var data = { niche:'Rappel', nom:nom, telephone:tel, codePostal:cp, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
-    if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
-    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, sourceUrl:window.location.href, nom:nom, telephone:tel, codePostal:cp, activite:'Rappel', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    var eventId = 'lead_rappel_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
+    function getCk(n) {
+      var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)'));
+      return m ? m[2] : '';
+    }
+
+    // GA4
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'generate_lead', { niche: 'rappel' });
+    }
+
+    // Google Sheets
+    var sheetParams = 'niche=Rappel'
+      + '&nom=' + encodeURIComponent(nom)
+      + '&telephone=' + encodeURIComponent(tel)
+      + '&codePostal=' + encodeURIComponent(cp)
+      + '&utm=' + encodeURIComponent(window.location.search)
+      + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120));
+    fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    // CAPI + Telegram
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'Lead',
+        eventId: eventId,
+        sourceUrl: window.location.href,
+        nom: nom,
+        telephone: tel,
+        codePostal: cp,
+        activite: 'Rappel',
+        fbp: getCk('_fbp'),
+        fbc: getCk('_fbc')
+      })
+    }).catch(function() {});
+
     sessionStorage.setItem('leadEventId', eventId);
 
-    setTimeout(function(){
+    // show success
+    setTimeout(function() {
       document.getElementById('rappel-form').style.display = 'none';
-      document.getElementById('rappel-success').classList.add('show');
-      fbTrack('Lead', {}, { eventID: eventId });
+      var successEl = document.getElementById('rappel-success');
+      successEl.style.display = 'block';
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', {}, { eventID: eventId });
+      }
     }, 800);
   }
 
   var modalContent = {
-    cgu:{ title:"CGU", body:"<p>Ringassur est un service de mise en relation. En soumettant votre demande, vous acceptez d'être contacté par un conseiller. Vos données ne sont jamais cédées à des tiers.</p>" },
-    donnees:{ title:"Données personnelles", body:"<p>Vos données sont utilisées uniquement pour traiter votre demande de rappel. Conformément au RGPD, vous disposez d'un droit d'accès et de suppression. Contact : contact@ringassur.fr</p>" }
+    cgu: { title: 'CGU', body: '<p>Ringassur est un service de mise en relation. En soumettant votre demande, vous acceptez d\'etre contacte par un conseiller. Vos donnees ne sont jamais cedees a des tiers.</p>' },
+    donnees: { title: 'Donnees personnelles', body: '<p>Vos donnees sont utilisees uniquement pour traiter votre demande de rappel. Conformement au RGPD, vous disposez d\'un droit d\'acces et de suppression. Contact : contact@ringassur.fr</p>' }
   };
-  function openModal(k){ var c=modalContent[k]; if(!c)return; document.getElementById('modal-title').textContent=c.title; document.getElementById('modal-body').innerHTML=c.body; document.getElementById('modal-overlay').style.display='block'; document.getElementById('modal-box').style.display='block'; }
-  function closeModal(){ document.getElementById('modal-overlay').style.display='none'; document.getElementById('modal-box').style.display='none'; }
+  function openModal(k) {
+    var c = modalContent[k];
+    if (!c) return;
+    document.getElementById('modal-title').textContent = c.title;
+    document.getElementById('modal-body').innerHTML = c.body;
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modal-box').style.display = 'block';
+  }
+  function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('modal-box').style.display = 'none';
+  }
 </script>
 </body>
 </html>
