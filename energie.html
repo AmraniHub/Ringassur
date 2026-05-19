@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réduisez vos Factures d'Énergie — Jusqu'à 250€ d'Économies | Ringassur</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2', { send_page_view: true });
+  </script>
+
+  <!-- META PIXEL -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+    var vcId = 'vc_energie_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'ViewContent', { content_name: 'Économies Énergie', content_category: 'Énergie' }, { eventID: vcId });
+    function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a2e1a; background: #f0faf0; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --teal:       #0a7a5a;
+      --teal-dark:  #065a42;
+      --teal-light: #e0f5ee;
+      --lime:       #7cc330;
+      --gold:       #f5c518;
+      --white:      #ffffff;
+      --gray:       #64748b;
+      --border:     #cbd5e1;
+      --text:       #1a2e1a;
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      height: 60px; display: flex; align-items: center;
+      padding: 0 1.5rem; justify-content: space-between;
+    }
+    .logo-text { font-size: 1.45rem; font-weight: 800; color: var(--teal-dark); letter-spacing: -0.03em; text-decoration: none; }
+    .logo-text span { color: #f8aa36; }
+    .header-badge {
+      background: var(--teal-light); color: var(--teal);
+      font-size: 0.72rem; font-weight: 700;
+      padding: 0.35rem 0.85rem; border-radius: 20px;
+      border: 1px solid rgba(10,122,90,0.25);
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 60px;
+      background: linear-gradient(150deg, #043326 0%, #065a42 40%, #0a7a5a 100%);
+      padding: 3rem 1.5rem 3rem; position: relative; overflow: hidden;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 400px; gap: 3rem; align-items: center; position: relative; z-index: 1; }
+
+    .hero-service-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--lime); color: #fff;
+      font-size: 0.75rem; font-weight: 800; padding: 0.4rem 1rem;
+      border-radius: 20px; margin-bottom: 1rem; letter-spacing: 0.03em;
+    }
+    .hero-service-badge svg { width: 14px; height: 14px; }
+    .hero-h1 { font-size: 2.6rem; font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 0.8rem; letter-spacing: -0.03em; }
+    .hero-h1 span { color: var(--lime); }
+    .hero-sub { color: rgba(255,255,255,0.8); font-size: 1rem; margin-bottom: 1.5rem; max-width: 460px; }
+
+    .energy-types { display: flex; gap: 0.75rem; margin-bottom: 1.8rem; flex-wrap: wrap; }
+    .energy-pill {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25);
+      color: #fff; font-size: 0.82rem; font-weight: 700;
+      padding: 0.45rem 1rem; border-radius: 20px;
+    }
+    .energy-pill svg { width: 16px; height: 16px; }
+    .pill-elec svg { stroke: var(--gold); }
+    .pill-gaz svg { stroke: #60b8ff; }
+
+    .savings-badge {
+      display: inline-flex; flex-direction: column; align-items: center;
+      background: var(--lime); border-radius: 12px;
+      padding: 0.75rem 1.5rem; margin-bottom: 1.5rem;
+    }
+    .savings-badge .amount { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .savings-badge .label { font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: 0.05em; }
+
+    /* FORM */
+    .form-card { background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.25); overflow: hidden; }
+    .form-card-head { background: linear-gradient(135deg, #065a42, #0a7a5a); padding: 1.4rem; text-align: center; }
+    .form-card-head h2 { color: #fff; font-size: 1.1rem; font-weight: 800; }
+    .form-card-head h2 span { color: var(--lime); }
+    .form-card-head p { color: rgba(255,255,255,0.72); font-size: 0.78rem; margin-top: 0.3rem; }
+    .form-card-body { padding: 1.5rem; }
+
+    .fields { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1rem; }
+    .field-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .field-group label { font-size: 0.75rem; font-weight: 600; color: var(--gray); }
+    .field-group input { padding: 0.7rem 0.9rem; border: 1.5px solid var(--border); border-radius: 8px; font-size: 1rem; font-family: inherit; min-height: 44px; outline: none; transition: border-color 0.2s; -webkit-tap-highlight-color: transparent; }
+    .field-group input:focus { border-color: var(--teal); }
+    .field-group input.err { border-color: #e53935; }
+    .field-err { font-size: 0.7rem; color: #e53935; display: none; }
+    .field-err.show { display: block; }
+
+    .consent-row { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 1rem; cursor: pointer; }
+    .consent-row input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--teal); margin-top: 2px; }
+    .consent-row span { font-size: 0.74rem; color: var(--gray); line-height: 1.5; }
+
+    .btn-primary { display: block; width: 100%; background: var(--lime); color: #fff; font-size: 1rem; font-weight: 800; padding: 0.95rem 1rem; border-radius: 8px; border: none; cursor: pointer; letter-spacing: 0.02em; transition: background 0.2s, transform 0.1s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .btn-primary:hover { background: #6aaf28; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .secure-note { display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.71rem; color: var(--gray); margin-top: 0.75rem; }
+    .secure-note svg { width: 13px; height: 13px; stroke: #22c55e; flex-shrink: 0; }
+
+    .success-state { display: none; text-align: center; padding: 1rem 0; }
+    .success-state.show { display: block; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: #dcfce7; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; }
+    .success-icon svg { width: 34px; height: 34px; stroke: #16a34a; stroke-width: 2.5; fill: none; }
+    .success-state h3 { font-size: 1.1rem; font-weight: 700; color: var(--teal); margin-bottom: 0.5rem; }
+    .success-state p { font-size: 0.85rem; color: var(--gray); }
+
+    /* HOW IT WORKS */
+    .how-section { background: var(--white); padding: 3rem 1.5rem; }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .section-title { font-size: 1.4rem; font-weight: 800; color: var(--teal-dark); text-align: center; margin-bottom: 2rem; }
+    .section-title span { color: var(--lime); }
+    .how-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
+    @media (min-width: 640px) { .how-grid { grid-template-columns: repeat(4,1fr); } }
+    .how-item { text-align: center; }
+    .how-icon { width: 60px; height: 60px; background: var(--teal-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.7rem; }
+    .how-icon svg { width: 28px; height: 28px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+    .how-title { font-size: 0.82rem; font-weight: 800; color: var(--teal-dark); text-transform: uppercase; margin-bottom: 0.3rem; }
+    .how-desc { font-size: 0.76rem; color: var(--gray); line-height: 1.5; }
+
+    /* GOAL */
+    .goal-section { background: linear-gradient(135deg, #065a42, #0a7a5a); padding: 2rem 1.5rem; }
+    .goal-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; }
+    .goal-icon { width: 56px; height: 56px; background: rgba(124,195,48,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .goal-icon svg { width: 28px; height: 28px; stroke: var(--lime); fill: none; stroke-width: 2; }
+    .goal-text p { color: rgba(255,255,255,0.88); font-size: 0.95rem; line-height: 1.6; }
+    .goal-text strong { color: var(--lime); }
+    .goal-aside { color: #fff; font-style: italic; font-size: 1rem; font-weight: 700; white-space: nowrap; }
+
+    /* REVIEWS */
+    .reviews-section { padding: 3rem 1.5rem; background: var(--teal-light); }
+    .reviews-inner { max-width: 1100px; margin: 0 auto; }
+    .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(3,1fr); } }
+    .review-card { background: #fff; border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .review-top { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+    .review-stars { color: var(--gold); font-size: 1rem; }
+    .review-date { font-size: 0.75rem; color: var(--gray); }
+    .review-name { font-size: 0.82rem; font-weight: 700; color: var(--teal-dark); margin-bottom: 0.35rem; }
+    .review-text { font-size: 0.85rem; color: var(--text); line-height: 1.55; }
+
+    /* FOOTER */
+    footer { background: #0d2b1e; color: #aaa; font-size: 0.75rem; padding: 1.2rem 1.5rem; text-align: center; }
+    footer a { color: #aaa; text-decoration: none; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.5rem; margin-bottom: 0.6rem; }
+
+    #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; }
+    #modal-box { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:201; background:#fff; border-radius:12px; max-width:600px; width:calc(100% - 2rem); max-height:80vh; overflow-y:auto; padding:2rem; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero { padding: 2.5rem 1rem 3rem; }
+      .hero-h1 { font-size: 2rem; }
+      .goal-inner { flex-direction: column; text-align: center; }
+      .goal-aside { white-space: normal; }
+    }
+    @media (max-width: 480px) {
+      .header-badge { display: none; }
+      .hero-h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="logo-text">Ring<span>assur</span></a>
+  <div class="header-badge">SERVICE 100% GRATUIT SANS ENGAGEMENT</div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-service-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        SERVICE 100% GRATUIT SANS ENGAGEMENT
+      </div>
+      <h1 class="hero-h1">Payez moins<br>vos factures <span>d'énergie !</span></h1>
+      <p class="hero-sub">Électricité et Gaz : trouvez l'offre la plus avantageuse du marché en seulement 2 minutes !</p>
+      <div class="energy-types">
+        <div class="energy-pill pill-elec">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          ÉLECTRICITÉ
+        </div>
+        <div class="energy-pill pill-gaz">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 0c0 0-2 5 0 8s0 8 0 8"/></svg>
+          GAZ
+        </div>
+      </div>
+      <div class="savings-badge">
+        <span class="amount">250€</span>
+        <span class="label">D'ÉCONOMIES PAR AN EN MOYENNE*</span>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-card-head">
+        <h2>DÉCOUVREZ VOS ÉCONOMIES <span>EN 2 MINUTES</span></h2>
+        <p>Un conseiller vous rappelle pour comparer les offres</p>
+      </div>
+      <div class="form-card-body">
+        <div id="energie-form">
+          <div class="fields">
+            <div class="field-group">
+              <label>Nom complet *</label>
+              <input type="text" id="en-nom" placeholder="Jean Dupont" autocomplete="name" autocapitalize="words">
+              <span class="field-err" id="en-nom-err">Champ requis.</span>
+            </div>
+            <div class="field-group">
+              <label>Téléphone *</label>
+              <input type="tel" id="en-tel" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
+              <span class="field-err" id="en-tel-err">Numéro invalide.</span>
+            </div>
+            <div class="field-group">
+              <label>Code postal *</label>
+              <input type="text" id="en-cp" placeholder="75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
+              <span class="field-err" id="en-cp-err">Code postal invalide.</span>
+            </div>
+          </div>
+          <label class="consent-row">
+            <input type="checkbox" id="en-consent">
+            <span>Acceptez-vous d'être contacté par un conseiller ?</span>
+          </label>
+          <button class="btn-primary" id="en-btn" onclick="energieSubmit()">VOIR MES ÉCONOMIES MAINTENANT →</button>
+          <div class="secure-note">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
+            Vos données sont 100% sécurisées
+          </div>
+        </div>
+        <div class="success-state" id="energie-success">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Demande enregistrée !</h3>
+          <p>Un conseiller Ringassur vous contactera dans les <strong>24 heures</strong> avec les meilleures offres énergie pour vous.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="how-inner">
+    <h2 class="section-title">On compare pour vous, <span>vous économisez !</span></h2>
+    <div class="how-grid">
+      <div class="how-item">
+        <div class="how-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <p class="how-title">Étude gratuite</p>
+        <p class="how-desc">Analyse de votre situation actuelle</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <p class="how-title">Comparaison</p>
+        <p class="how-desc">On compare les meilleures offres du marché</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <p class="how-title">Meilleure offre</p>
+        <p class="how-desc">L'offre la plus avantageuse trouvée pour vous</p>
+      </div>
+      <div class="how-item">
+        <div class="how-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <p class="how-title">Économies garanties</p>
+        <p class="how-desc">Jusqu'à 250€ d'économies par an en moyenne*</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="goal-section">
+  <div class="goal-inner">
+    <div class="goal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+    <div class="goal-text">
+      <p>Notre objectif n'est pas de vous vendre un produit, mais de <strong>réduire vos factures</strong> et d'augmenter votre <strong>pouvoir d'achat</strong>.</p>
+    </div>
+    <div class="goal-aside">Simple, rapide<br>et 100% gratuit !</div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <h2 class="section-title">Ils ont réduit <span>leurs factures</span></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">10/04/2026</span></div>
+        <p class="review-name">Nathalie B. — Nantes</p>
+        <p class="review-text">J'économise 180€ par an sur mon électricité. Le conseiller a tout géré pour moi, c'était vraiment simple.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">22/02/2026</span></div>
+        <p class="review-name">Marc T. — Toulouse</p>
+        <p class="review-text">En changeant de fournisseur grâce à Ringassur j'ai économisé 240€ la première année. Je recommande à tous !</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">05/01/2026</span></div>
+        <p class="review-name">Claire D. — Marseille</p>
+        <p class="review-text">Service très professionnel. Le conseiller connaissait parfaitement le marché et m'a trouvé la meilleure offre en 2 jours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('cgu');return false;">CGU</a>
+    <span style="color:#555">•</span>
+    <a href="#" onclick="openModal('donnees');return false;">Données personnelles</a>
+    <span style="color:#555">•</span>
+    <a href="#" onclick="openModal('cookies');return false;">Cookies</a>
+  </div>
+  <p>© 2026 Ringassur — *Économie moyenne constatée. Selon profil et contrat.</p>
+</footer>
+
+<div id="modal-overlay" onclick="closeModal()"></div>
+<div id="modal-box">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+    <h2 id="modal-title" style="font-size:1.1rem;color:#065a42;font-weight:700;"></h2>
+    <button onclick="closeModal()" style="font-size:1.4rem;color:#888;background:none;border:none;cursor:pointer;">×</button>
+  </div>
+  <div id="modal-body" style="font-size:0.85rem;color:#555;line-height:1.7;"></div>
+</div>
+
+<script>
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNLQGEOj01TzuoqIEagETI57nTYXxsEb6H9N_Mhfh_gNNCPqzoaf0IGL5Pb-lMZ-Q/exec';
+  function gaEvent(n,p){ if(typeof gtag!=='undefined') gtag('event',n,p||{}); }
+  function fbTrack(e,p,o){ if(typeof fbq!=='undefined') fbq('track',e,p||{},o||{}); }
+
+  function energieSubmit() {
+    var nom = document.getElementById('en-nom').value.trim();
+    var tel = document.getElementById('en-tel').value.trim();
+    var cp  = document.getElementById('en-cp').value.trim();
+    var ok  = true;
+    function se(id,s){ document.getElementById(id).classList.toggle('show',s); }
+    function mi(id,s){ document.getElementById(id).classList.toggle('err',s); }
+    if(!nom){ se('en-nom-err',true); mi('en-nom',true); ok=false; } else { se('en-nom-err',false); mi('en-nom',false); }
+    if(!tel||tel.replace(/\D/g,'').length<9){ se('en-tel-err',true); mi('en-tel',true); ok=false; } else { se('en-tel-err',false); mi('en-tel',false); }
+    if(!cp||!/^\d{5}$/.test(cp)){ se('en-cp-err',true); mi('en-cp',true); ok=false; } else { se('en-cp-err',false); mi('en-cp',false); }
+    if(!ok) return;
+
+    var btn = document.getElementById('en-btn');
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours…';
+    btn.disabled = true;
+    var eventId = 'lead_energie_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    gaEvent('generate_lead', { niche: 'energie' });
+
+    var data = { niche:'Énergie', nom:nom, telephone:tel, codePostal:cp, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
+    if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, sourceUrl:window.location.href, nom:nom, telephone:tel, codePostal:cp, activite:'Énergie', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    sessionStorage.setItem('leadEventId', eventId);
+
+    setTimeout(function(){
+      document.getElementById('energie-form').style.display = 'none';
+      document.getElementById('energie-success').classList.add('show');
+      fbTrack('Lead', {}, { eventID: eventId });
+    }, 800);
+  }
+
+  var modalContent = {
+    cgu:{ title:"CGU", body:"<p>Ringassur est un service de mise en relation. En soumettant votre demande, vous acceptez d'être contacté par un conseiller. Vos données ne sont jamais cédées à des tiers.</p>" },
+    donnees:{ title:"Données personnelles", body:"<p>Vos données sont utilisées uniquement pour traiter votre demande. Conformément au RGPD, vous disposez d'un droit d'accès et de suppression. Contact : contact@ringassur.fr</p>" },
+    cookies:{ title:"Cookies", body:"<p>Ce site utilise Google Analytics et Meta Pixel pour mesurer l'audience et optimiser nos campagnes.</p>" }
+  };
+  function openModal(k){ var c=modalContent[k]; if(!c)return; document.getElementById('modal-title').textContent=c.title; document.getElementById('modal-body').innerHTML=c.body; document.getElementById('modal-overlay').style.display='block'; document.getElementById('modal-box').style.display='block'; }
+  function closeModal(){ document.getElementById('modal-overlay').style.display='none'; document.getElementById('modal-box').style.display='none'; }
+</script>
+</body>
+</html>

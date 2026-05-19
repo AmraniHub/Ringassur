@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estimation Immobilière Gratuite — Connaissez la vraie valeur de votre bien | Ringassur</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2', { send_page_view: true });
+  </script>
+
+  <!-- META PIXEL -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+    var vcId = 'vc_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'ViewContent', { content_name: 'Estimation Immobilière', content_category: 'Immobilier' }, { eventID: vcId });
+    function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a2e1a; background: #f5faf5; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --green:       #1a4a2e;
+      --green-mid:   #2d7a4f;
+      --green-light: #e8f5ed;
+      --gold:        #c9a227;
+      --gold-hover:  #b8911e;
+      --white:       #ffffff;
+      --gray:        #64748b;
+      --border:      #cbd5e1;
+      --text:        #1a2e1a;
+    }
+
+    /* HEADER */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white); box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      height: 60px; display: flex; align-items: center;
+      padding: 0 1.5rem; justify-content: space-between;
+    }
+    .logo-text { font-size: 1.45rem; font-weight: 800; color: var(--green); letter-spacing: -0.03em; text-decoration: none; }
+    .logo-text span { color: var(--gold); }
+    .header-badge {
+      background: var(--green-light); color: var(--green);
+      font-size: 0.72rem; font-weight: 700;
+      padding: 0.35rem 0.85rem; border-radius: 20px;
+      border: 1px solid rgba(45,122,79,0.25);
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 60px;
+      background: linear-gradient(135deg, #0d2b1a 0%, #1a4a2e 55%, #2d7a4f 100%);
+      padding: 3.5rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0; height: 60px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 3rem; align-items: center; position: relative; z-index: 1;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(201,162,39,0.15); border: 1px solid rgba(201,162,39,0.4);
+      color: var(--gold); font-size: 0.78rem; font-weight: 700;
+      padding: 0.4rem 1rem; border-radius: 20px; margin-bottom: 1.2rem;
+    }
+    .hero-tag svg { width: 14px; height: 14px; }
+    .hero-h1 {
+      font-size: 2.5rem; font-weight: 900; color: #fff;
+      line-height: 1.1; margin-bottom: 1rem; letter-spacing: -0.03em;
+    }
+    .hero-h1 span { color: var(--gold); }
+    .hero-sub { color: rgba(255,255,255,0.8); font-size: 1rem; margin-bottom: 2rem; max-width: 460px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .hero-badge-item {
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px; padding: 0.6rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      color: #fff; font-size: 0.78rem; font-weight: 700;
+    }
+    .hero-badge-item svg { width: 18px; height: 18px; stroke: var(--gold); flex-shrink: 0; }
+
+    /* FORM CARD */
+    .form-card {
+      background: #fff; border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+    .form-card-head {
+      background: linear-gradient(135deg, #1a4a2e, #2d7a4f);
+      padding: 1.5rem; text-align: center;
+    }
+    .form-card-head .house-icon {
+      width: 52px; height: 52px; background: rgba(255,255,255,0.15);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.8rem;
+    }
+    .form-card-head .house-icon svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; }
+    .form-card-head h2 { color: #fff; font-size: 1.1rem; font-weight: 800; }
+    .form-card-head h2 span { color: var(--gold); }
+    .form-card-head p { color: rgba(255,255,255,0.72); font-size: 0.78rem; margin-top: 0.3rem; }
+    .form-card-body { padding: 1.5rem; }
+
+    /* FIELDS */
+    .fields { display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1rem; }
+    .field-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .field-group label { font-size: 0.75rem; font-weight: 600; color: var(--gray); }
+    .field-group input {
+      padding: 0.7rem 0.9rem; border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 1rem; font-family: inherit;
+      min-height: 44px; outline: none; transition: border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .field-group input:focus { border-color: var(--green-mid); }
+    .field-group input.err { border-color: #e53935; }
+    .field-err { font-size: 0.7rem; color: #e53935; display: none; }
+    .field-err.show { display: block; }
+
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin-bottom: 1rem; cursor: pointer;
+    }
+    .consent-row input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--green-mid); margin-top: 2px; }
+    .consent-row span { font-size: 0.74rem; color: var(--gray); line-height: 1.5; }
+
+    .btn-primary {
+      display: block; width: 100%;
+      background: var(--green); color: #fff;
+      font-size: 1rem; font-weight: 800;
+      padding: 0.95rem 1rem; border-radius: 8px; border: none;
+      cursor: pointer; letter-spacing: 0.02em;
+      transition: background 0.2s, transform 0.1s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+    }
+    .btn-primary:hover { background: #153d24; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:disabled { background: #94a3b8; cursor: not-allowed; }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .secure-note { display: flex; align-items: center; justify-content: center; gap: 0.4rem; font-size: 0.71rem; color: var(--gray); margin-top: 0.75rem; }
+    .secure-note svg { width: 13px; height: 13px; stroke: #22c55e; flex-shrink: 0; }
+
+    /* SUCCESS */
+    .success-state { display: none; text-align: center; padding: 1rem 0; }
+    .success-state.show { display: block; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: #dcfce7; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; }
+    .success-icon svg { width: 34px; height: 34px; stroke: #16a34a; stroke-width: 2.5; fill: none; }
+    .success-state h3 { font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 0.5rem; }
+    .success-state p { font-size: 0.85rem; color: var(--gray); }
+
+    /* BENEFITS */
+    .benefits-section { background: #fff; padding: 3rem 1.5rem; }
+    .benefits-inner { max-width: 1100px; margin: 0 auto; }
+    .section-title { font-size: 1.4rem; font-weight: 800; color: var(--green); text-align: center; margin-bottom: 2rem; letter-spacing: -0.02em; }
+    .section-title span { color: var(--gold); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    @media (min-width: 640px) { .benefits-grid { grid-template-columns: repeat(4, 1fr); } }
+    .benefit-item { text-align: center; }
+    .benefit-icon { width: 56px; height: 56px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.7rem; }
+    .benefit-icon svg { width: 26px; height: 26px; stroke: var(--green-mid); fill: none; stroke-width: 1.8; }
+    .benefit-title { font-size: 0.82rem; font-weight: 800; color: var(--green); text-transform: uppercase; margin-bottom: 0.3rem; }
+    .benefit-desc { font-size: 0.76rem; color: var(--gray); line-height: 1.5; }
+
+    /* WHY */
+    .why-section { background: var(--green-light); padding: 3rem 1.5rem; }
+    .why-inner { max-width: 900px; margin: 0 auto; }
+    .why-list { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 1.5rem; }
+    .why-item { background: #fff; border-radius: 12px; padding: 1.1rem 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .why-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 5px; }
+    .why-item p { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+    .why-item strong { color: var(--green); }
+
+    /* REVIEWS */
+    .reviews-section { padding: 3rem 1.5rem; background: #fff; }
+    .reviews-inner { max-width: 1100px; margin: 0 auto; }
+    .reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.5rem; }
+    @media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+    .review-card { background: var(--green-light); border-radius: 12px; padding: 1.25rem; }
+    .review-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .review-stars { color: var(--gold); font-size: 1rem; }
+    .review-date { font-size: 0.75rem; color: var(--gray); }
+    .review-name { font-size: 0.82rem; font-weight: 700; color: var(--green); margin-bottom: 0.35rem; }
+    .review-text { font-size: 0.85rem; color: var(--text); line-height: 1.55; }
+
+    /* FOOTER */
+    .footer-script { text-align: center; padding: 1.5rem; font-style: italic; font-size: 1.1rem; color: var(--green); background: #fff; border-top: 1px solid #e8f5ed; }
+    footer { background: #1a2e1a; color: #aaa; font-size: 0.75rem; padding: 1.2rem 1.5rem; text-align: center; }
+    footer a { color: #aaa; text-decoration: none; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.5rem; margin-bottom: 0.6rem; }
+
+    /* MODAL */
+    #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; }
+    #modal-box { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:201; background:#fff; border-radius:12px; max-width:600px; width:calc(100% - 2rem); max-height:80vh; overflow-y:auto; padding:2rem; -webkit-overflow-scrolling:touch; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero { padding: 2.5rem 1rem 4rem; }
+      .hero-h1 { font-size: 1.9rem; }
+    }
+    @media (max-width: 480px) {
+      .header-badge { display: none; }
+      .hero-h1 { font-size: 1.55rem; }
+      .hero::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="logo-text">Ring<span>assur</span></a>
+  <div class="header-badge">SERVICE 100% GRATUIT &amp; SANS ENGAGEMENT</div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Estimation immobilière
+      </div>
+      <h1 class="hero-h1">Connaissez la <span>vraie valeur</span> de votre bien.</h1>
+      <p class="hero-sub">Une estimation précise pour vendre au meilleur prix et dans les meilleures conditions.</p>
+      <div class="hero-badges">
+        <div class="hero-badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Résultat en 48h
+        </div>
+        <div class="hero-badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Estimation précise
+        </div>
+        <div class="hero-badge-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Sans engagement
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="form-card-head">
+        <div class="house-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h2>DEMANDEZ VOTRE ESTIMATION <span>GRATUITE</span></h2>
+        <p>Un conseiller vous rappelle rapidement</p>
+      </div>
+      <div class="form-card-body">
+        <div id="immo-form">
+          <div class="fields">
+            <div class="field-group">
+              <label>Nom complet *</label>
+              <input type="text" id="immo-nom" placeholder="Jean Dupont" autocomplete="name" autocapitalize="words">
+              <span class="field-err" id="immo-nom-err">Champ requis.</span>
+            </div>
+            <div class="field-group">
+              <label>Téléphone *</label>
+              <input type="tel" id="immo-tel" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
+              <span class="field-err" id="immo-tel-err">Numéro invalide.</span>
+            </div>
+            <div class="field-group">
+              <label>Code postal *</label>
+              <input type="text" id="immo-cp" placeholder="75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
+              <span class="field-err" id="immo-cp-err">Code postal invalide.</span>
+            </div>
+          </div>
+          <label class="consent-row">
+            <input type="checkbox" id="immo-consent">
+            <span>J'accepte d'être contacté(e) par un conseiller au sujet de ma demande d'estimation. <em>(En savoir plus sur la gestion de vos données)</em></span>
+          </label>
+          <button class="btn-primary" id="immo-btn" onclick="immoSubmit()">RECEVOIR MON ESTIMATION GRATUITE →</button>
+          <div class="secure-note">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
+            Vos données sont sécurisées et ne seront jamais partagées.
+          </div>
+        </div>
+        <div class="success-state" id="immo-success">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Demande enregistrée !</h3>
+          <p>Un expert Ringassur vous contactera dans les <strong>48 heures</strong> pour vous fournir votre estimation personnalisée.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="benefits-section">
+  <div class="benefits-inner">
+    <h2 class="section-title">Chaque bien est unique, <span>son évaluation aussi.</span></h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <p class="benefit-title">Étude gratuite</p>
+        <p class="benefit-desc">Analyse complète de votre situation</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+        <p class="benefit-title">Comparaison</p>
+        <p class="benefit-desc">Les meilleures offres du marché</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <p class="benefit-title">Meilleure offre</p>
+        <p class="benefit-desc">Trouvée pour vous selon votre profil</p>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <p class="benefit-title">Sans obligation</p>
+        <p class="benefit-desc">Aucun engagement, juste une estimation fiable</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="why-inner">
+    <h2 class="section-title">Pourquoi estimer votre bien <span>avec Ringassur ?</span></h2>
+    <div class="why-list">
+      <div class="why-item"><span class="why-dot"></span><p><strong>Des experts locaux à votre écoute</strong> — nos conseillers connaissent votre marché immobilier local et vous apportent une estimation réaliste.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Vendez au bon prix</strong> et attirez plus d'acheteurs — ni trop cher pour ne pas décourager, ni trop bas pour ne pas perdre d'argent.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Un accompagnement sur-mesure</strong> — de l'estimation à la vente, nos conseillers vous accompagnent à chaque étape.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Aucune obligation</strong>, juste une estimation fiable — notre service est 100% gratuit et sans engagement de votre part.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <div class="reviews-inner">
+    <h2 class="section-title">Avis de nos <span>clients satisfaits</span></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">15/04/2026</span></div>
+        <p class="review-name">Marie L. — Paris 15e</p>
+        <p class="review-text">Estimation reçue en moins de 24h, très précise par rapport au marché. J'ai vendu mon appartement au prix estimé en 3 semaines.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">02/03/2026</span></div>
+        <p class="review-name">Pierre D. — Lyon</p>
+        <p class="review-text">Service rapide et professionnel. Le conseiller a pris le temps de tout expliquer. Je recommande vivement.</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">18/01/2026</span></div>
+        <p class="review-name">Isabelle M. — Bordeaux</p>
+        <p class="review-text">Gratuit, rapide et sans pression. Exactement ce que je cherchais pour avoir une idée du prix avant de me décider.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-script">Faites le premier pas vers une <em style="color:var(--gold)">vente réussie !</em></div>
+
+<footer>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('cgu');return false;">CGU</a>
+    <span style="color:#555">•</span>
+    <a href="#" onclick="openModal('donnees');return false;">Données personnelles</a>
+    <span style="color:#555">•</span>
+    <a href="#" onclick="openModal('cookies');return false;">Cookies</a>
+  </div>
+  <p>© 2026 Ringassur — Service de mise en relation immobilière. Service gratuit et sans engagement.</p>
+</footer>
+
+<div id="modal-overlay" onclick="closeModal()"></div>
+<div id="modal-box">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+    <h2 id="modal-title" style="font-size:1.1rem;color:#1a4a2e;font-weight:700;"></h2>
+    <button onclick="closeModal()" style="font-size:1.4rem;color:#888;background:none;border:none;cursor:pointer;">×</button>
+  </div>
+  <div id="modal-body" style="font-size:0.85rem;color:#555;line-height:1.7;"></div>
+</div>
+
+<script>
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNLQGEOj01TzuoqIEagETI57nTYXxsEb6H9N_Mhfh_gNNCPqzoaf0IGL5Pb-lMZ-Q/exec';
+  function gaEvent(n,p){ if(typeof gtag!=='undefined') gtag('event',n,p||{}); }
+  function fbTrack(e,p,o){ if(typeof fbq!=='undefined') fbq('track',e,p||{},o||{}); }
+
+  function immoSubmit() {
+    var nom = document.getElementById('immo-nom').value.trim();
+    var tel = document.getElementById('immo-tel').value.trim();
+    var cp  = document.getElementById('immo-cp').value.trim();
+    var ok  = true;
+    function se(id,s){ document.getElementById(id).classList.toggle('show',s); }
+    function mi(id,s){ document.getElementById(id).classList.toggle('err',s); }
+
+    if(!nom){ se('immo-nom-err',true); mi('immo-nom',true); ok=false; } else { se('immo-nom-err',false); mi('immo-nom',false); }
+    if(!tel||tel.replace(/\D/g,'').length<9){ se('immo-tel-err',true); mi('immo-tel',true); ok=false; } else { se('immo-tel-err',false); mi('immo-tel',false); }
+    if(!cp||!/^\d{5}$/.test(cp)){ se('immo-cp-err',true); mi('immo-cp',true); ok=false; } else { se('immo-cp-err',false); mi('immo-cp',false); }
+    if(!ok) return;
+
+    var btn = document.getElementById('immo-btn');
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours…';
+    btn.disabled = true;
+
+    var eventId = 'lead_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    gaEvent('generate_lead', { niche: 'estimation_immobiliere' });
+
+    var data = { niche:'Estimation Immobilière', nom:nom, telephone:tel, codePostal:cp, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
+    if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
+
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, sourceUrl:window.location.href, nom:nom, telephone:tel, codePostal:cp, activite:'Estimation Immobilière', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    sessionStorage.setItem('leadEventId', eventId);
+
+    setTimeout(function(){
+      document.getElementById('immo-form').style.display = 'none';
+      document.getElementById('immo-success').classList.add('show');
+      fbTrack('Lead', {}, { eventID: eventId });
+    }, 800);
+  }
+
+  var modalContent = {
+    cgu:{ title:"CGU", body:"<p>Ringassur est un service de mise en relation. En soumettant votre demande, vous acceptez d'être contacté par un conseiller Ringassur. Vos données ne sont jamais cédées à des tiers.</p>" },
+    donnees:{ title:"Données personnelles", body:"<p>Vos données (nom, téléphone, code postal) sont utilisées uniquement pour traiter votre demande. Conformément au RGPD, vous disposez d'un droit d'accès et de suppression. Contact : contact@ringassur.fr</p>" },
+    cookies:{ title:"Cookies", body:"<p>Ce site utilise Google Analytics et Meta Pixel pour mesurer l'audience et optimiser nos campagnes publicitaires.</p>" }
+  };
+  function openModal(k){ var c=modalContent[k]; if(!c)return; document.getElementById('modal-title').textContent=c.title; document.getElementById('modal-body').innerHTML=c.body; document.getElementById('modal-overlay').style.display='block'; document.getElementById('modal-box').style.display='block'; }
+  function closeModal(){ document.getElementById('modal-overlay').style.display='none'; document.getElementById('modal-box').style.display='none'; }
+</script>
+</body>
+</html>
