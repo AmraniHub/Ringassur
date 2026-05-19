@@ -285,11 +285,6 @@
               <input type="tel" id="immo-tel" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
               <span class="field-err" id="immo-tel-err">Numéro invalide.</span>
             </div>
-            <div class="field-group">
-              <label>Code postal *</label>
-              <input type="text" id="immo-cp" placeholder="75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
-              <span class="field-err" id="immo-cp-err">Code postal invalide.</span>
-            </div>
           </div>
           <label class="consent-row">
             <input type="checkbox" id="immo-consent">
@@ -406,14 +401,12 @@
   function immoSubmit() {
     var nom = document.getElementById('immo-nom').value.trim();
     var tel = document.getElementById('immo-tel').value.trim();
-    var cp  = document.getElementById('immo-cp').value.trim();
     var ok  = true;
     function se(id,s){ document.getElementById(id).classList.toggle('show',s); }
     function mi(id,s){ document.getElementById(id).classList.toggle('err',s); }
 
     if(!nom){ se('immo-nom-err',true); mi('immo-nom',true); ok=false; } else { se('immo-nom-err',false); mi('immo-nom',false); }
     if(!tel||tel.replace(/\D/g,'').length<9){ se('immo-tel-err',true); mi('immo-tel',true); ok=false; } else { se('immo-tel-err',false); mi('immo-tel',false); }
-    if(!cp||!/^\d{5}$/.test(cp)){ se('immo-cp-err',true); mi('immo-cp',true); ok=false; } else { se('immo-cp-err',false); mi('immo-cp',false); }
     if(!ok) return;
 
     var btn = document.getElementById('immo-btn');
@@ -424,10 +417,10 @@
     function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     gaEvent('generate_lead', { niche: 'estimation_immobiliere' });
 
-    var data = { niche:'Estimation Immobilière', nom:nom, telephone:tel, codePostal:cp, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
+    var data = { niche:'Estimation Immobiliere', nom:nom, telephone:tel, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
 
-    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, sourceUrl:window.location.href, nom:nom, telephone:tel, codePostal:cp, activite:'Estimation Immobilière', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Estimation Immobiliere', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
     sessionStorage.setItem('leadEventId', eventId);
 
     setTimeout(function(){

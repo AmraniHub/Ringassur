@@ -232,15 +232,6 @@
       <div class="field-err" id="rp-tel-err">Numéro invalide.</div>
     </div>
 
-    <div class="field-block">
-      <div class="field-label">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Code postal
-      </div>
-      <input type="text" id="rp-cp" class="field-input" placeholder="Votre code postal" maxlength="5" inputmode="numeric" autocomplete="postal-code">
-      <div class="field-err" id="rp-cp-err">Code postal invalide.</div>
-    </div>
-
     <label class="consent-row">
       <input type="checkbox" id="rp-consent" checked>
       <span>J'accepte d'être contacté par un conseiller Ringassur</span>
@@ -289,19 +280,15 @@
   function rappelSubmit() {
     var nomEl = document.getElementById('rp-nom');
     var telEl = document.getElementById('rp-tel');
-    var cpEl  = document.getElementById('rp-cp');
     var nom   = nomEl.value.trim();
     var tel   = telEl.value.trim();
-    var cp    = cpEl.value.trim();
     var ok    = true;
 
     // reset errors
     document.getElementById('rp-nom-err').style.display = 'none';
     document.getElementById('rp-tel-err').style.display = 'none';
-    document.getElementById('rp-cp-err').style.display  = 'none';
     nomEl.style.borderColor = '';
     telEl.style.borderColor = '';
-    cpEl.style.borderColor  = '';
 
     // validate
     if (!nom) {
@@ -313,11 +300,6 @@
     if (!tel || telDigits.length < 9) {
       document.getElementById('rp-tel-err').style.display = 'block';
       telEl.style.borderColor = '#e53935';
-      ok = false;
-    }
-    if (!cp || cp.length !== 5 || isNaN(Number(cp))) {
-      document.getElementById('rp-cp-err').style.display = 'block';
-      cpEl.style.borderColor = '#e53935';
       ok = false;
     }
 
@@ -344,7 +326,6 @@
     var sheetParams = 'niche=Rappel'
       + '&nom=' + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
-      + '&codePostal=' + encodeURIComponent(cp)
       + '&utm=' + encodeURIComponent(window.location.search)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120));
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
@@ -359,7 +340,6 @@
         sourceUrl: window.location.href,
         nom: nom,
         telephone: tel,
-        codePostal: cp,
         activite: 'Rappel',
         fbp: getCk('_fbp'),
         fbc: getCk('_fbc')

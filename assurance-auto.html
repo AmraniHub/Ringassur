@@ -490,12 +490,6 @@
           </div>
         </div>
 
-        <div class="field-full field-group" style="margin-bottom:0.85rem;">
-          <label for="auto-cp">CODE POSTAL</label>
-          <input type="text" id="auto-cp" placeholder="Ex : 75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
-          <span class="field-err" id="auto-cp-err">Code postal invalide.</span>
-        </div>
-
         <!-- Situation list inside form card -->
         <div style="margin-bottom:0.85rem;">
           <div style="font-size:0.7rem;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.55rem;">VOTRE SITUATION</div>
@@ -630,7 +624,6 @@
   function autoSubmit() {
     var nom = document.getElementById('auto-nom').value.trim();
     var tel = document.getElementById('auto-tel').value.trim();
-    var cp  = document.getElementById('auto-cp').value.trim();
     var ok  = true;
 
     function showErr(id, v) { document.getElementById(id).classList.toggle('show', v); }
@@ -641,9 +634,6 @@
 
     if (!tel || tel.replace(/\D/g,'').length < 9) { showErr('auto-tel-err', true); markInp('auto-tel', true); ok = false; }
     else { showErr('auto-tel-err', false); markInp('auto-tel', false); }
-
-    if (!cp || !/^\d{5}$/.test(cp)) { showErr('auto-cp-err', true); markInp('auto-cp', true); ok = false; }
-    else { showErr('auto-cp-err', false); markInp('auto-cp', false); }
 
     if (!selectedSituation) {
       document.getElementById('sit-error-msg').style.display = 'block';
@@ -664,7 +654,7 @@
     // Google Sheets
     var data = {
       niche: 'Assurance Auto', situation: selectedSituation,
-      nom: nom, telephone: tel, codePostal: cp,
+      nom: nom, telephone: tel,
       utm: window.location.search, ua: navigator.userAgent.substring(0, 120)
     };
     var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
@@ -679,7 +669,7 @@
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         sourceUrl: window.location.href,
-        nom: nom, telephone: tel, codePostal: cp,
+        nom: nom, telephone: tel,
         activite: 'Assurance Auto — ' + selectedSituation,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })

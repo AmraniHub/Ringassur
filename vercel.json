@@ -10,6 +10,7 @@
     { "source": "/assurance-emprunteur",     "destination": "/assurance-emprunteur.html" },
     { "source": "/estimation-immobiliere",  "destination": "/estimation-immobiliere.html" },
     { "source": "/energie",                 "destination": "/energie.html" },
-    { "source": "/rappel",                  "destination": "/rappel.html" }
+    { "source": "/rappel",                  "destination": "/rappel.html" },
+    { "source": "/test-drive",              "destination": "/test-drive.html" }
   ]
 }

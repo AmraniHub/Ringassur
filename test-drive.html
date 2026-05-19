@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservez votre Test Drive — Ringassur</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2', { send_page_view: true });
+  </script>
+
+  <!-- META PIXEL -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+    var vcId = 'vc_td_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'ViewContent', { content_name: 'Test Drive', content_category: 'Automobile' }, { eventID: vcId });
+    function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BACKGROUND ─────────────────────────── */
+    .bg-photo {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80')
+        center center / cover no-repeat;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0; z-index: 1;
+      background: linear-gradient(
+        160deg,
+        rgba(5, 10, 30, 0.82) 0%,
+        rgba(10, 20, 55, 0.75) 50%,
+        rgba(20, 10, 40, 0.70) 100%
+      );
+    }
+
+    /* ── LOGO BAR ───────────────────────────── */
+    .logo-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(5, 10, 30, 0.6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .logo-bar a { text-decoration: none; font-size: 1.3rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; }
+    .logo-bar a span { color: #f8aa36; }
+
+    /* ── CARD ───────────────────────────────── */
+    .card {
+      position: relative; z-index: 2;
+      background: rgba(8, 15, 45, 0.88);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(100, 140, 255, 0.18);
+      border-radius: 22px;
+      padding: 2.5rem 2rem 2rem;
+      max-width: 440px; width: calc(100% - 2rem);
+      margin-top: 52px;
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.04) inset;
+    }
+
+    /* ── STEERING WHEEL ICON ────────────────── */
+    .wheel-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #3b7cf4, #7c3aed);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.6rem;
+      box-shadow: 0 8px 32px rgba(59,124,244,0.5);
+    }
+    .wheel-icon svg { width: 38px; height: 38px; stroke: #fff; fill: none; stroke-width: 1.8; }
+
+    /* ── HEADLINE ───────────────────────────── */
+    .pre-title {
+      font-size: 1.1rem; font-weight: 700; color: #fff;
+      text-align: center; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 0.2rem;
+    }
+    .main-title {
+      font-size: 3rem; font-weight: 900; font-style: italic;
+      text-align: center; line-height: 1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #3b7cf4 0%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+    .subtitle {
+      text-align: center; font-size: 0.88rem;
+      color: rgba(255,255,255,0.65); line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+    .subtitle strong { color: #3b9ef4; font-weight: 600; }
+    .divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, #3b7cf4, #7c3aed);
+      border-radius: 2px; margin: 0 auto 1.6rem;
+    }
+
+    /* ── FIELDS ─────────────────────────────── */
+    .field-block { margin-bottom: 1rem; }
+    .field-label {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 800;
+      color: #fff; text-transform: uppercase; letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .field-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, #3b7cf4, #7c3aed);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .field-icon svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 2; }
+    .field-input {
+      width: 100%; padding: 0.9rem 1rem;
+      background: rgba(255,255,255,0.92);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      font-size: 1rem; font-family: inherit;
+      color: #1a1a2e; min-height: 50px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .field-input::placeholder { color: #94a3b8; }
+    .field-input:focus { border-color: #3b7cf4; background: #fff; }
+    .field-input.err { border-color: #e53935; }
+    .field-err { font-size: 0.72rem; color: #f87171; margin-top: 0.3rem; display: none; }
+    .field-err.show { display: block; }
+
+    /* ── CHECKBOX ───────────────────────────── */
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin-bottom: 1.4rem; cursor: pointer;
+    }
+    .consent-check {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid rgba(59,124,244,0.6);
+      border-radius: 5px;
+      background: rgba(59,124,244,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; cursor: pointer; transition: background 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .consent-check.checked { background: #3b7cf4; border-color: #3b7cf4; }
+    .consent-check svg { width: 13px; height: 13px; stroke: #fff; stroke-width: 3; fill: none; display: none; }
+    .consent-check.checked svg { display: block; }
+    .consent-row span { font-size: 0.82rem; color: rgba(255,255,255,0.72); line-height: 1.5; }
+
+    /* ── CTA BUTTON ─────────────────────────── */
+    .btn-cta {
+      display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+      width: 100%; padding: 1rem 1rem;
+      background: linear-gradient(90deg, #3b7cf4 0%, #7c3aed 100%);
+      color: #fff; font-size: 0.95rem; font-weight: 900;
+      border-radius: 12px; border: none;
+      cursor: pointer; letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: opacity 0.2s, transform 0.15s;
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 8px 28px rgba(59,124,244,0.45);
+    }
+    .btn-cta:hover { opacity: 0.9; }
+    .btn-cta:active { transform: scale(0.98); }
+    .btn-cta:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-cta svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; flex-shrink: 0; }
+    .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── TRUST BADGES ───────────────────────── */
+    .trust-row {
+      display: flex; justify-content: space-between;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      gap: 0.5rem;
+    }
+    .trust-item {
+      flex: 1; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+    }
+    .trust-item + .trust-item { border-left: 1px solid rgba(255,255,255,0.08); }
+    .trust-ico {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .trust-ico svg { width: 20px; height: 20px; stroke: rgba(100,160,255,0.9); fill: none; stroke-width: 2; }
+    .trust-title { font-size: 0.7rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+    .trust-sub { font-size: 0.65rem; color: rgba(255,255,255,0.45); }
+
+    /* ── SUCCESS ────────────────────────────── */
+    .success-box { display: none; text-align: center; padding: 1rem 0; }
+    .success-box.show { display: block; }
+    .success-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #3b7cf4, #7c3aed);
+      margin: 0 auto 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 28px rgba(59,124,244,0.4);
+    }
+    .success-circle svg { width: 36px; height: 36px; stroke: #fff; stroke-width: 2.5; fill: none; }
+    .success-box h3 { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 0.5rem; }
+    .success-box p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 480px) {
+      .card { padding: 2rem 1.25rem 1.75rem; }
+      .main-title { font-size: 2.4rem; }
+      .pre-title { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-photo"></div>
+<div class="bg-overlay"></div>
+
+<nav class="logo-bar">
+  <a href="/">Ring<span>assur</span></a>
+</nav>
+
+<div class="card">
+
+  <div id="td-form">
+    <!-- Steering Wheel Icon -->
+    <div class="wheel-icon">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="2.5"/>
+        <line x1="12" y1="9.5" x2="12" y2="3"/>
+        <line x1="14.6" y1="10.7" x2="20" y2="7.5"/>
+        <line x1="9.4" y1="10.7" x2="4" y2="7.5"/>
+      </svg>
+    </div>
+
+    <p class="pre-title">RÉSERVEZ VOTRE</p>
+    <h1 class="main-title">TEST DRIVE</h1>
+    <p class="subtitle">
+      Remplissez le formulaire ci-dessous,<br>
+      un conseiller vous recontactera <strong>rapidement.</strong>
+    </p>
+    <div class="divider"></div>
+
+    <!-- NOM -->
+    <div class="field-block">
+      <div class="field-label">
+        <span class="field-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        NOM
+      </div>
+      <input type="text" id="td-nom" class="field-input" placeholder="Votre nom" autocomplete="name" autocapitalize="words">
+      <div class="field-err" id="td-nom-err">Champ requis.</div>
+    </div>
+
+    <!-- TÉLÉPHONE -->
+    <div class="field-block">
+      <div class="field-label">
+        <span class="field-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.09-1.09a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+        </span>
+        NUMERO DE TELEPHONE
+      </div>
+      <input type="tel" id="td-tel" class="field-input" placeholder="Votre numéro de téléphone" autocomplete="tel" inputmode="tel">
+      <div class="field-err" id="td-tel-err">Numéro invalide.</div>
+    </div>
+
+    <!-- CONSENT -->
+    <label class="consent-row" onclick="toggleConsent()">
+      <div class="consent-check checked" id="td-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <span>J'accepte d'être contacté par un conseiller</span>
+    </label>
+
+    <!-- CTA -->
+    <button type="button" class="btn-cta" id="td-btn" onclick="tdSubmit()">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      RESERVER MON TEST DRIVE
+    </button>
+
+    <!-- Trust Badges -->
+    <div class="trust-row">
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="trust-title">100% GRATUIT</span>
+        <span class="trust-sub">Sans engagement</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="trust-title">RAPIDE &amp; SIMPLE</span>
+        <span class="trust-sub">Réponse sous 24h</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <span class="trust-title">CONSEILS PERSO</span>
+        <span class="trust-sub">Selon vos besoins</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="td-success">
+    <div class="success-circle">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h3>Réservation confirmée !</h3>
+    <p>Un conseiller Ringassur vous contactera dans les <strong style="color:#3b9ef4">24 heures</strong> pour planifier votre test drive.</p>
+  </div>
+
+</div>
+
+<script>
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNLQGEOj01TzuoqIEagETI57nTYXxsEb6H9N_Mhfh_gNNCPqzoaf0IGL5Pb-lMZ-Q/exec';
+  var consentChecked = true;
+
+  function toggleConsent() {
+    consentChecked = !consentChecked;
+    var el = document.getElementById('td-check');
+    if (consentChecked) { el.classList.add('checked'); }
+    else { el.classList.remove('checked'); }
+  }
+
+  function tdSubmit() {
+    var nomEl = document.getElementById('td-nom');
+    var telEl = document.getElementById('td-tel');
+    var nom   = nomEl.value.trim();
+    var tel   = telEl.value.trim();
+    var ok    = true;
+
+    document.getElementById('td-nom-err').style.display = 'none';
+    document.getElementById('td-tel-err').style.display = 'none';
+    nomEl.classList.remove('err');
+    telEl.classList.remove('err');
+
+    if (!nom) {
+      document.getElementById('td-nom-err').style.display = 'block';
+      nomEl.classList.add('err');
+      ok = false;
+    }
+    if (!tel || tel.replace(/\D/g, '').length < 9) {
+      document.getElementById('td-tel-err').style.display = 'block';
+      telEl.classList.add('err');
+      ok = false;
+    }
+    if (!ok) return;
+
+    var btn = document.getElementById('td-btn');
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours...';
+    btn.disabled = true;
+
+    var eventId = 'lead_td_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
+    function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
+
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'test_drive' });
+
+    // Google Sheets
+    var sheetParams = 'niche=Test Drive'
+      + '&nom=' + encodeURIComponent(nom)
+      + '&telephone=' + encodeURIComponent(tel)
+      + '&utm=' + encodeURIComponent(window.location.search)
+      + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120));
+    fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    // CAPI + Telegram
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'Lead',
+        eventId: eventId,
+        sourceUrl: window.location.href,
+        nom: nom,
+        telephone: tel,
+        activite: 'Test Drive',
+        fbp: getCk('_fbp'),
+        fbc: getCk('_fbc')
+      })
+    }).catch(function() {});
+
+    sessionStorage.setItem('leadEventId', eventId);
+
+    setTimeout(function() {
+      document.getElementById('td-form').style.display = 'none';
+      document.getElementById('td-success').classList.add('show');
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead', {}, { eventID: eventId });
+    }, 800);
+  }
+</script>
+</body>
+</html>
