@@ -177,6 +177,34 @@ function buildTelegramMsg(niche, p) {
   return msg;
 }
 
+// ── updateHeaders — run this to fix existing sheets that are missing
+//    the Consentement column. Safe to run multiple times.
+function updateHeaders() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+
+  function setHeader(name, headers) {
+    var sheet = ss.getSheetByName(name);
+    if (!sheet) return;
+    var r = sheet.getRange(1, 1, 1, headers.length);
+    r.setValues([headers]);
+    r.setFontWeight('bold')
+     .setBackground('#002d52')
+     .setFontColor('#ffffff');
+    sheet.setFrozenRows(1);
+  }
+
+  setHeader('Assurance Auto',  ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Consentement', 'Source UTM']);
+  setHeader('Energie',         ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('Estimation Immo', ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('Rappel',          ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('Test Drive',      ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('Mutuelle Santé',  ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('RC Décennale',    ['Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN', 'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement', 'Source UTM']);
+  setHeader('Tous les Leads',  ['Date & Heure', 'Service', 'Nom', 'Prénom', 'Email', 'Téléphone', 'Consentement', 'Détails', 'Source UTM']);
+
+  Logger.log('✅ En-têtes mis à jour sur tous les onglets.');
+}
+
 // ── createAllSheets — run this ONCE after pasting the script ─
 // It creates every tab with the right headers so they exist before
 // the first lead arrives. Safe to run multiple times (won't duplicate).
