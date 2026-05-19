@@ -401,12 +401,15 @@
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
     // CAPI + Telegram
+    var custEventId = 'lead_c_td_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead',
         eventId: eventId,
+        customEventName: 'Lead_TestDrive', customEventId: custEventId,
+        content_name: 'Test Drive', content_category: 'Automobile',
         sourceUrl: window.location.href,
         nom: nom,
         telephone: tel,
@@ -421,7 +424,10 @@
     setTimeout(function() {
       document.getElementById('td-form').style.display = 'none';
       document.getElementById('td-success').classList.add('show');
-      if (typeof fbq !== 'undefined') fbq('track', 'Lead', {}, { eventID: eventId });
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: 'Test Drive', content_category: 'Automobile' }, { eventID: eventId });
+        fbq('trackCustom', 'Lead_TestDrive', { content_name: 'Test Drive' }, { eventID: custEventId });
+      }
     }, 800);
   }
 </script>

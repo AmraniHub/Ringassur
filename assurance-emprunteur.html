@@ -1097,23 +1097,31 @@
     }
 
     // Send to Meta CAPI (server-side) + Telegram
+    var custEventIdEmp = 'lead_c_emp_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        prenom:     data.prenom,
-        nom:        data.nom,
-        email:      data.email,
-        telephone:  data.telephone,
-        codePostal: data.codePostal,
-        activite:   data.activite,
-        ca:         data.ca,
-        siren:      data.siren,
-        eventId:    eventId,
-        fbp:        getCookie('_fbp'),
-        fbc:        getCookie('_fbc')
+        prenom:          data.prenom,
+        nom:             data.nom,
+        email:           data.email,
+        telephone:       data.telephone,
+        activite:        data.activite,
+        ca:              data.ca,
+        siren:           data.siren,
+        eventId:         eventId,
+        customEventName: 'Lead_AssuranceEmprunteur',
+        customEventId:   custEventIdEmp,
+        content_name:    'Assurance Emprunteur',
+        content_category:'Assurance Emprunteur',
+        fbp:             getCookie('_fbp'),
+        fbc:             getCookie('_fbc')
       })
     }).catch(function(){});
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'Lead', { content_name: 'Assurance Emprunteur', content_category: 'Assurance Emprunteur' }, { eventID: eventId });
+      fbq('trackCustom', 'Lead_AssuranceEmprunteur', { content_name: 'Assurance Emprunteur' }, { eventID: custEventIdEmp });
+    }
 
     // Store eventId for browser pixel deduplication on /merci.html
     sessionStorage.setItem('leadEventId', eventId);

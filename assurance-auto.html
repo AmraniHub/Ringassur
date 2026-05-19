@@ -673,14 +673,18 @@
     fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
 
     // CAPI + Telegram
+    var custEventId = 'lead_c_auto_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
+        customEventName: 'Lead_AssuranceAuto', customEventId: custEventId,
+        content_name: 'Assurance Auto', content_category: 'Assurance Auto',
         sourceUrl: window.location.href,
         nom: nom, telephone: tel,
-        activite: 'Assurance Auto — ' + selectedSituation,
+        activite: 'Assurance Auto',
+        situation: selectedSituation,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
     }).catch(function(){});
@@ -690,7 +694,10 @@
     setTimeout(function(){
       document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('auto-success').classList.add('show');
-      if (typeof fbq !== 'undefined') fbq('track', 'Lead', {}, { eventID: eventId });
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: 'Assurance Auto', content_category: 'Assurance Auto' }, { eventID: eventId });
+        fbq('trackCustom', 'Lead_AssuranceAuto', { content_name: 'Assurance Auto', situation: selectedSituation }, { eventID: custEventId });
+      }
     }, 800);
   }
 
