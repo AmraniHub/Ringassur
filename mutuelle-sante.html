@@ -36,126 +36,165 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; font-family: 'Segoe UI', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #dff0eb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
 
     :root {
       --teal:       #1e8a78;
       --teal-dark:  #155f54;
-      --teal-light: #e6f4f1;
+      --teal-bg:    #e8f5f1;
       --navy:       #12304a;
       --gray:       #64748b;
       --border:     #d1e8e2;
     }
 
-    /* ── FULL-SCREEN SPLIT ──────────────────── */
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    /* ── WRAPPER ────────────────────────────── */
+    .page {
+      width: 100%;
+      max-width: 480px;
+      background: var(--teal-bg);
       min-height: 100vh;
-    }
-
-    /* ── LEFT — HERO ────────────────────────── */
-    .hero {
-      position: relative;
-      background: var(--teal-light);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
-    .hero-top {
-      padding: 2.2rem 2.2rem 1.5rem;
-      position: relative; z-index: 2;
+
+    /* ── HERO TOP (teal bg) ─────────────────── */
+    .hero {
+      position: relative;
+      padding: 1.8rem 1.6rem 0;
+      overflow: hidden;
+      min-height: 340px;
+    }
+
+    /* Couple photo — right side, fills top */
+    .hero-photo {
+      position: absolute;
+      right: 0; top: 0;
+      width: 58%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* Gradient fade left so text is readable */
+    .hero-photo-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, var(--teal-bg) 38%, transparent 72%);
+      z-index: 1;
+    }
+
+    /* Brand + text on top of gradient */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 60%;
     }
 
     .brand {
-      display: flex; align-items: center; gap: 0.75rem;
-      margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 1.6rem;
     }
     .brand-icon {
-      width: 50px; height: 50px; background: #fff;
-      border-radius: 12px; flex-shrink: 0;
+      width: 46px; height: 46px; background: #fff;
+      border-radius: 11px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 12px rgba(30,138,120,0.18);
+      box-shadow: 0 2px 10px rgba(30,138,120,0.18);
     }
-    .brand-icon svg { width: 28px; height: 28px; }
-    .brand-text .t1 { font-size: 0.72rem; font-weight: 700; color: var(--navy); letter-spacing: 0.07em; text-transform: uppercase; }
-    .brand-text .t2 { font-size: 1rem; font-weight: 900; color: var(--teal); letter-spacing: 0.06em; text-transform: uppercase; }
+    .brand-icon svg { width: 26px; height: 26px; }
+    .brand-text .t1 { font-size: 0.68rem; font-weight: 700; color: var(--navy); letter-spacing: 0.07em; text-transform: uppercase; line-height: 1.3; }
+    .brand-text .t2 { font-size: 0.95rem; font-weight: 900; color: var(--teal); letter-spacing: 0.06em; text-transform: uppercase; }
 
     .hero-headline {
-      font-size: 2.8rem; font-weight: 900; color: var(--navy);
-      line-height: 1.05; margin-bottom: 0.3rem;
+      font-size: 2.2rem; font-weight: 900;
+      color: var(--navy); line-height: 1.05;
     }
-    .hero-headline em { display: block; font-style: italic; color: var(--teal); font-size: 3rem; }
-    .hero-accent { width: 42px; height: 3px; background: var(--teal); border-radius: 2px; margin: 0.8rem 0 1rem; }
-    .hero-sub { font-size: 0.97rem; color: #3d5a52; line-height: 1.65; max-width: 300px; }
-
-    .hero-photo {
-      flex: 1;
-      width: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      min-height: 220px;
+    .hero-headline em {
+      display: block; font-style: italic;
+      color: var(--teal); font-size: 2.4rem;
+    }
+    .hero-accent {
+      width: 38px; height: 3px;
+      background: var(--teal); border-radius: 2px;
+      margin: 0.7rem 0 0.85rem;
+    }
+    .hero-sub {
+      font-size: 0.88rem; color: #3a5a50;
+      line-height: 1.65; padding-bottom: 1.8rem;
     }
 
-    /* ── RIGHT — FORM ───────────────────────── */
-    .form-side {
+    /* ── WHITE FORM CARD ────────────────────── */
+    .form-card {
       background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 2.5rem;
+      border-radius: 22px 22px 0 0;
+      padding: 1.8rem 1.6rem 2rem;
+      position: relative;
+      z-index: 3;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.07);
+      flex: 1;
     }
-    .form-inner { width: 100%; max-width: 400px; }
 
     /* Form header */
     .form-header {
-      display: flex; align-items: center; gap: 1rem;
-      margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.9rem;
+      margin-bottom: 1.7rem;
     }
     .fh-icon {
-      width: 54px; height: 54px; border-radius: 50%;
-      background: var(--teal-light); flex-shrink: 0;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--teal-bg); flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
     }
-    .fh-icon svg { width: 28px; height: 28px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
-    .fh-text .t1 { font-size: 0.88rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em; }
-    .fh-text .t2 { font-size: 1.25rem; font-weight: 900; color: var(--teal); text-transform: uppercase; letter-spacing: 0.03em; }
-    .fh-dashes { display: flex; gap: 3px; margin-top: 3px; }
-    .fh-dashes span { display: inline-block; width: 7px; height: 2px; background: var(--teal); border-radius: 1px; opacity: 0.45; }
+    .fh-icon svg { width: 26px; height: 26px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
+    .fh-text { flex: 1; }
+    .fh-text .t1 { font-size: 0.85rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.04em; }
+    .fh-text .t2 { font-size: 1.2rem; font-weight: 900; color: var(--teal); text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.1; }
+    .fh-dashes { display: flex; gap: 3px; margin-top: 4px; }
+    .fh-dashes span { display: inline-block; width: 7px; height: 2px; background: var(--teal); border-radius: 1px; opacity: 0.4; }
+    /* decorative ticks beside header */
+    .fh-tick {
+      font-size: 1.1rem; color: var(--teal); opacity: 0.35;
+      font-style: italic; letter-spacing: -2px; align-self: flex-start; margin-top: 4px;
+    }
 
     /* Fields */
-    .field-row { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 1.2rem; }
+    .field-row { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.15rem; }
     .field-ico {
       width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%;
-      background: var(--teal-light);
+      background: var(--teal-bg);
       display: flex; align-items: center; justify-content: center;
-      margin-top: 1.6rem;
+      margin-top: 1.55rem;
     }
     .field-ico svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
     .field-body { flex: 1; }
-    .field-body label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 0.45rem; }
+    .field-body label { display: block; font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 0.42rem; }
     .field-input {
       width: 100%; padding: 0.85rem 1rem;
-      border: 1.5px solid var(--border); border-radius: 10px;
+      border: 1.5px solid #e0eee9; border-radius: 10px;
       font-size: 1rem; font-family: inherit; color: var(--navy);
-      min-height: 50px; outline: none;
+      min-height: 50px; outline: none; background: #f8fdfb;
       transition: border-color 0.2s, box-shadow 0.2s;
       -webkit-tap-highlight-color: transparent;
     }
-    .field-input::placeholder { color: #b0c4be; }
-    .field-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,138,120,0.1); }
+    .field-input::placeholder { color: #b0c8c2; }
+    .field-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,138,120,0.1); background: #fff; }
     .field-input.err { border-color: #e53935; }
     .field-err { font-size: 0.72rem; color: #e53935; margin-top: 0.3rem; display: none; }
     .field-err.show { display: block; }
 
-    .separator { height: 1px; background: var(--border); margin: 0.3rem 0 1.2rem; }
+    .separator { height: 1px; background: var(--border); margin: 0.2rem 0 1.15rem; }
 
     /* Consent */
     .consent-row { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 0.6rem; cursor: pointer; }
     .consent-ico {
       width: 32px; height: 32px; flex-shrink: 0;
-      background: var(--teal-light); border-radius: 7px;
+      background: var(--teal-bg); border-radius: 7px;
       border: 1.5px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       margin-top: 2px; transition: background 0.2s, border-color 0.2s; cursor: pointer;
@@ -172,11 +211,10 @@
       display: block; width: 100%; padding: 1.05rem 1rem;
       background: var(--navy); color: #fff;
       font-size: 1.05rem; font-weight: 700; font-style: italic;
-      border-radius: 50px; border: none; cursor: pointer;
-      text-align: center;
+      border-radius: 50px; border: none; cursor: pointer; text-align: center;
       transition: opacity 0.2s, transform 0.15s;
-      touch-action: manipulation;
-      box-shadow: 0 6px 24px rgba(18,48,74,0.3);
+      touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 6px 24px rgba(18,48,74,0.28);
       margin-top: 0.5rem;
     }
     .btn-cta:hover { opacity: 0.9; }
@@ -187,18 +225,18 @@
 
     /* Trust */
     .trust-row {
-      display: flex; justify-content: space-between; gap: 0.5rem;
+      display: flex; justify-content: space-between; gap: 0.4rem;
       margin-top: 1.8rem; padding-top: 1.4rem;
       border-top: 1px solid var(--border);
     }
     .trust-item { flex: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
-    .trust-ico { width: 38px; height: 38px; border-radius: 50%; background: var(--teal-light); display: flex; align-items: center; justify-content: center; }
+    .trust-ico { width: 38px; height: 38px; border-radius: 50%; background: var(--teal-bg); display: flex; align-items: center; justify-content: center; }
     .trust-ico svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
     .trust-title { font-size: 0.7rem; font-weight: 800; color: var(--navy); line-height: 1.3; }
     .trust-sub { font-size: 0.62rem; color: var(--gray); line-height: 1.3; }
 
     /* Success */
-    .success-box { display: none; text-align: center; padding: 2rem 0; }
+    .success-box { display: none; text-align: center; padding: 2.5rem 0 1rem; }
     .success-box.show { display: block; }
     .success-circle {
       width: 80px; height: 80px; border-radius: 50%;
@@ -212,30 +250,35 @@
     .success-box p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
     .success-box strong { color: var(--teal); }
 
-    /* ── MOBILE ─────────────────────────────── */
-    @media (max-width: 700px) {
-      .split { grid-template-columns: 1fr; }
-      .hero { min-height: auto; }
-      .hero-top { padding: 1.5rem 1.4rem 1.2rem; }
-      .hero-headline { font-size: 2rem; }
-      .hero-headline em { font-size: 2.2rem; }
-      .hero-photo { max-height: 190px; min-height: 0; }
-      .form-side { padding: 1.5rem 1.4rem 2rem; align-items: flex-start; }
-      .form-inner { max-width: 100%; }
+    @media (max-width: 380px) {
+      .hero-headline { font-size: 1.9rem; }
+      .hero-headline em { font-size: 2rem; }
+      .hero { min-height: 300px; }
     }
   </style>
 </head>
 <body>
 
-<div class="split">
+<div class="page">
 
-  <!-- LEFT: HERO -->
+  <!-- HERO -->
   <div class="hero">
-    <div class="hero-top">
+    <!-- Senior couple photo — right side -->
+    <img
+      class="hero-photo"
+      src="https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?auto=format&fit=crop&w=600&q=85"
+      alt="Couple de seniors"
+      loading="eager"
+    >
+    <!-- Fade so left text is readable -->
+    <div class="hero-photo-fade"></div>
+
+    <!-- Text content -->
+    <div class="hero-content">
       <div class="brand">
         <div class="brand-icon">
           <svg viewBox="0 0 40 40" fill="none">
-            <path d="M20 34s-14-8.5-14-18a8 8 0 0116 0 8 8 0 0116 0c0 9.5-14 18-14 18z" fill="#d4edea" stroke="#1e8a78" stroke-width="1.5"/>
+            <path d="M20 34s-14-8.5-14-18a8 8 0 0116 0 8 8 0 0116 0c0 9.5-14 18-14 18z" fill="#c8e8e2" stroke="#1e8a78" stroke-width="1.5"/>
             <circle cx="20" cy="13" r="4" fill="#1e8a78"/>
             <path d="M13 27c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="#1e8a78" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
@@ -253,109 +296,101 @@
       <div class="hero-accent"></div>
       <p class="hero-sub">Demandez votre devis gratuit et découvrez une mutuelle santé adaptée à vos besoins.</p>
     </div>
-
-    <img
-      class="hero-photo"
-      src="https://images.unsplash.com/photo-1606041011872-596597976b25?auto=format&fit=crop&w=900&q=80"
-      alt="Couple de seniors heureux"
-      loading="eager"
-    >
   </div>
 
-  <!-- RIGHT: FORM -->
-  <div class="form-side">
-    <div class="form-inner">
+  <!-- WHITE FORM CARD -->
+  <div class="form-card">
 
-      <div id="ms-form">
-        <div class="form-header">
-          <div class="fh-icon">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <div class="fh-text">
-            <div class="t1">Demande de</div>
-            <div class="t2">Devis Gratuit</div>
-            <div class="fh-dashes"><span></span><span></span><span></span><span></span></div>
-          </div>
+    <div id="ms-form">
+      <!-- Header -->
+      <div class="form-header">
+        <div class="fh-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
-
-        <!-- NOM -->
-        <div class="field-row">
-          <div class="field-ico">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <div class="field-body">
-            <label for="ms-nom">Nom et prénom</label>
-            <input type="text" id="ms-nom" class="field-input" placeholder="" autocomplete="name" autocapitalize="words">
-            <div class="field-err" id="ms-nom-err">Champ requis.</div>
-          </div>
+        <div class="fh-text">
+          <div class="t1">Demande de</div>
+          <div class="t2">Devis Gratuit</div>
+          <div class="fh-dashes"><span></span><span></span><span></span><span></span></div>
         </div>
+        <div class="fh-tick">/ /</div>
+      </div>
 
-        <!-- TEL -->
-        <div class="field-row">
-          <div class="field-ico">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.09-1.09a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-          </div>
-          <div class="field-body">
-            <label for="ms-tel">Numéro de téléphone</label>
-            <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel">
-            <div class="field-err" id="ms-tel-err">Numéro invalide.</div>
-          </div>
+      <!-- NOM -->
+      <div class="field-row">
+        <div class="field-ico">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-
-        <div class="separator"></div>
-
-        <!-- CONSENT -->
-        <label class="consent-row" onclick="toggleConsent()">
-          <div class="consent-ico" id="ms-check">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <span>J'accepte d'être <strong>contacté(e) par un conseiller</strong> afin de recevoir mon devis gratuit de mutuelle santé.</span>
-        </label>
-        <div class="consent-err" id="ms-consent-err">Veuillez cocher la case pour continuer.</div>
-
-        <!-- CTA -->
-        <button type="button" class="btn-cta" id="ms-btn" onclick="msSubmit()">
-          C'est simple, rapide et sans engagement ! &nbsp;✦
-        </button>
-
-        <!-- Trust -->
-        <div class="trust-row">
-          <div class="trust-item">
-            <div class="trust-ico">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-            </div>
-            <span class="trust-title">Garantie<br>adaptée</span>
-            <span class="trust-sub">à vos besoins</span>
-          </div>
-          <div class="trust-item">
-            <div class="trust-ico">
-              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07"/><circle cx="9" cy="7" r="4"/><path d="M15 11a4 4 0 010 8"/></svg>
-            </div>
-            <span class="trust-title">Un conseiller<br>à votre écoute</span>
-            <span class="trust-sub">et vous accompagne</span>
-          </div>
-          <div class="trust-item">
-            <div class="trust-ico">
-              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            </div>
-            <span class="trust-title">Des solutions<br>santé simples</span>
-            <span class="trust-sub">et accessibles</span>
-          </div>
+        <div class="field-body">
+          <label for="ms-nom">Nom et prénom</label>
+          <input type="text" id="ms-nom" class="field-input" placeholder="" autocomplete="name" autocapitalize="words">
+          <div class="field-err" id="ms-nom-err">Champ requis.</div>
         </div>
       </div>
 
-      <!-- SUCCESS -->
-      <div class="success-box" id="ms-success">
-        <div class="success-circle">
-          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <!-- TEL -->
+      <div class="field-row">
+        <div class="field-ico">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.09-1.09a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
         </div>
-        <h3>Demande envoyée !</h3>
-        <p>Un conseiller vous contactera dans les <strong>24 heures</strong> avec votre devis mutuelle santé senior personnalisé.<br><br>Merci pour votre confiance !</p>
+        <div class="field-body">
+          <label for="ms-tel">Numéro de téléphone</label>
+          <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel">
+          <div class="field-err" id="ms-tel-err">Numéro invalide.</div>
+        </div>
       </div>
 
+      <div class="separator"></div>
+
+      <!-- CONSENT -->
+      <label class="consent-row" onclick="toggleConsent()">
+        <div class="consent-ico" id="ms-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span>J'accepte d'être <strong>contacté(e) par un conseiller</strong> afin de recevoir mon devis gratuit de mutuelle santé.</span>
+      </label>
+      <div class="consent-err" id="ms-consent-err">Veuillez cocher la case pour continuer.</div>
+
+      <!-- CTA -->
+      <button type="button" class="btn-cta" id="ms-btn" onclick="msSubmit()">
+        C'est simple, rapide et sans engagement ! &nbsp;✦
+      </button>
+
+      <!-- Trust -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <div class="trust-ico">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          </div>
+          <span class="trust-title">Garantie<br>adaptée</span>
+          <span class="trust-sub">à vos besoins</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-ico">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+          </div>
+          <span class="trust-title">Un conseiller<br>à votre écoute</span>
+          <span class="trust-sub">et vous accompagne</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-ico">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+          <span class="trust-title">Des solutions<br>santé simples</span>
+          <span class="trust-sub">et accessibles</span>
+        </div>
+      </div>
     </div>
-  </div>
 
+    <!-- SUCCESS -->
+    <div class="success-box" id="ms-success">
+      <div class="success-circle">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h3>Demande envoyée !</h3>
+      <p>Un conseiller vous contactera dans les <strong>24 heures</strong> avec votre devis mutuelle santé senior personnalisé.<br><br>Merci pour votre confiance !</p>
+    </div>
+
+  </div>
 </div>
 
 <script>
@@ -391,20 +426,20 @@
     btn.innerHTML = '<span class="spinner"></span> Envoi en cours...';
     btn.disabled = true;
 
-    var eventId = 'lead_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    var eventId     = 'lead_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    var custEventId = 'lead_c_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
 
     if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'mutuelle_sante' });
 
-    var sheetParams = 'niche=Mutuelle Sante'
+    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle Sante'
       + '&nom='       + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
       + '&consent=Oui'
       + '&utm='       + encodeURIComponent(window.location.search)
-      + '&ua='        + encodeURIComponent(navigator.userAgent.substring(0, 120));
-    fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
+      + '&ua='        + encodeURIComponent(navigator.userAgent.substring(0, 120)),
+      { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
-    var custEventId = 'lead_c_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
