@@ -32,7 +32,8 @@ var SERVICES = {
   'Estimation Immobiliere': { sheet: 'Estimation Immo',    emoji: '🏠' },
   'Rappel':                 { sheet: 'Rappel',             emoji: '📞' },
   'Test Drive':             { sheet: 'Test Drive',         emoji: '🏎️' },
-  'RC Decennale':           { sheet: 'RC Décennale',       emoji: '🏗️' }
+  'RC Decennale':           { sheet: 'RC Décennale',       emoji: '🏗️' },
+  'Mutuelle Sante':         { sheet: 'Mutuelle Santé',     emoji: '💚' }
 };
 
 // ── Telegram ─────────────────────────────────────────────────
@@ -209,7 +210,11 @@ function createAllSheets() {
     'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement', 'Source UTM'
   ]);
 
-  // 7. Tous les Leads (master)
+  // 7. Mutuelle Santé
+  var s8 = getOrCreateSheet(ss, 'Mutuelle Santé');
+  initHeaders(s8, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
+
+  // 8. Tous les Leads (master)
   var s7 = getOrCreateSheet(ss, 'Tous les Leads');
   initHeaders(s7, [
     'Date & Heure', 'Service', 'Nom', 'Prénom', 'Email',

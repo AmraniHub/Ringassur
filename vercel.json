@@ -12,6 +12,7 @@
     { "source": "/energie",                 "destination": "/energie.html" },
     { "source": "/rappel",                  "destination": "/rappel.html" },
     { "source": "/test-drive",              "destination": "/test-drive.html" },
-    { "source": "/rc-decennale",            "destination": "/rc-decennale.html" }
+    { "source": "/rc-decennale",            "destination": "/rc-decennale.html" },
+    { "source": "/mutuelle-sante",          "destination": "/mutuelle-sante.html" }
   ]
 }
