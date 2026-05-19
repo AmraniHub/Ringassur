@@ -15,11 +15,15 @@ var SHEET_ID       = '13LO7P7JyZLt5euFeULdrV6f9m67Nsa25ZaAfKC39QgI';
 
 // ── Tokens stored in Script Properties (never hardcode in file) ─
 // Set these in: Project Settings → Script Properties
-// TELEGRAM_TOKEN  = your bot token from @BotFather
-// TELEGRAM_CHAT   = your chat ID (e.g. 1882834400)
-var _props         = PropertiesService.getScriptProperties();
-var TELEGRAM_TOKEN = _props.getProperty('TELEGRAM_TOKEN') || '';
-var TELEGRAM_CHAT  = _props.getProperty('TELEGRAM_CHAT')  || '';
+// TELEGRAM_TOKEN    = bot 1 token from @BotFather
+// TELEGRAM_CHAT     = bot 1 chat ID
+// TELEGRAM_TOKEN_2  = bot 2 token from @BotFather
+// TELEGRAM_CHAT_2   = bot 2 chat ID (8783262565)
+var _props          = PropertiesService.getScriptProperties();
+var TELEGRAM_TOKEN  = _props.getProperty('TELEGRAM_TOKEN')   || '';
+var TELEGRAM_CHAT   = _props.getProperty('TELEGRAM_CHAT')    || '';
+var TELEGRAM_TOKEN2 = _props.getProperty('TELEGRAM_TOKEN_2') || '';
+var TELEGRAM_CHAT2  = _props.getProperty('TELEGRAM_CHAT_2')  || '';
 
 // ── Service → sheet name + emoji ─────────────────────────────
 var SERVICES = {
@@ -32,18 +36,24 @@ var SERVICES = {
 };
 
 // ── Telegram ─────────────────────────────────────────────────
-function sendTelegram(text) {
+function sendToBot(token, chatId, text) {
+  if (!token || !chatId) return;
   try {
     UrlFetchApp.fetch(
-      'https://api.telegram.org/bot' + TELEGRAM_TOKEN + '/sendMessage',
+      'https://api.telegram.org/bot' + token + '/sendMessage',
       {
         method: 'post',
         contentType: 'application/json',
-        payload: JSON.stringify({ chat_id: TELEGRAM_CHAT, text: text, parse_mode: 'HTML' }),
+        payload: JSON.stringify({ chat_id: chatId, text: text, parse_mode: 'HTML' }),
         muteHttpExceptions: true
       }
     );
   } catch(e) {}
+}
+
+function sendTelegram(text) {
+  sendToBot(TELEGRAM_TOKEN,  TELEGRAM_CHAT,  text);
+  sendToBot(TELEGRAM_TOKEN2, TELEGRAM_CHAT2, text);
 }
 
 // ── Get or create a sheet by name ────────────────────────────
