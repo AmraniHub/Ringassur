@@ -23,10 +23,11 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_rappel_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Demande de Rappel', content_category: 'Contact' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Rappel Gratuit', content_category: 'Contact' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
@@ -339,7 +340,7 @@
         eventName: 'Lead',
         eventId: eventId,
         customEventName: 'Lead_Rappel', customEventId: custEventId,
-        content_name: 'Rappel', content_category: 'Rappel',
+        content_name: 'Rappel Gratuit', content_category: 'Contact',
         sourceUrl: window.location.href,
         nom: nom,
         telephone: tel,
@@ -357,8 +358,8 @@
       var successEl = document.getElementById('rappel-success');
       successEl.style.display = 'block';
       if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Rappel', content_category: 'Rappel' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_Rappel', { content_name: 'Rappel' }, { eventID: custEventId });
+        fbq('track', 'Lead', { content_name: 'Rappel Gratuit', content_category: 'Contact' }, { eventID: eventId });
+        fbq('trackCustom', 'Lead_Rappel', { content_name: 'Rappel Gratuit' }, { eventID: custEventId });
       }
     }, 800);
   }

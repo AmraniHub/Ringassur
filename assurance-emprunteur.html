@@ -28,12 +28,13 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
 
     // ViewContent — generate eventId so CAPI can deduplicate
     var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Formulaire Artisans BTP', content_category: 'Artisans BTP', content_type: 'quote_form' }, { eventID: vcEventId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Pro Gratuit', content_category: 'Artisans_Pro' }, { eventID: vcEventId });
 
     // Mirror ViewContent to CAPI (server-side) for coverage
     function getCookiePixel(name) {
@@ -1070,7 +1071,7 @@
       nom:        document.getElementById('nom').value.trim(),
       email:      document.getElementById('email').value.trim(),
       telephone:  document.getElementById('telephone').value.trim(),
-      codePostal: document.getElementById('codePostal').value.trim(),
+      codePostal: '',
       utm:        window.location.search,
       ua:         navigator.userAgent.substring(0, 120)
     };
@@ -1112,15 +1113,15 @@
         eventId:         eventId,
         customEventName: 'Lead_AssuranceEmprunteur',
         customEventId:   custEventIdEmp,
-        content_name:    'Assurance Emprunteur',
-        content_category:'Assurance Emprunteur',
+        content_name:    'Devis Pro Gratuit',
+        content_category:'Artisans_Pro',
         fbp:             getCookie('_fbp'),
         fbc:             getCookie('_fbc')
       })
     }).catch(function(){});
     if (typeof fbq !== 'undefined') {
-      fbq('track', 'Lead', { content_name: 'Assurance Emprunteur', content_category: 'Assurance Emprunteur' }, { eventID: eventId });
-      fbq('trackCustom', 'Lead_AssuranceEmprunteur', { content_name: 'Assurance Emprunteur' }, { eventID: custEventIdEmp });
+      fbq('track', 'Lead', { content_name: 'Devis Pro Gratuit', content_category: 'Artisans_Pro' }, { eventID: eventId });
+      fbq('trackCustom', 'Lead_AssuranceEmprunteur', { content_name: 'Devis Pro Gratuit' }, { eventID: custEventIdEmp });
     }
 
     // Store eventId for browser pixel deduplication on /merci.html

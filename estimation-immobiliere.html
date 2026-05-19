@@ -23,10 +23,11 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Estimation Immobilière', content_category: 'Immobilier' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Gratuit', content_category: 'Services' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
@@ -247,7 +248,7 @@
         Estimation immobilière
       </div>
       <h1 class="hero-h1">Connaissez la <span>vraie valeur</span> de votre bien.</h1>
-      <p class="hero-sub">Une estimation précise pour vendre au meilleur prix et dans les meilleures conditions.</p>
+      <p class="hero-sub">Une estimation précise pour connaître la vraie valeur de votre patrimoine et prendre les bonnes décisions.</p>
       <div class="hero-badges">
         <div class="hero-badge-item">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -340,9 +341,9 @@
   <div class="why-inner">
     <h2 class="section-title">Pourquoi estimer votre bien <span>avec Ringassur ?</span></h2>
     <div class="why-list">
-      <div class="why-item"><span class="why-dot"></span><p><strong>Des experts locaux à votre écoute</strong> — nos conseillers connaissent votre marché immobilier local et vous apportent une estimation réaliste.</p></div>
-      <div class="why-item"><span class="why-dot"></span><p><strong>Vendez au bon prix</strong> et attirez plus d'acheteurs — ni trop cher pour ne pas décourager, ni trop bas pour ne pas perdre d'argent.</p></div>
-      <div class="why-item"><span class="why-dot"></span><p><strong>Un accompagnement sur-mesure</strong> — de l'estimation à la vente, nos conseillers vous accompagnent à chaque étape.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Des experts à votre écoute</strong> — nos conseillers analysent les données du marché local et vous apportent une estimation réaliste et fiable.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Valorisez votre patrimoine au juste prix</strong> — nos experts croisent les données du marché pour vous donner une estimation précise selon votre bien.</p></div>
+      <div class="why-item"><span class="why-dot"></span><p><strong>Un accompagnement sur-mesure</strong> — de l'estimation à votre projet, nos conseillers vous accompagnent à chaque étape.</p></div>
       <div class="why-item"><span class="why-dot"></span><p><strong>Aucune obligation</strong>, juste une estimation fiable — notre service est 100% gratuit et sans engagement de votre part.</p></div>
     </div>
   </div>
@@ -355,7 +356,7 @@
       <div class="review-card">
         <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">15/04/2026</span></div>
         <p class="review-name">Marie L. — Paris 15e</p>
-        <p class="review-text">Estimation reçue en moins de 24h, très précise par rapport au marché. J'ai vendu mon appartement au prix estimé en 3 semaines.</p>
+        <p class="review-text">Estimation reçue en moins de 24h, très précise par rapport au marché. Conseiller très professionnel, je recommande vivement.</p>
       </div>
       <div class="review-card">
         <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">02/03/2026</span></div>
@@ -371,7 +372,7 @@
   </div>
 </section>
 
-<div class="footer-script">Faites le premier pas vers une <em style="color:var(--gold)">vente réussie !</em></div>
+<div class="footer-script">Faites le premier pas vers une <em style="color:var(--gold)">estimation fiable !</em></div>
 
 <footer>
   <div class="footer-links">
@@ -381,7 +382,7 @@
     <span style="color:#555">•</span>
     <a href="#" onclick="openModal('cookies');return false;">Cookies</a>
   </div>
-  <p>© 2026 Ringassur — Service de mise en relation immobilière. Service gratuit et sans engagement.</p>
+  <p>© 2026 Ringassur — Service de conseil patrimonial. Service gratuit et sans engagement.</p>
 </footer>
 
 <div id="modal-overlay" onclick="closeModal()"></div>
@@ -434,14 +435,14 @@
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
 
     var custEventId = 'lead_c_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_EstimationImmo', customEventId:custEventId, content_name:'Estimation Immobiliere', content_category:'Immobilier', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Estimation Immobiliere', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_EstimationImmo', customEventId:custEventId, content_name:'Devis Gratuit', content_category:'Services', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Estimation Immobiliere', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
     sessionStorage.setItem('leadEventId', eventId);
 
     setTimeout(function(){
       document.getElementById('immo-form').style.display = 'none';
       document.getElementById('immo-success').classList.add('show');
-      fbTrack('Lead', { content_name: 'Estimation Immobiliere', content_category: 'Immobilier' }, { eventID: eventId });
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'Lead_EstimationImmo', { content_name: 'Estimation Immobiliere' }, { eventID: custEventId });
+      fbTrack('Lead', { content_name: 'Devis Gratuit', content_category: 'Services' }, { eventID: eventId });
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'Lead_EstimationImmo', { content_name: 'Devis Gratuit' }, { eventID: custEventId });
     }, 800);
   }
 

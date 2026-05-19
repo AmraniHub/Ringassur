@@ -23,10 +23,11 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_energie_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Économies Énergie', content_category: 'Énergie' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Energie Gratuit', content_category: 'Energie' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
@@ -389,14 +390,14 @@
     var data = { niche:'Energie', nom:nom, telephone:tel, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
     var custEventId = 'lead_c_en_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_Energie', customEventId:custEventId, content_name:'Energie', content_category:'Energie', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Energie', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_Energie', customEventId:custEventId, content_name:'Devis Energie Gratuit', content_category:'Energie', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Energie', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
     sessionStorage.setItem('leadEventId', eventId);
 
     setTimeout(function(){
       document.getElementById('energie-form').style.display = 'none';
       document.getElementById('energie-success').classList.add('show');
-      fbTrack('Lead', { content_name: 'Energie', content_category: 'Energie' }, { eventID: eventId });
-      if (typeof fbq !== 'undefined') fbq('trackCustom', 'Lead_Energie', { content_name: 'Energie' }, { eventID: custEventId });
+      fbTrack('Lead', { content_name: 'Devis Energie Gratuit', content_category: 'Energie' }, { eventID: eventId });
+      if (typeof fbq !== 'undefined') fbq('trackCustom', 'Lead_Energie', { content_name: 'Devis Energie Gratuit' }, { eventID: custEventId });
     }, 800);
   }
 

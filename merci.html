@@ -23,11 +23,12 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     // Use same eventId as CAPI call for deduplication — Facebook matches them and counts once
     var eventId = sessionStorage.getItem('leadEventId') || ('lead_browser_' + Date.now());
-    fbq('track', 'Lead', {}, { eventID: eventId });
+    fbq('track', 'Lead', { content_name: 'Merci', content_category: 'Services' }, { eventID: eventId });
   </script>
   <noscript>
     <img height="1" width="1" style="display:none"

@@ -23,10 +23,11 @@
     n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', []);
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_td_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Test Drive', content_category: 'Automobile' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Reservation Test Drive', content_category: 'Automobile' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
@@ -409,7 +410,7 @@
         eventName: 'Lead',
         eventId: eventId,
         customEventName: 'Lead_TestDrive', customEventId: custEventId,
-        content_name: 'Test Drive', content_category: 'Automobile',
+        content_name: 'Reservation Test Drive', content_category: 'Automobile',
         sourceUrl: window.location.href,
         nom: nom,
         telephone: tel,
@@ -425,8 +426,8 @@
       document.getElementById('td-form').style.display = 'none';
       document.getElementById('td-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Test Drive', content_category: 'Automobile' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_TestDrive', { content_name: 'Test Drive' }, { eventID: custEventId });
+        fbq('track', 'Lead', { content_name: 'Reservation Test Drive', content_category: 'Automobile' }, { eventID: eventId });
+        fbq('trackCustom', 'Lead_TestDrive', { content_name: 'Reservation Test Drive' }, { eventID: custEventId });
       }
     }, 800);
   }
