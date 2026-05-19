@@ -524,9 +524,10 @@
         </div>
 
         <label class="consent-row">
-          <input type="checkbox" id="auto-consent" checked>
+          <input type="checkbox" id="auto-consent">
           <span>J'accepte d'être contacté par un conseiller.</span>
         </label>
+        <span class="field-err" id="auto-consent-err" style="display:none;margin-top:-0.5rem;margin-bottom:0.6rem;">Veuillez cocher la case pour continuer.</span>
 
         <button class="btn-submit" id="auto-submit-btn" onclick="autoSubmit()">
           OBTENIR MON DEVIS GRATUIT →
@@ -632,6 +633,7 @@
     // reset
     document.getElementById('auto-nom-err').style.display = 'none';
     document.getElementById('auto-tel-err').style.display = 'none';
+    document.getElementById('auto-consent-err').style.display = 'none';
     nomEl.style.borderColor = '';
     telEl.style.borderColor = '';
 
@@ -650,6 +652,10 @@
       document.getElementById('sit-error-msg').style.display = 'block';
       ok = false;
     }
+    if (!document.getElementById('auto-consent').checked) {
+      document.getElementById('auto-consent-err').style.display = 'block';
+      ok = false;
+    }
 
     if (!ok) return;
 
@@ -665,7 +671,7 @@
     // Google Sheets
     var data = {
       niche: 'Assurance Auto', situation: selectedSituation,
-      nom: nom, telephone: tel,
+      nom: nom, telephone: tel, consent: 'Oui',
       utm: window.location.search, ua: navigator.userAgent.substring(0, 120)
     };
     var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){

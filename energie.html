@@ -252,6 +252,7 @@
             <input type="checkbox" id="en-consent">
             <span>Acceptez-vous d'être contacté par un conseiller ?</span>
           </label>
+          <span class="field-err" id="en-consent-err" style="display:none;margin-top:-0.5rem;margin-bottom:0.6rem;">Veuillez cocher la case pour continuer.</span>
           <button class="btn-primary" id="en-btn" onclick="energieSubmit()">VOIR MES ÉCONOMIES MAINTENANT →</button>
           <div class="secure-note">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
@@ -364,6 +365,7 @@
     // reset
     document.getElementById('en-nom-err').style.display = 'none';
     document.getElementById('en-tel-err').style.display = 'none';
+    document.getElementById('en-consent-err').style.display = 'none';
     document.getElementById('en-nom').style.borderColor = '';
     document.getElementById('en-tel').style.borderColor = '';
 
@@ -378,6 +380,10 @@
       document.getElementById('en-tel').style.borderColor = '#e53935';
       ok = false;
     }
+    if (!document.getElementById('en-consent').checked) {
+      document.getElementById('en-consent-err').style.display = 'block';
+      ok = false;
+    }
     if (!ok) return;
 
     var btn = document.getElementById('en-btn');
@@ -387,7 +393,7 @@
     function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     gaEvent('generate_lead', { niche: 'energie' });
 
-    var data = { niche:'Energie', nom:nom, telephone:tel, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
+    var data = { niche:'Energie', nom:nom, telephone:tel, consent:'Oui', utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
     var custEventId = 'lead_c_en_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_Energie', customEventId:custEventId, content_name:'Devis Energie Gratuit', content_category:'Energie', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Energie', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});

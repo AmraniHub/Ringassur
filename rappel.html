@@ -234,9 +234,10 @@
     </div>
 
     <label class="consent-row">
-      <input type="checkbox" id="rp-consent" checked>
+      <input type="checkbox" id="rp-consent">
       <span>J'accepte d'être contacté par un conseiller Ringassur</span>
     </label>
+    <div style="font-size:0.72rem;color:#e53935;margin-top:-0.8rem;margin-bottom:0.8rem;display:none;" id="rp-consent-err">Veuillez cocher la case pour continuer.</div>
 
     <button type="button" class="btn-cta" id="rp-btn" onclick="rappelSubmit()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
@@ -288,6 +289,7 @@
     // reset errors
     document.getElementById('rp-nom-err').style.display = 'none';
     document.getElementById('rp-tel-err').style.display = 'none';
+    document.getElementById('rp-consent-err').style.display = 'none';
     nomEl.style.borderColor = '';
     telEl.style.borderColor = '';
 
@@ -301,6 +303,10 @@
     if (!tel || telDigits.length < 9) {
       document.getElementById('rp-tel-err').style.display = 'block';
       telEl.style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!document.getElementById('rp-consent').checked) {
+      document.getElementById('rp-consent-err').style.display = 'block';
       ok = false;
     }
 
@@ -327,6 +333,7 @@
     var sheetParams = 'niche=Rappel'
       + '&nom=' + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
+      + '&consent=Oui'
       + '&utm=' + encodeURIComponent(window.location.search)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120));
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});

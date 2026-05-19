@@ -291,6 +291,7 @@
             <input type="checkbox" id="immo-consent">
             <span>J'accepte d'être contacté(e) par un conseiller au sujet de ma demande d'estimation. <em>(En savoir plus sur la gestion de vos données)</em></span>
           </label>
+          <span class="field-err" id="immo-consent-err" style="display:none;margin-top:-0.5rem;margin-bottom:0.6rem;">Veuillez cocher la case pour continuer.</span>
           <button class="btn-primary" id="immo-btn" onclick="immoSubmit()">RECEVOIR MON ESTIMATION GRATUITE →</button>
           <div class="secure-note">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
@@ -407,6 +408,7 @@
     // reset
     document.getElementById('immo-nom-err').style.display = 'none';
     document.getElementById('immo-tel-err').style.display = 'none';
+    document.getElementById('immo-consent-err').style.display = 'none';
     document.getElementById('immo-nom').style.borderColor = '';
     document.getElementById('immo-tel').style.borderColor = '';
 
@@ -419,6 +421,10 @@
     if (!tel || tel.replace(/\D/g, '').length < 9) {
       document.getElementById('immo-tel-err').style.display = 'block';
       document.getElementById('immo-tel').style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!document.getElementById('immo-consent').checked) {
+      document.getElementById('immo-consent-err').style.display = 'block';
       ok = false;
     }
     if (!ok) return;

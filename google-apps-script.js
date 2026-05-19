@@ -76,7 +76,7 @@ function writeServiceSheet(ss, niche, p) {
   if (niche === 'RC Decennale') {
     initHeaders(sheet, [
       'Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN',
-      'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Source UTM'
+      'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement', 'Source UTM'
     ]);
     sheet.appendRow([
       date,
@@ -88,26 +88,29 @@ function writeServiceSheet(ss, niche, p) {
       p.nom       || '',
       p.email     || '',
       p.telephone || '',
+      p.consent   || '',
       p.utm       || ''
     ]);
 
   } else if (niche === 'Assurance Auto') {
-    initHeaders(sheet, ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Source UTM']);
+    initHeaders(sheet, ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Consentement', 'Source UTM']);
     sheet.appendRow([
       date,
       p.nom       || '',
       p.telephone || '',
       p.situation || '',
+      p.consent   || '',
       p.utm       || ''
     ]);
 
   } else {
     // Energie / Estimation Immobiliere / Rappel / Test Drive
-    initHeaders(sheet, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+    initHeaders(sheet, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
     sheet.appendRow([
       date,
       p.nom       || '',
       p.telephone || '',
+      p.consent   || '',
       p.utm       || ''
     ]);
   }
@@ -118,7 +121,7 @@ function writeMasterSheet(ss, niche, p) {
   var sheet = getOrCreateSheet(ss, 'Tous les Leads');
   initHeaders(sheet, [
     'Date & Heure', 'Service', 'Nom', 'Prénom', 'Email',
-    'Téléphone', 'Détails', 'Source UTM'
+    'Téléphone', 'Consentement', 'Détails', 'Source UTM'
   ]);
 
   var details = '';
@@ -132,6 +135,7 @@ function writeMasterSheet(ss, niche, p) {
     p.prenom    || '',
     p.email     || '',
     p.telephone || '',
+    p.consent   || '',
     details,
     p.utm       || ''
   ]);
@@ -170,36 +174,36 @@ function createAllSheets() {
 
   // 1. Assurance Auto
   var s1 = getOrCreateSheet(ss, 'Assurance Auto');
-  initHeaders(s1, ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Source UTM']);
+  initHeaders(s1, ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Consentement', 'Source UTM']);
 
   // 2. Energie
   var s2 = getOrCreateSheet(ss, 'Energie');
-  initHeaders(s2, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+  initHeaders(s2, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
 
   // 3. Estimation Immo
   var s3 = getOrCreateSheet(ss, 'Estimation Immo');
-  initHeaders(s3, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+  initHeaders(s3, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
 
   // 4. Rappel
   var s4 = getOrCreateSheet(ss, 'Rappel');
-  initHeaders(s4, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+  initHeaders(s4, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
 
   // 5. Test Drive
   var s5 = getOrCreateSheet(ss, 'Test Drive');
-  initHeaders(s5, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+  initHeaders(s5, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement', 'Source UTM']);
 
   // 6. RC Décennale
   var s6 = getOrCreateSheet(ss, 'RC Décennale');
   initHeaders(s6, [
     'Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN',
-    'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Source UTM'
+    'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement', 'Source UTM'
   ]);
 
   // 7. Tous les Leads (master)
   var s7 = getOrCreateSheet(ss, 'Tous les Leads');
   initHeaders(s7, [
     'Date & Heure', 'Service', 'Nom', 'Prénom', 'Email',
-    'Téléphone', 'Détails', 'Source UTM'
+    'Téléphone', 'Consentement', 'Détails', 'Source UTM'
   ]);
 
   Logger.log('✅ Tous les onglets créés avec succès.');

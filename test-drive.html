@@ -299,11 +299,12 @@
 
     <!-- CONSENT -->
     <label class="consent-row" onclick="toggleConsent()">
-      <div class="consent-check checked" id="td-check">
+      <div class="consent-check" id="td-check">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <span>J'accepte d'être contacté par un conseiller</span>
     </label>
+    <div style="font-size:0.72rem;color:#f87171;margin-top:-0.8rem;margin-bottom:0.8rem;display:none;" id="td-consent-err">Veuillez cocher la case pour continuer.</div>
 
     <!-- CTA -->
     <button type="button" class="btn-cta" id="td-btn" onclick="tdSubmit()">
@@ -350,7 +351,7 @@
 
 <script>
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNYYkitgwCB8G5pSreeBsk1yu49J6_AOEnSVsSxNjl0bKDrL1yliP2KrJTg2yebnI/exec';
-  var consentChecked = true;
+  var consentChecked = false;
 
   function toggleConsent() {
     consentChecked = !consentChecked;
@@ -368,6 +369,7 @@
 
     document.getElementById('td-nom-err').style.display = 'none';
     document.getElementById('td-tel-err').style.display = 'none';
+    document.getElementById('td-consent-err').style.display = 'none';
     nomEl.classList.remove('err');
     telEl.classList.remove('err');
 
@@ -379,6 +381,10 @@
     if (!tel || tel.replace(/\D/g, '').length < 9) {
       document.getElementById('td-tel-err').style.display = 'block';
       telEl.classList.add('err');
+      ok = false;
+    }
+    if (!consentChecked) {
+      document.getElementById('td-consent-err').style.display = 'block';
       ok = false;
     }
     if (!ok) return;
@@ -397,6 +403,7 @@
     var sheetParams = 'niche=Test Drive'
       + '&nom=' + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
+      + '&consent=Oui'
       + '&utm=' + encodeURIComponent(window.location.search)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120));
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
