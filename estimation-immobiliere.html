@@ -436,7 +436,7 @@
     function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     gaEvent('generate_lead', { niche: 'estimation_immobiliere' });
 
-    var data = { niche:'Estimation Immobiliere', nom:nom, telephone:tel, utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
+    var data = { niche:'Estimation Immobiliere', nom:nom, telephone:tel, consent:'Oui', utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
 
     var custEventId = 'lead_c_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
