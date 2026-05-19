@@ -4,11 +4,11 @@
 //  ► One spreadsheet, one sheet per service + master sheet
 //  ► One Telegram bot for all services
 //
-//  SETUP:
-//  1. script.google.com → open your project → replace ALL code
-//  2. Run → Run function → doGet (once, to grant permissions)
-//  3. Deploy → Manage deployments → create new version → Deploy
-//  4. Copy the /exec URL and paste it in every page as GOOGLE_SCRIPT_URL
+//  SETUP (do this once):
+//  1. script.google.com → open your project → replace ALL code with this
+//  2. Click ▶ Run → select function "createAllSheets" → Run
+//     (this creates all tabs immediately with correct headers)
+//  3. Deploy → Manage deployments → edit → New version → Deploy
 // ============================================================
 
 var SHEET_ID       = '13LO7P7JyZLt5euFeULdrV6f9m67Nsa25ZaAfKC39QgI';
@@ -154,6 +154,49 @@ function buildTelegramMsg(niche, p) {
 
   msg += '<b>UTM :</b> ' + (p.utm || 'direct');
   return msg;
+}
+
+// ── createAllSheets — run this ONCE after pasting the script ─
+// It creates every tab with the right headers so they exist before
+// the first lead arrives. Safe to run multiple times (won't duplicate).
+function createAllSheets() {
+  var ss = SpreadsheetApp.openById(SHEET_ID);
+
+  // 1. Assurance Auto
+  var s1 = getOrCreateSheet(ss, 'Assurance Auto');
+  initHeaders(s1, ['Date & Heure', 'Nom', 'Téléphone', 'Situation', 'Source UTM']);
+
+  // 2. Energie
+  var s2 = getOrCreateSheet(ss, 'Energie');
+  initHeaders(s2, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+
+  // 3. Estimation Immo
+  var s3 = getOrCreateSheet(ss, 'Estimation Immo');
+  initHeaders(s3, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+
+  // 4. Rappel
+  var s4 = getOrCreateSheet(ss, 'Rappel');
+  initHeaders(s4, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+
+  // 5. Test Drive
+  var s5 = getOrCreateSheet(ss, 'Test Drive');
+  initHeaders(s5, ['Date & Heure', 'Nom', 'Téléphone', 'Source UTM']);
+
+  // 6. RC Décennale
+  var s6 = getOrCreateSheet(ss, 'RC Décennale');
+  initHeaders(s6, [
+    'Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN',
+    'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Source UTM'
+  ]);
+
+  // 7. Tous les Leads (master)
+  var s7 = getOrCreateSheet(ss, 'Tous les Leads');
+  initHeaders(s7, [
+    'Date & Heure', 'Service', 'Nom', 'Prénom', 'Email',
+    'Téléphone', 'Détails', 'Source UTM'
+  ]);
+
+  Logger.log('✅ Tous les onglets créés avec succès.');
 }
 
 // ── Main ──────────────────────────────────────────────────────
