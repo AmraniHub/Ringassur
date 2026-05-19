@@ -12,8 +12,14 @@
 // ============================================================
 
 var SHEET_ID       = '13LO7P7JyZLt5euFeULdrV6f9m67Nsa25ZaAfKC39QgI';
-var TELEGRAM_TOKEN = '8919685030:AAHPqBxp9vq1w1A5ztQiVtuxgIfmQt_4Wb4';
-var TELEGRAM_CHAT  = '1882834400';
+
+// ── Tokens stored in Script Properties (never hardcode in file) ─
+// Set these in: Project Settings → Script Properties
+// TELEGRAM_TOKEN  = your bot token from @BotFather
+// TELEGRAM_CHAT   = your chat ID (e.g. 1882834400)
+var _props         = PropertiesService.getScriptProperties();
+var TELEGRAM_TOKEN = _props.getProperty('TELEGRAM_TOKEN') || '';
+var TELEGRAM_CHAT  = _props.getProperty('TELEGRAM_CHAT')  || '';
 
 // ── Service → sheet name + emoji ─────────────────────────────
 var SERVICES = {
