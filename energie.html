@@ -359,11 +359,25 @@
     var nom = document.getElementById('en-nom').value.trim();
     var tel = document.getElementById('en-tel').value.trim();
     var ok  = true;
-    function se(id,s){ document.getElementById(id).classList.toggle('show',s); }
-    function mi(id,s){ document.getElementById(id).classList.toggle('err',s); }
-    if(!nom){ se('en-nom-err',true); mi('en-nom',true); ok=false; } else { se('en-nom-err',false); mi('en-nom',false); }
-    if(!tel||tel.replace(/\D/g,'').length<9){ se('en-tel-err',true); mi('en-tel',true); ok=false; } else { se('en-tel-err',false); mi('en-tel',false); }
-    if(!ok) return;
+
+    // reset
+    document.getElementById('en-nom-err').style.display = 'none';
+    document.getElementById('en-tel-err').style.display = 'none';
+    document.getElementById('en-nom').style.borderColor = '';
+    document.getElementById('en-tel').style.borderColor = '';
+
+    // validate
+    if (!nom) {
+      document.getElementById('en-nom-err').style.display = 'block';
+      document.getElementById('en-nom').style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!tel || tel.replace(/\D/g, '').length < 9) {
+      document.getElementById('en-tel-err').style.display = 'block';
+      document.getElementById('en-tel').style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!ok) return;
 
     var btn = document.getElementById('en-btn');
     btn.innerHTML = '<span class="spinner"></span> Envoi en cours…';

@@ -481,7 +481,7 @@
           <div class="field-group">
             <label for="auto-nom">NOM</label>
             <input type="text" id="auto-nom" placeholder="Votre nom" autocomplete="name" autocapitalize="words">
-            <span class="field-err" id="auto-nom-err">Champ requis.</span>
+            <span class="field-err" id="auto-nom-err" style="display:none;">Champ requis.</span>
           </div>
           <div class="field-group">
             <label for="auto-tel">TÉLÉPHONE</label>
@@ -622,19 +622,29 @@
   }
 
   function autoSubmit() {
-    var nom = document.getElementById('auto-nom').value.trim();
-    var tel = document.getElementById('auto-tel').value.trim();
-    var ok  = true;
+    var nomEl = document.getElementById('auto-nom');
+    var telEl = document.getElementById('auto-tel');
+    var nom   = nomEl.value.trim();
+    var tel   = telEl.value.trim();
+    var ok    = true;
 
-    function showErr(id, v) { document.getElementById(id).classList.toggle('show', v); }
-    function markInp(id, v) { document.getElementById(id).classList.toggle('err', v); }
+    // reset
+    document.getElementById('auto-nom-err').style.display = 'none';
+    document.getElementById('auto-tel-err').style.display = 'none';
+    nomEl.style.borderColor = '';
+    telEl.style.borderColor = '';
 
-    if (!nom) { showErr('auto-nom-err', true); markInp('auto-nom', true); ok = false; }
-    else { showErr('auto-nom-err', false); markInp('auto-nom', false); }
-
-    if (!tel || tel.replace(/\D/g,'').length < 9) { showErr('auto-tel-err', true); markInp('auto-tel', true); ok = false; }
-    else { showErr('auto-tel-err', false); markInp('auto-tel', false); }
-
+    // validate
+    if (!nom) {
+      document.getElementById('auto-nom-err').style.display = 'block';
+      nomEl.style.borderColor = '#e53935';
+      ok = false;
+    }
+    if (!tel || tel.replace(/\D/g, '').length < 9) {
+      document.getElementById('auto-tel-err').style.display = 'block';
+      telEl.style.borderColor = '#e53935';
+      ok = false;
+    }
     if (!selectedSituation) {
       document.getElementById('sit-error-msg').style.display = 'block';
       ok = false;
