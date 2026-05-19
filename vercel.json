@@ -4,5 +4,12 @@
       "memory": 256,
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/assurance-auto",          "destination": "/assurance-auto.html" },
+    { "source": "/assurance-emprunteur",    "destination": "/assurance-emprunteur.html" },
+    { "source": "/estimation-immobiliere",  "destination": "/estimation-immobiliere.html" },
+    { "source": "/energie",                 "destination": "/energie.html" },
+    { "source": "/rappel",                  "destination": "/rappel.html" }
+  ]
 }
