@@ -101,25 +101,8 @@ module.exports = async function(req, res) {
     var capiPayload = JSON.stringify({ data: events });
     await postHttps(capiUrl, capiPayload);
 
-    // ── Telegram — only for Lead events ───────────────────────
-    if (eventName === 'Lead') {
-      var telegramToken = process.env.TELEGRAM_TOKEN   || '';
-      var telegramChat  = process.env.TELEGRAM_CHAT_ID || '1882834400';
-      var telegramUrl   = 'https://api.telegram.org/bot' + telegramToken + '/sendMessage';
-
-      var msg = '🔔 Nouveau lead — ' + serviceName + '\n\n'
-        + 'Nom : '      + (body.prenom || '') + ' ' + (body.nom || '') + '\n'
-        + 'Tel : '      + (body.telephone  || '') + '\n'
-        + 'Email : '    + (body.email      || '') + '\n'
-        + 'Service : '  + serviceName + '\n'
-        + (body.situation ? 'Situation : ' + body.situation + '\n' : '')
-        + (body.activite  ? 'Activite : '  + body.activite  + '\n' : '')
-        + (body.ca        ? 'CA HT : '     + body.ca + ' EUR\n' : '')
-        + (body.siren     ? 'SIREN : '     + body.siren + '\n' : '')
-        + 'EventID : '  + eventId;
-
-      await postHttps(telegramUrl, JSON.stringify({ chat_id: telegramChat, text: msg }));
-    }
+    // Telegram notifications are handled by Google Apps Script (client-side)
+    // to avoid duplicate messages. CAPI handles Meta tracking only.
 
     return res.status(200).json({ status: 'ok', eventName: eventName, eventId: eventId });
 

@@ -1063,6 +1063,7 @@
     btn.disabled = true;
 
     var data = {
+      niche:      'RC Decennale',
       activite:   document.getElementById('activite').value,
       ca:         document.getElementById('ca').value,
       siren:      document.getElementById('siren').value.replace(/\s/g, ''),
@@ -1071,7 +1072,6 @@
       nom:        document.getElementById('nom').value.trim(),
       email:      document.getElementById('email').value.trim(),
       telephone:  document.getElementById('telephone').value.trim(),
-      codePostal: '',
       utm:        window.location.search,
       ua:         navigator.userAgent.substring(0, 120)
     };
