@@ -555,27 +555,15 @@
           </div>
 
           <div class="contact-fields">
-            <div class="field-row">
-              <div class="field-group">
-                <label>Prénom *</label>
-                <input type="text" id="auto-prenom" placeholder="Jean" autocomplete="given-name" autocapitalize="words">
-                <span class="field-err" id="auto-prenom-err">Champ requis.</span>
-              </div>
-              <div class="field-group">
-                <label>Nom *</label>
-                <input type="text" id="auto-nom" placeholder="Dupont" autocomplete="family-name" autocapitalize="words">
-                <span class="field-err" id="auto-nom-err">Champ requis.</span>
-              </div>
+            <div class="field-group">
+              <label>Nom complet *</label>
+              <input type="text" id="auto-nom" placeholder="Jean Dupont" autocomplete="name" autocapitalize="words">
+              <span class="field-err" id="auto-nom-err">Champ requis.</span>
             </div>
             <div class="field-group">
               <label>Téléphone *</label>
               <input type="tel" id="auto-telephone" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
               <span class="field-err" id="auto-tel-err">Numéro invalide.</span>
-            </div>
-            <div class="field-group">
-              <label>E-mail *</label>
-              <input type="email" id="auto-email" placeholder="jean.dupont@email.com" autocomplete="email" autocapitalize="none" autocorrect="off">
-              <span class="field-err" id="auto-email-err">E-mail invalide.</span>
             </div>
             <div class="field-group">
               <label>Code postal *</label>
@@ -811,33 +799,19 @@
 
   // ── Step 2: Submit ────────────────────────────────
   function autoSubmit() {
-    var prenom    = document.getElementById('auto-prenom').value.trim();
     var nom       = document.getElementById('auto-nom').value.trim();
     var telephone = document.getElementById('auto-telephone').value.trim();
-    var email     = document.getElementById('auto-email').value.trim();
     var cp        = document.getElementById('auto-cp').value.trim();
-    var consent   = document.getElementById('auto-consent').checked;
     var ok = true;
 
-    function showErr(id, show) {
-      var el = document.getElementById(id);
-      el.classList.toggle('show', show);
-    }
-    function markInput(id, isErr) {
-      document.getElementById(id).classList.toggle('err', isErr);
-    }
-
-    if (!prenom) { showErr('auto-prenom-err', true); markInput('auto-prenom', true); ok=false; }
-    else { showErr('auto-prenom-err', false); markInput('auto-prenom', false); }
+    function showErr(id, show) { document.getElementById(id).classList.toggle('show', show); }
+    function markInput(id, isErr) { document.getElementById(id).classList.toggle('err', isErr); }
 
     if (!nom) { showErr('auto-nom-err', true); markInput('auto-nom', true); ok=false; }
     else { showErr('auto-nom-err', false); markInput('auto-nom', false); }
 
     if (!telephone || telephone.replace(/\D/g,'').length < 9) { showErr('auto-tel-err', true); markInput('auto-telephone', true); ok=false; }
     else { showErr('auto-tel-err', false); markInput('auto-telephone', false); }
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('auto-email-err', true); markInput('auto-email', true); ok=false; }
-    else { showErr('auto-email-err', false); markInput('auto-email', false); }
 
     if (!cp || !/^\d{5}$/.test(cp)) { showErr('auto-cp-err', true); markInput('auto-cp', true); ok=false; }
     else { showErr('auto-cp-err', false); markInput('auto-cp', false); }
@@ -849,7 +823,6 @@
     btn.disabled = true;
 
     var eventId = 'lead_auto_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-
     function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
 
     gaEvent('generate_lead', { niche: 'assurance_auto', situation: selectedSituation });
@@ -857,7 +830,7 @@
     // Google Sheets
     var data = {
       niche: 'Assurance Auto', situation: selectedSituation,
-      prenom: prenom, nom: nom, telephone: telephone, email: email, codePostal: cp,
+      nom: nom, telephone: telephone, codePostal: cp,
       utm: window.location.search, ua: navigator.userAgent.substring(0,120)
     };
     if (GOOGLE_SCRIPT_URL) {
@@ -874,8 +847,7 @@
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         sourceUrl: window.location.href,
-        prenom: prenom, nom: nom, email: email,
-        telephone: telephone, codePostal: cp,
+        nom: nom, telephone: telephone, codePostal: cp,
         activite: 'Assurance Auto — ' + selectedSituation,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
@@ -883,14 +855,11 @@
 
     sessionStorage.setItem('leadEventId', eventId);
 
-    // Show success
     setTimeout(function(){
       document.getElementById('auto-step2').classList.remove('active');
       document.getElementById('auto-success').classList.add('show');
       document.getElementById('dot2').classList.remove('active');
       document.getElementById('dot2').classList.add('done');
-
-      // Fire pixel Lead on success
       fbTrack('Lead', {}, { eventID: eventId });
     }, 800);
   }
