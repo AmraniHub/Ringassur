@@ -41,704 +41,555 @@
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       color: #1a1a2e;
-      background: #f5f8ff;
+      background: #f2f4f8;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
     :root {
-      --blue:       #003d82;
-      --blue-mid:   #0057cc;
-      --blue-light: #e8f1ff;
-      --blue-bg:    #f0f5ff;
-      --orange:     #f8aa36;
-      --orange-hover: #e69a20;
-      --white:      #ffffff;
-      --gray:       #64748b;
-      --border:     #cbd5e1;
-      --text:       #1a1a2e;
+      --blue:     #003d82;
+      --blue2:    #0057cc;
+      --blue3:    #e8f1ff;
+      --orange:   #f8aa36;
+      --white:    #ffffff;
+      --gray:     #64748b;
+      --border:   #d1d9e6;
+      --text:     #1a1a2e;
     }
 
-    /* ── HEADER ───────────────────────────────────── */
-    .header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: var(--white);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      height: 60px;
-      display: flex; align-items: center;
-      padding: 0 1.5rem;
-      justify-content: space-between;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-    .logo-text { font-size: 1.45rem; font-weight: 800; color: var(--blue); letter-spacing: -0.03em; }
-    .logo-text span { color: var(--orange); }
-    .header-badge {
-      background: linear-gradient(135deg, #003d82, #0057cc);
+    /* ── PAGE WRAPPER ──────────────────────── */
+    .page { max-width: 980px; margin: 0 auto; background: #fff; box-shadow: 0 4px 40px rgba(0,0,0,0.10); }
+
+    /* ── TOP BAR ───────────────────────────── */
+    .topbar {
+      background: var(--blue);
       color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 0.35rem 0.75rem;
-      border-radius: 20px;
-      letter-spacing: 0.02em;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      letter-spacing: 0.03em;
     }
-    .header-badge span { color: var(--orange); }
+    .topbar span { color: var(--orange); }
 
-    /* ── HERO ─────────────────────────────────────── */
+    /* ── HEADER ────────────────────────────── */
+    .header {
+      background: #fff;
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8edf5;
+    }
+    .logo-block { display: flex; align-items: center; gap: 0.7rem; }
+    .logo-shield {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-shield svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; }
+    .logo-text-wrap { display: flex; flex-direction: column; }
+    .logo-name { font-size: 1.5rem; font-weight: 900; color: var(--blue); letter-spacing: -0.03em; line-height: 1; }
+    .logo-name span { color: var(--orange); }
+    .logo-sub { font-size: 0.65rem; font-weight: 600; color: var(--gray); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; }
+    .savings-badge {
+      background: #fff;
+      border: 2px solid var(--blue2);
+      border-radius: 12px;
+      padding: 0.7rem 1.2rem;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,87,204,0.12);
+    }
+    .savings-badge .until { font-size: 0.72rem; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; display: block; }
+    .savings-badge .amount { font-size: 2.2rem; font-weight: 900; color: var(--blue2); line-height: 1; display: block; }
+    .savings-badge .label { font-size: 0.72rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em; display: block; }
+
+    /* ── HERO ──────────────────────────────── */
     .hero {
-      margin-top: 60px;
-      background: linear-gradient(135deg, #001f4d 0%, #003d82 50%, #0057cc 100%);
-      position: relative;
-      overflow: hidden;
-      padding: 3rem 1.5rem 0;
-      min-height: 480px;
+      background: #fff;
+      padding: 2rem 2rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.9rem;
+    }
+    .hero-text h1 .hl { color: var(--blue2); }
+    .hero-text .sub {
+      font-size: 0.95rem;
+      color: #444;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .hero-text .sub strong { color: var(--blue2); font-weight: 700; }
+    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .benefits-list li {
       display: flex;
       align-items: flex-start;
+      gap: 0.8rem;
     }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Cellipse cx='600' cy='200' rx='400' ry='300' fill='rgba(255,255,255,0.03)'/%3E%3Cellipse cx='100' cy='350' rx='200' ry='150' fill='rgba(255,255,255,0.02)'/%3E%3C/svg%3E") no-repeat center/cover;
-    }
-    .hero-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2.5rem; align-items: start;
-      position: relative; z-index: 1; width: 100%;
-    }
-    .hero-left { padding-bottom: 3rem; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff; font-size: 0.78rem; font-weight: 600;
-      padding: 0.4rem 0.9rem; border-radius: 20px;
-      margin-bottom: 1.2rem; backdrop-filter: blur(4px);
-    }
-    .hero-tag svg { flex-shrink: 0; }
-    .hero-savings {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--orange);
-      color: #fff; font-weight: 800; font-size: 0.85rem;
-      padding: 0.45rem 1rem; border-radius: 6px;
-      margin-bottom: 1.2rem; margin-left: 0.5rem;
-    }
-    .hero-h1 {
-      font-size: 2.4rem; font-weight: 900; color: #fff;
-      line-height: 1.1; margin-bottom: 1rem;
-      letter-spacing: -0.03em;
-    }
-    .hero-h1 span { color: var(--orange); }
-    .hero-sub { color: rgba(255,255,255,0.82); font-size: 1rem; margin-bottom: 1.8rem; max-width: 480px; }
-    .hero-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-    .hero-bullets li {
-      display: flex; align-items: center; gap: 0.6rem;
-      color: rgba(255,255,255,0.9); font-size: 0.9rem;
-    }
-    .bullet-dot {
-      width: 28px; height: 28px; flex-shrink: 0;
-      background: rgba(248,170,54,0.15);
-      border: 1.5px solid var(--orange);
+    .ben-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
     }
-    .bullet-dot svg { width: 14px; height: 14px; stroke: var(--orange); }
+    .ben-icon svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2; }
+    .ben-text { display: flex; flex-direction: column; }
+    .ben-title { font-size: 0.82rem; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.03em; }
+    .ben-desc { font-size: 0.75rem; color: var(--gray); margin-top: 1px; }
 
-    /* ── FORM CARD ────────────────────────────────── */
-    .form-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    /* Car image */
+    .hero-car {
+      position: relative;
       overflow: hidden;
-      margin-bottom: -2rem;
+      border-radius: 16px;
     }
-    .form-card-head {
-      background: linear-gradient(135deg, #003d82, #0057cc);
-      padding: 1.4rem 1.5rem;
-      text-align: center;
+    .hero-car img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      object-fit: cover;
     }
-    .form-card-head h2 {
-      color: #fff; font-size: 1.15rem; font-weight: 800;
-      letter-spacing: -0.01em;
-    }
-    .form-card-head h2 span { color: var(--orange); }
-    .form-card-head p { color: rgba(255,255,255,0.75); font-size: 0.8rem; margin-top: 0.3rem; }
-    .form-card-body { padding: 1.5rem; }
 
-    /* ── STEPS ────────────────────────────────────── */
-    .form-step { display: none; }
-    .form-step.active { display: block; }
-
-    /* Step progress dots */
-    .step-dots {
-      display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.2rem;
+    /* ── BLUE BANNER ───────────────────────── */
+    .blue-banner {
+      background: linear-gradient(90deg, #002a6e 0%, var(--blue2) 100%);
+      padding: 1.1rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
-    .step-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #e2e8f0; transition: background 0.3s, transform 0.3s;
-    }
-    .step-dot.active { background: var(--blue-mid); transform: scale(1.3); }
-    .step-dot.done { background: var(--orange); }
-
-    /* ── SITUATION CARDS ──────────────────────────── */
-    .situation-label {
-      font-size: 0.85rem; font-weight: 700; color: var(--blue);
-      text-align: center; margin-bottom: 0.9rem; letter-spacing: 0.03em;
-      text-transform: uppercase;
-    }
-    .situation-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0.65rem; margin-bottom: 1.2rem;
-    }
-    .sit-card {
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 0.9rem 0.6rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    .sit-card:hover { border-color: var(--blue-mid); background: var(--blue-light); }
-    .sit-card.selected { border-color: var(--blue-mid); background: var(--blue-light); }
-    .sit-card.selected .sit-icon { background: var(--blue-mid); }
-    .sit-card.selected .sit-icon svg { stroke: #fff; }
-    .sit-icon {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: var(--blue-bg);
+    .blue-banner .ban-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 0.5rem;
-      transition: background 0.2s;
+      border: 2px solid rgba(255,255,255,0.3);
     }
-    .sit-icon svg { width: 22px; height: 22px; stroke: var(--blue-mid); fill: none; stroke-width: 2; }
-    .sit-name { font-size: 0.78rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-    .sit-desc { font-size: 0.68rem; color: var(--gray); margin-top: 0.15rem; }
+    .blue-banner .ban-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; }
+    .blue-banner .ban-content { flex: 1; }
+    .blue-banner .ban-title { font-size: 1rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; }
+    .blue-banner .ban-sub { font-size: 0.78rem; color: rgba(255,255,255,0.78); margin-top: 1px; }
 
-    /* ── CONTACT FORM ─────────────────────────────── */
-    .contact-fields { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+    /* ── FORM SECTION ──────────────────────── */
+    .form-section {
+      background: #f7f9ff;
+      padding: 2rem;
+      border-top: 1px solid #e0e8f5;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Left: form */
+    .form-left h2 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      line-height: 1.2;
+    }
+    .form-left h2 span { color: var(--blue2); }
+    .fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem; }
     .field-group { display: flex; flex-direction: column; gap: 0.3rem; }
-    .field-group label { font-size: 0.75rem; font-weight: 600; color: var(--gray); }
+    .field-group label { font-size: 0.72rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em; }
     .field-group input {
-      padding: 0.65rem 0.9rem;
+      padding: 0.7rem 0.85rem;
       border: 1.5px solid var(--border);
       border-radius: 8px;
       font-size: 1rem;
       font-family: inherit;
       color: var(--text);
+      background: #fff;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
       min-height: 44px;
       -webkit-tap-highlight-color: transparent;
     }
-    .field-group input:focus { border-color: var(--blue-mid); }
+    .field-group input:focus { border-color: var(--blue2); box-shadow: 0 0 0 3px rgba(0,87,204,0.1); }
     .field-group input.err { border-color: #e53935; }
     .field-err { font-size: 0.7rem; color: #e53935; display: none; }
     .field-err.show { display: block; }
+    .field-full { margin-bottom: 0.85rem; }
 
-    /* ── CHECKBOX ─────────────────────────────────── */
     .consent-row {
       display: flex; align-items: flex-start; gap: 0.6rem;
-      margin-bottom: 1rem; cursor: pointer;
+      margin-bottom: 1.1rem; cursor: pointer;
     }
     .consent-row input[type=checkbox] {
       width: 18px; height: 18px; flex-shrink: 0;
-      accent-color: var(--blue-mid); margin-top: 2px; cursor: pointer;
+      accent-color: var(--blue2); margin-top: 3px; cursor: pointer;
     }
-    .consent-row span { font-size: 0.75rem; color: var(--gray); line-height: 1.5; }
+    .consent-row span { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
 
-    /* ── BUTTONS ──────────────────────────────────── */
-    .btn-primary {
+    .btn-submit {
       display: block; width: 100%;
-      background: var(--orange);
+      background: linear-gradient(90deg, #003d82, var(--blue2));
       color: #fff; font-size: 1rem; font-weight: 800;
       padding: 0.9rem 1rem;
       border-radius: 8px; border: none;
       cursor: pointer; letter-spacing: 0.02em;
-      transition: background 0.2s, transform 0.1s;
+      text-transform: uppercase;
+      transition: opacity 0.2s, transform 0.1s;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
-    .btn-primary:hover { background: var(--orange-hover); }
-    .btn-primary:active { transform: scale(0.98); }
-    .btn-primary:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
-    .btn-back {
-      background: none; border: none;
-      color: var(--blue-mid); font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; display: inline-flex; align-items: center; gap: 0.3rem;
-      padding: 0; margin-bottom: 1rem;
-      touch-action: manipulation;
-    }
+    .btn-submit:hover { opacity: 0.9; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
     .spinner {
-      display: inline-block; width: 18px; height: 18px;
+      display: inline-block; width: 16px; height: 16px;
       border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff;
       border-radius: 50%; animation: spin 0.7s linear infinite;
       vertical-align: middle; margin-right: 6px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── SECURE NOTE ──────────────────────────────── */
-    .secure-note {
-      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-      font-size: 0.72rem; color: var(--gray); margin-top: 0.75rem;
+    /* Right: situation */
+    .form-right { padding-top: 0.5rem; }
+    .form-right h3 {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.9rem;
     }
-    .secure-note svg { width: 14px; height: 14px; stroke: #22c55e; flex-shrink: 0; }
-
-    /* ── FEATURES STRIP ───────────────────────────── */
-    .features-strip {
+    .situation-list { display: flex; flex-direction: column; gap: 0.55rem; }
+    .sit-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
       background: #fff;
-      padding: 3rem 1.5rem 2.5rem;
-      margin-top: 2rem;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
-    .features-inner { max-width: 1100px; margin: 0 auto; }
-    .features-title {
-      text-align: center;
-      font-size: 1.45rem; font-weight: 800; color: var(--blue);
-      margin-bottom: 2rem; letter-spacing: -0.02em;
-    }
-    .features-title span { color: var(--orange); }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-    @media (min-width: 640px) { .features-grid { grid-template-columns: repeat(4, 1fr); } }
-    .feat-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.7rem; }
-    .feat-icon {
-      width: 60px; height: 60px; border-radius: 50%;
-      background: var(--blue-bg);
+    .sit-row:hover { border-color: var(--blue2); background: var(--blue3); }
+    .sit-row.selected { border-color: var(--blue2); background: var(--blue3); }
+    .sit-row.selected .sit-ico { background: var(--blue2); }
+    .sit-row.selected .sit-ico svg { stroke: #fff; }
+    .sit-ico {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: #e8f1ff;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
     }
-    .feat-icon svg { width: 28px; height: 28px; stroke: var(--blue-mid); fill: none; stroke-width: 1.8; }
-    .feat-title { font-size: 0.85rem; font-weight: 800; color: var(--blue); text-transform: uppercase; }
-    .feat-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+    .sit-ico svg { width: 18px; height: 18px; stroke: var(--blue2); fill: none; stroke-width: 2; }
+    .sit-label { font-size: 0.82rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.02em; }
+    #sit-error-msg { font-size: 0.75rem; color: #e53935; display: none; margin-top: 0.4rem; }
 
-    /* ── WHY SECTION ──────────────────────────────── */
-    .why-section {
-      background: linear-gradient(135deg, #001f4d, #003d82);
-      padding: 3rem 1.5rem;
-    }
-    .why-inner { max-width: 1100px; margin: 0 auto; }
-    .why-title {
-      color: #fff; font-size: 1.4rem; font-weight: 800;
-      text-align: center; margin-bottom: 2rem; letter-spacing: -0.02em;
-    }
-    .why-title span { color: var(--orange); }
-    .why-grid {
-      display: grid; grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-    @media (min-width: 640px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 900px) { .why-grid { grid-template-columns: repeat(4, 1fr); } }
-    .why-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 1.25rem 1rem;
-      display: flex; align-items: flex-start; gap: 0.8rem;
-    }
-    .why-num {
-      width: 34px; height: 34px; flex-shrink: 0;
-      background: var(--orange); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; font-weight: 800; color: #fff;
-    }
-    .why-card h3 { font-size: 0.9rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
-    .why-card p { font-size: 0.78rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
-
-    /* ── REVIEWS ──────────────────────────────────── */
-    .reviews-section { background: #f8faff; padding: 3rem 1.5rem; }
-    .reviews-inner { max-width: 1100px; margin: 0 auto; }
-    .reviews-title {
-      text-align: center; font-size: 1.4rem; font-weight: 800;
-      color: var(--blue); margin-bottom: 2rem;
-    }
-    .reviews-title span { color: var(--orange); }
-    .reviews-grid {
-      display: grid; grid-template-columns: 1fr; gap: 1rem;
-    }
-    @media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
-    .review-card {
-      background: #fff; border-radius: 12px; padding: 1.25rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-    .review-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
-    .review-stars { color: #f8aa36; font-size: 1rem; }
-    .review-date { font-size: 0.75rem; color: var(--gray); }
-    .review-name { font-size: 0.82rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
-    .review-text { font-size: 0.85rem; color: var(--text); line-height: 1.55; }
-
-    /* ── TRUST BAR ────────────────────────────────── */
+    /* ── TRUST BAR ──────────────────────────── */
     .trust-bar {
       background: #fff;
-      padding: 1.5rem;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid #e8edf5;
+      padding: 1.4rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
     }
-    .trust-inner {
-      max-width: 900px; margin: 0 auto;
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 1.5rem 3rem;
-    }
-    .trust-item { display: flex; align-items: center; gap: 0.5rem; }
-    .trust-item svg { width: 22px; height: 22px; stroke: var(--blue-mid); flex-shrink: 0; }
-    .trust-item span { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+    .trust-item { display: flex; align-items: center; gap: 0.55rem; }
+    .trust-item svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .trust-item span { font-size: 0.72rem; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.3; max-width: 100px; }
 
-    /* ── FOOTER ───────────────────────────────────── */
-    footer {
-      background: #1a1a2e; color: #aaa; font-size: 0.75rem;
-      padding: 1.2rem 1.5rem; text-align: center;
+    /* ── FOOTNOTE ──────────────────────────── */
+    .footnote {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #aaa;
+      padding: 0.75rem 2rem 1.2rem;
+      background: #fff;
     }
-    footer a { color: #aaa; text-decoration: none; }
-    footer a:hover { color: #fff; }
-    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 1.5rem; margin-bottom: 0.7rem; }
+    .footnote a { color: #aaa; text-decoration: none; }
+    .footnote a:hover { color: #555; }
 
-    /* ── MODAL ────────────────────────────────────── */
-    #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:200; }
+    /* ── SUCCESS ───────────────────────────── */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .success-box.show { display: block; }
+    .success-circle {
+      width: 70px; height: 70px; border-radius: 50%;
+      background: #dcfce7; margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-circle svg { width: 36px; height: 36px; stroke: #16a34a; stroke-width: 2.5; fill: none; }
+    .success-box h3 { font-size: 1.3rem; font-weight: 800; color: var(--blue); margin-bottom: 0.5rem; }
+    .success-box p { font-size: 0.9rem; color: var(--gray); }
+
+    /* ── MODAL ─────────────────────────────── */
+    #modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200; }
     #modal-box {
       display:none; position:fixed; top:50%; left:50%;
       transform:translate(-50%,-50%); z-index:201;
       background:#fff; border-radius:12px;
       max-width:600px; width:calc(100% - 2rem);
       max-height:80vh; overflow-y:auto;
-      padding:2rem; -webkit-overflow-scrolling:touch;
+      padding:2rem;
     }
 
-    /* ── RESPONSIVE ───────────────────────────────── */
-    @media (max-width: 768px) {
-      .hero { padding: 2rem 1rem 3rem; min-height: auto; }
-      .hero-inner { grid-template-columns: 1fr; gap: 0; }
-      .hero-left { padding-bottom: 1.5rem; }
-      .hero-h1 { font-size: 1.75rem; }
-      .form-card { margin-bottom: 0; }
-      .hero-savings { display: none; }
+    /* ── RESPONSIVE ────────────────────────── */
+    @media (max-width: 720px) {
+      .header { padding: 1rem 1.2rem; }
+      .savings-badge .amount { font-size: 1.6rem; }
+      .hero { grid-template-columns: 1fr; padding: 1.5rem 1.2rem 0; gap: 1rem; }
+      .hero-car { display: none; }
+      .hero-text h1 { font-size: 1.5rem; }
+      .blue-banner { padding: 1rem 1.2rem; }
+      .form-section { padding: 1.5rem 1.2rem; }
+      .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .fields-row { grid-template-columns: 1fr; }
+      .trust-bar { padding: 1.2rem; justify-content: center; gap: 1.2rem; }
+      .trust-item span { max-width: 80px; }
     }
     @media (max-width: 480px) {
-      .header-badge { display: none; }
-      .hero-h1 { font-size: 1.5rem; }
-      .field-row { grid-template-columns: 1fr; }
-      .features-title { font-size: 1.2rem; }
+      .logo-name { font-size: 1.25rem; }
+      .savings-badge { display: none; }
+      .header { padding: 0.9rem 1rem; }
+      .form-left h2 { font-size: 1.1rem; }
     }
-
-    /* ── SUCCESS STATE ────────────────────────────── */
-    .success-state { display: none; text-align: center; padding: 1rem 0; }
-    .success-state.show { display: block; }
-    .success-icon {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: #dcfce7; margin: 0 auto 1rem;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .success-icon svg { width: 34px; height: 34px; stroke: #16a34a; stroke-width: 2.5; fill: none; }
-    .success-state h3 { font-size: 1.15rem; font-weight: 700; color: var(--blue); margin-bottom: 0.5rem; }
-    .success-state p { font-size: 0.85rem; color: var(--gray); }
   </style>
 </head>
 <body>
 
-<!-- ── HEADER ─────────────────────────────────────── -->
-<header class="header">
-  <a href="/" class="logo-wrap">
-    <span class="logo-text">Ring<span>assur</span></span>
-  </a>
-  <div class="header-badge">JUSQU'À <span>350€</span> D'ÉCONOMIES*</div>
-</header>
+<div class="page">
 
-<!-- ── HERO ───────────────────────────────────────── -->
-<section class="hero">
-  <div class="hero-inner">
+  <!-- ── TOP BAR ──────────────────────────────── -->
+  <div class="topbar">Service gratuit &amp; sans engagement — Devis en <span>1 minute</span></div>
 
-    <!-- LEFT: Copy -->
-    <div class="hero-left">
-      <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;margin-bottom:1rem;">
-        <span class="hero-tag">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-          Service 100% Gratuit &amp; Sans engagement
-        </span>
-        <span class="hero-savings">JUSQU'À 350€ D'ÉCONOMIES*</span>
+  <!-- ── HEADER ───────────────────────────────── -->
+  <header class="header">
+    <div class="logo-block">
+      <div class="logo-shield">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
+      <div class="logo-text-wrap">
+        <span class="logo-name">Ring<span>assur</span></span>
+        <span class="logo-sub">L'assurance qui roule avec vous</span>
+      </div>
+    </div>
+    <div class="savings-badge">
+      <span class="until">JUSQU'À</span>
+      <span class="amount">350€</span>
+      <span class="label">D'ÉCONOMIES*<br>POSSIBLES</span>
+    </div>
+  </header>
 
-      <h1 class="hero-h1">
-        Votre assurance auto<br>
-        <span>au meilleur prix</span><br>
-        c'est possible !
+  <!-- ── HERO ─────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>
+        VOTRE ASSURANCE AUTO<br>
+        <span class="hl">AU MEILLEUR PRIX</span><br>
+        C'EST POSSIBLE !
       </h1>
-      <p class="hero-sub">Des offres adaptées à votre profil — malussé, résilié, jeune conducteur. Devis gratuit en 2 minutes.</p>
-
-      <ul class="hero-bullets">
+      <p class="sub">
+        Des offres adaptées à votre profil<br>
+        pour <strong>plus de protection</strong><br>
+        et <strong>plus d'économies</strong>.
+      </p>
+      <ul class="benefits-list">
         <li>
-          <span class="bullet-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          <span><strong>Devis rapide</strong> — réponse en quelques minutes</span>
+          <span class="ben-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </span>
+          <span class="ben-text">
+            <span class="ben-title">DEVIS RAPIDE</span>
+            <span class="ben-desc">en quelques minutes</span>
+          </span>
         </li>
         <li>
-          <span class="bullet-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          <span><strong>Offres personnalisées</strong> selon votre profil conducteur</span>
+          <span class="ben-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <span class="ben-text">
+            <span class="ben-title">OFFRES PERSONNALISÉES</span>
+            <span class="ben-desc">adaptées à vos besoins</span>
+          </span>
         </li>
         <li>
-          <span class="bullet-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          <span><strong>Économisez jusqu'à 350€</strong> sur votre assurance auto</span>
+          <span class="ben-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M8 14s1 2 4 2 4-2 4-2"/></svg>
+          </span>
+          <span class="ben-text">
+            <span class="ben-title">ÉCONOMISEZ JUSQU'À 350€</span>
+            <span class="ben-desc">sur votre assurance auto</span>
+          </span>
         </li>
         <li>
-          <span class="bullet-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
-          <span><strong>Conseillers dédiés</strong> pour vous accompagner</span>
+          <span class="ben-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.09-1.09a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+          </span>
+          <span class="ben-text">
+            <span class="ben-title">CONSEILLERS À VOTRE ÉCOUTE</span>
+            <span class="ben-desc">pour vous accompagner</span>
+          </span>
         </li>
       </ul>
     </div>
 
-    <!-- RIGHT: Form card -->
-    <div class="form-card">
-      <div class="form-card-head">
-        <h2>OBTENEZ VOTRE DEVIS GRATUIT <span>EN 2 MINUTES</span></h2>
-        <p>Un conseiller vous rappelle pour finaliser votre offre</p>
-      </div>
-      <div class="form-card-body">
+    <div class="hero-car">
+      <img
+        src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80"
+        alt="Voiture assurée par Ringassur"
+        loading="eager"
+      >
+    </div>
+  </section>
 
-        <!-- Step dots -->
-        <div class="step-dots">
-          <div class="step-dot active" id="dot1"></div>
-          <div class="step-dot" id="dot2"></div>
-        </div>
+  <!-- ── BLUE BANNER ──────────────────────────── -->
+  <div class="blue-banner">
+    <div class="ban-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <div class="ban-content">
+      <div class="ban-title">PLUS DE PROTECTION, PLUS DE SÉRÉNITÉ</div>
+      <div class="ban-sub">Roulez l'esprit tranquille, on s'occupe de tout.</div>
+    </div>
+  </div>
 
-        <!-- STEP 1: Situation -->
-        <div class="form-step active" id="auto-step1">
-          <p class="situation-label">Votre situation</p>
-          <div class="situation-grid">
+  <!-- ── FORM SECTION ──────────────────────────── -->
+  <section class="form-section">
 
-            <div class="sit-card" data-value="Malussé" onclick="selectSituation(this)">
-              <div class="sit-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              </div>
-              <div class="sit-name">AUTO MALUSSÉ</div>
-              <div class="sit-desc">Coefficient &gt; 1</div>
-            </div>
+    <div id="form-wrap">
+      <div class="form-grid">
 
-            <div class="sit-card" data-value="Résilié" onclick="selectSituation(this)">
-              <div class="sit-icon">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              </div>
-              <div class="sit-name">AUTO RÉSILIÉ</div>
-              <div class="sit-desc">Contrat résilié</div>
-            </div>
+        <!-- LEFT: Form fields -->
+        <div class="form-left">
+          <h2>OBTENEZ VOTRE <span>DEVIS GRATUIT</span><br>EN 1 MINUTE !</h2>
 
-            <div class="sit-card" data-value="Jeune conducteur" onclick="selectSituation(this)">
-              <div class="sit-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </div>
-              <div class="sit-name">JEUNE CONDUCTEUR</div>
-              <div class="sit-desc">Moins de 3 ans</div>
-            </div>
-
-            <div class="sit-card" data-value="VTC" onclick="selectSituation(this)">
-              <div class="sit-icon">
-                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              </div>
-              <div class="sit-name">AUTO VTC</div>
-              <div class="sit-desc">Véhicule pro</div>
-            </div>
-
-          </div>
-          <p id="sit-error" style="color:#e53935;font-size:0.75rem;text-align:center;display:none;margin-bottom:0.75rem;">Veuillez sélectionner votre situation.</p>
-          <button class="btn-primary" onclick="autoStep1Next()">Suivant →</button>
-          <div class="secure-note">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
-            Vos données sont 100% sécurisées
-          </div>
-        </div>
-
-        <!-- STEP 2: Contact -->
-        <div class="form-step" id="auto-step2">
-          <button class="btn-back" onclick="autoGoBack()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-            Retour
-          </button>
-
-          <div id="selected-situation-display" style="background:var(--blue-light);border-radius:8px;padding:0.6rem 0.9rem;margin-bottom:1rem;font-size:0.82rem;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:0.5rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            <span id="sit-display-text"></span>
-          </div>
-
-          <div class="contact-fields">
+          <div class="fields-row">
             <div class="field-group">
-              <label>Nom complet *</label>
-              <input type="text" id="auto-nom" placeholder="Jean Dupont" autocomplete="name" autocapitalize="words">
+              <label for="auto-nom">NOM</label>
+              <input type="text" id="auto-nom" placeholder="Votre nom" autocomplete="name" autocapitalize="words">
               <span class="field-err" id="auto-nom-err">Champ requis.</span>
             </div>
             <div class="field-group">
-              <label>Téléphone *</label>
-              <input type="tel" id="auto-telephone" placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
+              <label for="auto-tel">TÉLÉPHONE</label>
+              <input type="tel" id="auto-tel" placeholder="Votre numéro de téléphone" autocomplete="tel" inputmode="tel">
               <span class="field-err" id="auto-tel-err">Numéro invalide.</span>
             </div>
-            <div class="field-group">
-              <label>Code postal *</label>
-              <input type="text" id="auto-cp" placeholder="75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
-              <span class="field-err" id="auto-cp-err">Code postal invalide.</span>
-            </div>
+          </div>
+
+          <div class="field-full field-group">
+            <label for="auto-cp">CODE POSTAL</label>
+            <input type="text" id="auto-cp" placeholder="Ex : 75001" maxlength="5" inputmode="numeric" autocomplete="postal-code">
+            <span class="field-err" id="auto-cp-err">Code postal invalide.</span>
           </div>
 
           <label class="consent-row">
-            <input type="checkbox" id="auto-consent">
-            <span>J'accepte d'être contacté(e) par un conseiller Ringassur au sujet de ma demande de devis assurance auto.</span>
+            <input type="checkbox" id="auto-consent" checked>
+            <span>J'accepte d'être contacté par un conseiller.</span>
           </label>
 
-          <button class="btn-primary" id="auto-submit-btn" onclick="autoSubmit()">
-            VOIR MON DEVIS GRATUIT →
+          <button class="btn-submit" id="auto-submit-btn" onclick="autoSubmit()">
+            OBTENIR MON DEVIS GRATUIT →
           </button>
-          <p style="font-size:0.7rem;color:var(--gray);text-align:center;margin-top:0.6rem;">
-            Devis gratuit · Sans engagement · Réponse sous 24h
-          </p>
-          <div class="secure-note">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/></svg>
-            Données 100% sécurisées — jamais partagées
+        </div>
+
+        <!-- RIGHT: Situation -->
+        <div class="form-right">
+          <h3>VOTRE SITUATION</h3>
+          <div class="situation-list">
+            <div class="sit-row" data-value="Malussé" onclick="selectSit(this)">
+              <span class="sit-ico">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </span>
+              <span class="sit-label">AUTO MALUSSÉ</span>
+            </div>
+            <div class="sit-row" data-value="Résilié" onclick="selectSit(this)">
+              <span class="sit-ico">
+                <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </span>
+              <span class="sit-label">AUTO RÉSILIÉ</span>
+            </div>
+            <div class="sit-row" data-value="Jeune conducteur" onclick="selectSit(this)">
+              <span class="sit-ico">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <span class="sit-label">AUTO JEUNE CONDUCTEUR</span>
+            </div>
+            <div class="sit-row" data-value="VTC" onclick="selectSit(this)">
+              <span class="sit-ico">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+              </span>
+              <span class="sit-label">AUTO VTC</span>
+            </div>
           </div>
+          <p id="sit-error-msg">Veuillez sélectionner votre situation.</p>
         </div>
 
-        <!-- SUCCESS -->
-        <div class="success-state" id="auto-success">
-          <div class="success-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          </div>
-          <h3>Demande enregistrée !</h3>
-          <p>Un conseiller Ringassur vous contactera dans les <strong>24 heures</strong> pour finaliser votre devis assurance auto.</p>
-        </div>
-
-      </div><!-- /form-card-body -->
-    </div><!-- /form-card -->
-
-  </div><!-- /hero-inner -->
-</section>
-
-<!-- ── FEATURES ────────────────────────────────────── -->
-<section class="features-strip">
-  <div class="features-inner">
-    <h2 class="features-title">On cherche pour vous <span>la meilleure offre</span></h2>
-    <div class="features-grid">
-      <div class="feat-item">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <p class="feat-title">Étude gratuite</p>
-        <p class="feat-desc">Analyse complète de votre profil conducteur</p>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <p class="feat-title">Comparaison</p>
-        <p class="feat-desc">Les meilleures offres des assureurs partenaires</p>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-        </div>
-        <p class="feat-title">Meilleure offre</p>
-        <p class="feat-desc">Trouvée pour vous selon votre profil exact</p>
-      </div>
-      <div class="feat-item">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-        </div>
-        <p class="feat-title">Économies garanties</p>
-        <p class="feat-desc">Jusqu'à 350€ d'économies possibles*</p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ── WHY ─────────────────────────────────────────── -->
-<section class="why-section">
-  <div class="why-inner">
-    <h2 class="why-title">Pourquoi choisir <span>Ringassur</span> pour votre assurance auto ?</h2>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">1</div>
-        <div>
-          <h3>Experts malussé &amp; résilié</h3>
-          <p>Nos conseillers sont spécialisés dans les profils difficiles à assurer. On trouve toujours une solution.</p>
-        </div>
+    <!-- SUCCESS -->
+    <div class="success-box" id="auto-success">
+      <div class="success-circle">
+        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
-      <div class="why-card">
-        <div class="why-num">2</div>
-        <div>
-          <h3>Réseau d'assureurs partenaires</h3>
-          <p>Nous comparons pour vous les offres de plusieurs assureurs pour vous obtenir le meilleur tarif.</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">3</div>
-        <div>
-          <h3>Devis en 24h</h3>
-          <p>Après votre demande, un conseiller vous rappelle rapidement avec une proposition personnalisée.</p>
-        </div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">4</div>
-        <div>
-          <h3>100% gratuit &amp; sans engagement</h3>
-          <p>Notre service de mise en relation est entièrement gratuit. Vous n'êtes jamais obligé de souscrire.</p>
-        </div>
-      </div>
+      <h3>Demande enregistrée !</h3>
+      <p>Un conseiller Ringassur vous contactera dans les <strong>24 heures</strong><br>pour finaliser votre devis assurance auto.</p>
     </div>
-  </div>
-</section>
 
-<!-- ── REVIEWS ─────────────────────────────────────── -->
-<section class="reviews-section">
-  <div class="reviews-inner">
-    <h2 class="reviews-title">Derniers avis de nos <span>assurés auto</span></h2>
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">03/04/2026</span></div>
-        <p class="review-name">Karim B. — Malussé</p>
-        <p class="review-text">J'avais un coefficient de 1.5 et personne ne voulait m'assurer. Ringassur m'a trouvé une offre en moins de 48h. Très satisfait !</p>
-      </div>
-      <div class="review-card">
-        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">18/03/2026</span></div>
-        <p class="review-name">Sophie M. — Résiliée</p>
-        <p class="review-text">Mon ancien assureur m'avait résiliée suite à un sinistre. Grâce à Ringassur j'ai retrouvé une assurance à un prix raisonnable.</p>
-      </div>
-      <div class="review-card">
-        <div class="review-top"><span class="review-stars">★★★★★</span><span class="review-date">07/02/2026</span></div>
-        <p class="review-name">Lucas T. — Jeune conducteur</p>
-        <p class="review-text">En tant que jeune conducteur les tarifs sont fous. Ringassur m'a économisé plus de 300€ par rapport à ce que je payais avant.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- ── TRUST BAR ───────────────────────────────────── -->
-<div class="trust-bar">
-  <div class="trust-inner">
+  <!-- ── TRUST BAR ──────────────────────────────── -->
+  <div class="trust-bar">
     <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Assureur de confiance</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0057cc" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>ASSUREUR DE CONFIANCE</span>
     </div>
     <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span>Plus de 10 ans d'expérience</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0057cc" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <span>PLUS DE 10 ANS D'EXPÉRIENCE</span>
     </div>
     <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-      <span>Données 100% sécurisées</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0057cc" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      <span>DONNÉES 100% SÉCURISÉES</span>
     </div>
     <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-      <span>Des milliers de clients satisfaits</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0057cc" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z"/><path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
+      <span>DES MILLIERS DE CLIENTS SATISFAITS</span>
     </div>
   </div>
-</div>
 
-<!-- ── FOOTER ──────────────────────────────────────── -->
-<footer>
-  <div class="footer-links">
-    <a href="#" onclick="openModal('cgu');return false;">CGU</a>
-    <span style="color:#555">•</span>
-    <a href="#" onclick="openModal('donnees');return false;">Données personnelles</a>
-    <span style="color:#555">•</span>
+  <!-- ── FOOTNOTE ───────────────────────────────── -->
+  <div class="footnote">
+    *Économies possibles selon profil et assureurs partenaires. &nbsp;|&nbsp;
+    <a href="#" onclick="openModal('cgu');return false;">CGU</a> &nbsp;|&nbsp;
+    <a href="#" onclick="openModal('donnees');return false;">Données personnelles</a> &nbsp;|&nbsp;
     <a href="#" onclick="openModal('cookies');return false;">Cookies</a>
-    <span style="color:#555">•</span>
-    <a href="#" onclick="openModal('reclamation');return false;">Réclamation</a>
   </div>
-  <p>© 2026 Ringassur — Service de mise en relation. *Économies possibles selon profil et assureurs partenaires.</p>
-</footer>
 
-<!-- ── MODAL ───────────────────────────────────────── -->
+</div><!-- /page -->
+
+<!-- ── MODAL ──────────────────────────────────── -->
 <div id="modal-overlay" onclick="closeModal()"></div>
 <div id="modal-box">
   <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
@@ -748,73 +599,42 @@
   <div id="modal-body" style="font-size:0.85rem;color:#555;line-height:1.7;"></div>
 </div>
 
-<!-- ── SCRIPTS ─────────────────────────────────────── -->
+<!-- ── SCRIPTS ────────────────────────────────── -->
 <script>
   var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNLQGEOj01TzuoqIEagETI57nTYXxsEb6H9N_Mhfh_gNNCPqzoaf0IGL5Pb-lMZ-Q/exec';
   var selectedSituation = '';
 
-  // ── GA4 helper ───────────────────────────────────
-  function gaEvent(name, params) {
-    if (typeof gtag !== 'undefined') gtag('event', name, params || {});
-  }
-  function fbTrack(event, params, opts) {
-    if (typeof fbq !== 'undefined') fbq('track', event, params || {}, opts || {});
-  }
-  function fbCustom(event, params) {
-    if (typeof fbq !== 'undefined') fbq('trackCustom', event, params || {});
-  }
-
-  // ── Step 1: Select situation ──────────────────────
-  function selectSituation(el) {
-    document.querySelectorAll('.sit-card').forEach(function(c){ c.classList.remove('selected'); });
+  function selectSit(el) {
+    document.querySelectorAll('.sit-row').forEach(function(r){ r.classList.remove('selected'); });
     el.classList.add('selected');
     selectedSituation = el.getAttribute('data-value');
-    document.getElementById('sit-error').style.display = 'none';
+    document.getElementById('sit-error-msg').style.display = 'none';
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'SelectSituation', { situation: selectedSituation, niche: 'assurance_auto' });
+    if (typeof gtag !== 'undefined') gtag('event', 'select_situation', { situation: selectedSituation, niche: 'assurance_auto' });
   }
 
-  function autoStep1Next() {
-    if (!selectedSituation) {
-      document.getElementById('sit-error').style.display = 'block';
-      return;
-    }
-    fbCustom('SelectSituation', { situation: selectedSituation, niche: 'assurance_auto' });
-    gaEvent('select_situation', { situation: selectedSituation, niche: 'assurance_auto' });
-
-    document.getElementById('sit-display-text').textContent = 'Situation : ' + selectedSituation;
-    document.getElementById('auto-step1').classList.remove('active');
-    document.getElementById('auto-step2').classList.add('active');
-    document.getElementById('dot1').classList.remove('active');
-    document.getElementById('dot1').classList.add('done');
-    document.getElementById('dot2').classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function autoGoBack() {
-    document.getElementById('auto-step2').classList.remove('active');
-    document.getElementById('auto-step1').classList.add('active');
-    document.getElementById('dot2').classList.remove('active');
-    document.getElementById('dot1').classList.remove('done');
-    document.getElementById('dot1').classList.add('active');
-  }
-
-  // ── Step 2: Submit ────────────────────────────────
   function autoSubmit() {
-    var nom       = document.getElementById('auto-nom').value.trim();
-    var telephone = document.getElementById('auto-telephone').value.trim();
-    var cp        = document.getElementById('auto-cp').value.trim();
-    var ok = true;
+    var nom = document.getElementById('auto-nom').value.trim();
+    var tel = document.getElementById('auto-tel').value.trim();
+    var cp  = document.getElementById('auto-cp').value.trim();
+    var ok  = true;
 
-    function showErr(id, show) { document.getElementById(id).classList.toggle('show', show); }
-    function markInput(id, isErr) { document.getElementById(id).classList.toggle('err', isErr); }
+    function showErr(id, v) { document.getElementById(id).classList.toggle('show', v); }
+    function markInp(id, v) { document.getElementById(id).classList.toggle('err', v); }
 
-    if (!nom) { showErr('auto-nom-err', true); markInput('auto-nom', true); ok=false; }
-    else { showErr('auto-nom-err', false); markInput('auto-nom', false); }
+    if (!nom) { showErr('auto-nom-err', true); markInp('auto-nom', true); ok = false; }
+    else { showErr('auto-nom-err', false); markInp('auto-nom', false); }
 
-    if (!telephone || telephone.replace(/\D/g,'').length < 9) { showErr('auto-tel-err', true); markInput('auto-telephone', true); ok=false; }
-    else { showErr('auto-tel-err', false); markInput('auto-telephone', false); }
+    if (!tel || tel.replace(/\D/g,'').length < 9) { showErr('auto-tel-err', true); markInp('auto-tel', true); ok = false; }
+    else { showErr('auto-tel-err', false); markInp('auto-tel', false); }
 
-    if (!cp || !/^\d{5}$/.test(cp)) { showErr('auto-cp-err', true); markInput('auto-cp', true); ok=false; }
-    else { showErr('auto-cp-err', false); markInput('auto-cp', false); }
+    if (!cp || !/^\d{5}$/.test(cp)) { showErr('auto-cp-err', true); markInp('auto-cp', true); ok = false; }
+    else { showErr('auto-cp-err', false); markInp('auto-cp', false); }
+
+    if (!selectedSituation) {
+      document.getElementById('sit-error-msg').style.display = 'block';
+      ok = false;
+    }
 
     if (!ok) return;
 
@@ -825,20 +645,18 @@
     var eventId = 'lead_auto_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     function getCk(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
 
-    gaEvent('generate_lead', { niche: 'assurance_auto', situation: selectedSituation });
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'assurance_auto', situation: selectedSituation });
 
     // Google Sheets
     var data = {
       niche: 'Assurance Auto', situation: selectedSituation,
-      nom: nom, telephone: telephone, codePostal: cp,
-      utm: window.location.search, ua: navigator.userAgent.substring(0,120)
+      nom: nom, telephone: tel, codePostal: cp,
+      utm: window.location.search, ua: navigator.userAgent.substring(0, 120)
     };
-    if (GOOGLE_SCRIPT_URL) {
-      var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
-        return encodeURIComponent(k)+'='+encodeURIComponent(data[k]);
-      }).join('&');
-      fetch(url, { method:'GET', mode:'no-cors' }).catch(function(){});
-    }
+    var url = GOOGLE_SCRIPT_URL + '?' + Object.keys(data).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+    }).join('&');
+    fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
 
     // CAPI + Telegram
     fetch('/api/capi', {
@@ -847,7 +665,7 @@
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         sourceUrl: window.location.href,
-        nom: nom, telephone: telephone, codePostal: cp,
+        nom: nom, telephone: tel, codePostal: cp,
         activite: 'Assurance Auto — ' + selectedSituation,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
@@ -856,24 +674,20 @@
     sessionStorage.setItem('leadEventId', eventId);
 
     setTimeout(function(){
-      document.getElementById('auto-step2').classList.remove('active');
+      document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('auto-success').classList.add('show');
-      document.getElementById('dot2').classList.remove('active');
-      document.getElementById('dot2').classList.add('done');
-      fbTrack('Lead', {}, { eventID: eventId });
+      if (typeof fbq !== 'undefined') fbq('track', 'Lead', {}, { eventID: eventId });
     }, 800);
   }
 
-  // ── Modals ────────────────────────────────────────
+  // Modals
   var modalContent = {
     cgu: { title: "Conditions générales d'utilisation",
-      body: "<p>Ringassur est un service de mise en relation entre particuliers et professionnels de l'assurance. L'utilisation du présent site implique l'acceptation des présentes CGU.</p><p style='margin-top:0.8rem'>En soumettant votre demande, vous acceptez d'être contacté par un conseiller Ringassur dans le cadre de votre demande de devis. Vos données ne seront jamais cédées à des tiers à des fins commerciales.</p>" },
+      body: "<p>Ringassur est un service de mise en relation entre particuliers et professionnels de l'assurance. L'utilisation du présent site implique l'acceptation des présentes CGU.</p><p style='margin-top:0.8rem'>En soumettant votre demande, vous acceptez d'être contacté par un conseiller Ringassur. Vos données ne seront jamais cédées à des tiers.</p>" },
     donnees: { title: "Données personnelles",
-      body: "<p>Les données collectées (nom, téléphone, e-mail, code postal) sont utilisées uniquement pour traiter votre demande de devis. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression. Contact : contact@ringassur.fr</p>" },
+      body: "<p>Les données collectées (nom, téléphone, code postal) sont utilisées uniquement pour traiter votre demande de devis. Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression. Contact : contact@ringassur.fr</p>" },
     cookies: { title: "Gestion des cookies",
-      body: "<p>Ce site utilise des cookies analytiques (Google Analytics) et publicitaires (Meta Pixel) pour mesurer l'audience et optimiser nos campagnes. Vous pouvez refuser les cookies non essentiels en nous contactant.</p>" },
-    reclamation: { title: "Faire une réclamation",
-      body: "<p>Pour toute réclamation, contactez-nous par e-mail à <strong>reclamation@ringassur.fr</strong> ou par courrier à l'adresse de notre siège social. Nous nous engageons à répondre dans un délai de 10 jours ouvrés.</p>" }
+      body: "<p>Ce site utilise des cookies analytiques (Google Analytics) et publicitaires (Meta Pixel) pour mesurer l'audience et optimiser nos campagnes.</p>" }
   };
   function openModal(key) {
     var c = modalContent[key]; if (!c) return;
