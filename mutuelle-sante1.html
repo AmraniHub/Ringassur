@@ -207,6 +207,47 @@
     .success-box p { font-size: 0.9rem; color: #64748b; line-height: 1.7; }
     .success-box strong { color: #059669; }
 
+    /* ── SELECT ─────────────────────────────── */
+    .field-sel-wrap { position:relative; }
+    .field-sel-wrap::after { content:'▾'; position:absolute; right:1rem; top:50%; transform:translateY(-50%); pointer-events:none; color:#059669; font-size:0.9rem; }
+    .field select {
+      width:100%; padding:0.85rem 2.5rem 0.85rem 1rem;
+      border:2px solid #e2e8f0; border-radius:12px;
+      font-size:1rem; font-family:inherit; color:#0f172a;
+      outline:none; background:#f8fafc;
+      transition:border-color 0.2s; appearance:none; -webkit-appearance:none; cursor:pointer;
+    }
+    .field select:focus { border-color:#059669; box-shadow:0 0 0 3px rgba(5,150,105,0.12); }
+    .field select.err { border-color:#ef4444; }
+
+    /* ── MICROCOPY ──────────────────────────── */
+    .btn-micro { text-align:center; font-size:0.71rem; color:#64748b; margin-top:0.55rem; line-height:1.5; }
+
+    /* ── HOW IT WORKS (inside card) ─────────── */
+    .section-block { margin-top:1.6rem; padding-top:1.4rem; border-top:1px solid #e2e8f0; }
+    .section-title { font-size:0.75rem; font-weight:800; color:#0f172a; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.9rem; }
+    .how-steps { display:flex; flex-direction:column; gap:0.75rem; }
+    .how-step { display:flex; gap:0.8rem; align-items:flex-start; }
+    .how-num { width:28px; height:28px; flex-shrink:0; border-radius:50%; background:linear-gradient(135deg,#059669,#0891b2); color:#fff; font-size:0.78rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .how-step-text .t1 { font-size:0.84rem; font-weight:700; color:#0f172a; }
+    .how-step-text .t2 { font-size:0.74rem; color:#64748b; }
+    .testi-stars { color:#f59e0b; font-size:0.82rem; letter-spacing:1px; }
+    .testi-rating-txt { font-size:0.73rem; color:#64748b; margin-left:0.3rem; }
+    .testi-card { background:#f0fdf4; border-radius:10px; padding:0.9rem; margin-top:0.7rem; }
+    .testi-text { font-size:0.81rem; color:#065f46; line-height:1.6; font-style:italic; margin-bottom:0.4rem; }
+    .testi-author { font-size:0.71rem; font-weight:700; color:#0f172a; }
+    .faq-item { border-bottom:1px solid #e2e8f0; }
+    .faq-q { font-size:0.82rem; font-weight:700; color:#0f172a; cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:0.7rem 0; gap:0.5rem; }
+    .faq-arrow { font-size:0.6rem; flex-shrink:0; transition:transform 0.2s; }
+    .faq-arrow.open { transform:rotate(180deg); }
+    .faq-a { font-size:0.78rem; color:#64748b; line-height:1.6; padding:0 0 0.7rem; display:none; }
+    .faq-a.open { display:block; }
+
+    /* ── TRUST BAR (headline) ───────────────── */
+    .trust-bar { display:flex; flex-wrap:wrap; gap:0.3rem 0.6rem; margin-top:0.7rem; justify-content:center; }
+    .trust-bar-item { font-size:0.73rem; font-weight:700; color:rgba(255,255,255,0.9); }
+    .trust-bar-sep { color:rgba(255,255,255,0.4); font-size:0.7rem; }
+
     @media (max-width: 480px) {
       .headline h1 { font-size: 2.1rem; }
       .wrapper { padding: 1.5rem 1rem; }
@@ -228,8 +269,15 @@
 
   <!-- HEADLINE -->
   <div class="headline">
-    <h1>Votre santé mérite<br><em>le meilleur</em></h1>
-    <p>Comparez les meilleures mutuelles senior<br>et trouvez la couverture adaptée à vos besoins.</p>
+    <h1>Vous payez trop cher<br><em>votre mutuelle actuelle</em></h1>
+    <p>Comparez et économisez jusqu'à 480€/an en 2 minutes.<br>Sans engagement, 100% gratuit.</p>
+    <div class="trust-bar">
+      <span class="trust-bar-item">&#11088; 4.8/5 · +500 avis</span>
+      <span class="trust-bar-sep">·</span>
+      <span class="trust-bar-item">&#10003; Sans engagement</span>
+      <span class="trust-bar-sep">·</span>
+      <span class="trust-bar-item">&#10003; Rappel sous 15 min</span>
+    </div>
   </div>
 
   <!-- CARD -->
@@ -240,8 +288,8 @@
           <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
         <div class="card-title">
-          <div class="t1">Demande gratuite</div>
-          <div class="t2">Votre devis en 1 minute</div>
+          <div class="t1">Simulation gratuite</div>
+          <div class="t2">Votre devis en 2 minutes</div>
         </div>
       </div>
 
@@ -257,6 +305,36 @@
         <div class="field-err" id="ms1-tel-err">Numéro invalide.</div>
       </div>
 
+      <!-- AGE -->
+      <div class="field">
+        <label for="ms1-age">Votre tranche d'âge</label>
+        <div class="field-sel-wrap">
+          <select id="ms1-age">
+            <option value="">— Sélectionnez —</option>
+            <option value="18-35">18 – 35 ans</option>
+            <option value="36-55">36 – 55 ans</option>
+            <option value="55-65">55 – 65 ans</option>
+            <option value="65+">65 ans et plus</option>
+          </select>
+        </div>
+        <div class="field-err" id="ms1-age-err">Veuillez sélectionner votre tranche d'âge.</div>
+      </div>
+
+      <!-- SITUATION -->
+      <div class="field">
+        <label for="ms1-situation">Votre situation actuelle</label>
+        <div class="field-sel-wrap">
+          <select id="ms1-situation">
+            <option value="">— Sélectionnez —</option>
+            <option value="Sans mutuelle">Je n'ai pas de mutuelle</option>
+            <option value="Trop chere">Ma mutuelle est trop chère</option>
+            <option value="Veut changer">Je veux changer de mutuelle</option>
+            <option value="Salarie">Salarié cherche individuelle</option>
+          </select>
+        </div>
+        <div class="field-err" id="ms1-situation-err">Veuillez sélectionner votre situation.</div>
+      </div>
+
       <div class="consent-wrap">
         <div class="consent-row" onclick="toggleConsent()">
           <div class="consent-box" id="ms1-check">
@@ -268,8 +346,9 @@
       </div>
 
       <button type="button" class="btn-cta" id="ms1-btn" onclick="ms1Submit()">
-        🛡️ &nbsp;Obtenir mon devis gratuit maintenant
+        Comparer mes offres — Gratuit &#10022;
       </button>
+      <p class="btn-micro">Un expert vous rappelle sous 15 min &nbsp;·&nbsp; Sans engagement &nbsp;·&nbsp; 100% gratuit</p>
     </div>
 
     <!-- SUCCESS -->
@@ -278,29 +357,33 @@
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
       <h3>Demande envoyée !</h3>
-      <p>Un conseiller vous contactera dans les <strong>24 heures</strong> avec votre devis mutuelle santé senior personnalisé.</p>
-    </div>
-  </div>
-
-  <!-- TRUST -->
-  <div class="trust-strip">
-    <div class="trust-item">
-      <div class="trust-ico">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      <p>Un conseiller vous rappelle dans les <strong>15 minutes</strong> pour finaliser votre simulation et vous faire économiser.</p>
+      <!-- HOW IT WORKS -->
+      <div class="section-block">
+        <div class="section-title">Comment ça marche ?</div>
+        <div class="how-steps">
+          <div class="how-step"><div class="how-num">1</div><div class="how-step-text"><div class="t1">Remplissez le formulaire</div><div class="t2">2 minutes, depuis votre mobile</div></div></div>
+          <div class="how-step"><div class="how-num">2</div><div class="how-step-text"><div class="t1">Un conseiller vous rappelle</div><div class="t2">Sous 15 minutes, du lundi au vendredi</div></div></div>
+          <div class="how-step"><div class="how-num">3</div><div class="how-step-text"><div class="t1">Économisez jusqu'à 480€/an</div><div class="t2">Comparez et choisissez la meilleure offre</div></div></div>
+        </div>
       </div>
-      <div class="trust-label">Garantie<br>adaptée</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-ico">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+      <!-- TESTIMONIAL -->
+      <div class="section-block">
+        <div class="section-title">Ce que disent nos clients</div>
+        <div><span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="testi-rating-txt">4.8/5 · +500 avis vérifiés</span></div>
+        <div class="testi-card">
+          <div class="testi-text">« Ma mutuelle coûtait 185€/mois. Après Ringassur, je paie 112€. Le conseiller a tout géré en 20 minutes. »</div>
+          <div class="testi-author">Robert, 71 ans — Lyon <!-- TODO: remplacer par un vrai avis client --></div>
+        </div>
       </div>
-      <div class="trust-label">Conseiller<br>dédié</div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-ico">
-        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      <!-- FAQ -->
+      <div class="section-block">
+        <div class="section-title">Questions fréquentes</div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Y a-t-il un engagement ? <span class="faq-arrow">&#9660;</span></div><div class="faq-a">Non. Devis gratuit, sans aucun engagement de votre part.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Le service est-il gratuit ? <span class="faq-arrow">&#9660;</span></div><div class="faq-a">Oui, 100% gratuit. Aucun frais cachés.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Que faites-vous de mes données ? <span class="faq-arrow">&#9660;</span></div><div class="faq-a">Conformité RGPD garantie. Jamais revendues.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Combien de temps ça prend ? <span class="faq-arrow">&#9660;</span></div><div class="faq-a">2 minutes pour le formulaire. Rappel sous 15 minutes.</div></div>
       </div>
-      <div class="trust-label">Solutions<br>simples</div>
     </div>
   </div>
 
@@ -317,20 +400,29 @@
     else el.classList.remove('checked');
   }
 
+  function toggleFaq(el) {
+    var arrow = el.querySelector('.faq-arrow'); var answer = el.nextElementSibling; var isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(a){ a.classList.remove('open'); });
+    document.querySelectorAll('.faq-arrow').forEach(function(a){ a.classList.remove('open'); });
+    if (!isOpen) { answer.classList.add('open'); arrow.classList.add('open'); }
+  }
+
   function ms1Submit() {
     var nomEl = document.getElementById('ms1-nom');
     var telEl = document.getElementById('ms1-tel');
-    var nom = nomEl.value.trim();
-    var tel = telEl.value.trim();
+    var ageEl = document.getElementById('ms1-age');
+    var sitEl = document.getElementById('ms1-situation');
+    var nom = nomEl.value.trim(); var tel = telEl.value.trim();
+    var age = ageEl.value; var sit = sitEl.value;
     var ok = true;
 
-    document.getElementById('ms1-nom-err').style.display = 'none';
-    document.getElementById('ms1-tel-err').style.display = 'none';
-    document.getElementById('ms1-consent-err').style.display = 'none';
-    nomEl.classList.remove('err'); telEl.classList.remove('err');
+    ['ms1-nom-err','ms1-tel-err','ms1-age-err','ms1-situation-err','ms1-consent-err'].forEach(function(id){ document.getElementById(id).style.display = 'none'; });
+    nomEl.classList.remove('err'); telEl.classList.remove('err'); ageEl.classList.remove('err'); sitEl.classList.remove('err');
 
     if (!nom) { document.getElementById('ms1-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
     if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms1-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!age) { document.getElementById('ms1-age-err').style.display = 'block'; ageEl.classList.add('err'); ok = false; }
+    if (!sit) { document.getElementById('ms1-situation-err').style.display = 'block'; sitEl.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms1-consent-err').style.display = 'block'; ok = false; }
     if (!ok) return;
 
@@ -346,6 +438,8 @@
     fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante%201'
       + '&nom=' + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
+      + '&age=' + encodeURIComponent(age)
+      + '&situation=' + encodeURIComponent(sit)
       + '&consent=Oui'
       + '&utm=' + encodeURIComponent(window.location.search)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120)),

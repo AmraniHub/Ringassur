@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mutuelle Santé Senior — Consultation Gratuite | Ringassur</title>
+  <title>Mutuelle Santé Senior — Simulation Gratuite | Ringassur</title>
   <link rel="icon" type="image/png" href="/favicon.png">
 
   <!-- GA4 -->
@@ -44,6 +44,18 @@
     }
 
     .page { max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ── TRUST BAR ──────────────────────────── */
+    .trust-bar {
+      background: #c2410c;
+      color: #fff;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.55rem 1rem;
+      letter-spacing: 0.04em;
+    }
+    .trust-bar span { color: #fed7aa; margin: 0 0.4rem; }
 
     /* ── GRADIENT HEADER ────────────────────── */
     .header {
@@ -86,8 +98,8 @@
     }
     .header h1 em { font-style: normal; color: #fed7aa; }
     .header-sub {
-      font-size: 0.85rem; color: rgba(255,255,255,0.85);
-      margin-top: 0.7rem; line-height: 1.55; max-width: 60%;
+      font-size: 0.85rem; color: rgba(255,255,255,0.9);
+      margin-top: 0.7rem; line-height: 1.55; max-width: 65%;
     }
 
     /* Pills */
@@ -138,6 +150,29 @@
     .field-group input.err { border-color: #ef4444; }
     .field-err { font-size: 0.72rem; color: #ef4444; margin-top: 0.3rem; display: none; }
 
+    /* Select dropdowns */
+    .field-select-wrap { position: relative; }
+    .field-select {
+      width: 100%; padding: 0.9rem 2.4rem 0.9rem 1rem;
+      border: 2px solid #fed7aa; border-radius: 12px;
+      font-size: 1rem; font-family: inherit; color: #1c1917;
+      background: #fff7ed; outline: none; appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-select:focus { border-color: #ea580c; box-shadow: 0 0 0 3px rgba(234,88,12,0.1); }
+    .field-select.err { border-color: #ef4444; }
+    .field-select-wrap::after {
+      content: '▾'; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      color: #ea580c; font-size: 0.85rem; pointer-events: none;
+    }
+    .field-select-label {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 700; color: #1c1917; margin-bottom: 0.42rem;
+    }
+    .field-select-label svg { width: 15px; height: 15px; stroke: #ea580c; fill: none; stroke-width: 2; }
+
     /* Separator */
     .sep { height: 1px; background: #fed7aa; margin: 0.4rem 0 1.2rem; }
 
@@ -163,7 +198,7 @@
     .btn-cta {
       display: block; width: 100%; padding: 1.1rem;
       background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
-      color: #fff; font-size: 1rem; font-weight: 800; font-style: italic;
+      color: #fff; font-size: 1rem; font-weight: 800;
       border-radius: 14px; border: none; cursor: pointer;
       text-align: center; letter-spacing: 0.02em;
       box-shadow: 0 8px 28px rgba(234,88,12,0.4);
@@ -176,16 +211,51 @@
     .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Trust */
-    .trust-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem; margin-top: 1.6rem;
-      padding-top: 1.4rem; border-top: 1px solid #fed7aa;
+    /* Microcopy */
+    .btn-micro {
+      text-align: center; font-size: 0.7rem; color: #78716c;
+      margin-top: 0.55rem; line-height: 1.5;
     }
-    .trust-cell { text-align: center; }
-    .trust-emoji { font-size: 1.5rem; margin-bottom: 0.3rem; }
-    .trust-t { font-size: 0.68rem; font-weight: 800; color: #c2410c; line-height: 1.3; }
-    .trust-s { font-size: 0.6rem; color: #78716c; }
+    .btn-micro span { color: #ea580c; font-weight: 700; }
+
+    /* ── HOW IT WORKS ───────────────────────── */
+    .section-block { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid #fed7aa; }
+    .section-block h3 { font-size: 1rem; font-weight: 800; color: #1c1917; margin-bottom: 1.1rem; text-align: center; }
+    .how-steps { display: flex; flex-direction: column; gap: 0.9rem; }
+    .how-step { display: flex; align-items: flex-start; gap: 0.85rem; }
+    .how-num {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, #c2410c, #ea580c); color: #fff;
+      font-size: 0.82rem; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .how-step-text strong { display: block; font-size: 0.88rem; font-weight: 700; color: #1c1917; }
+    .how-step-text span { font-size: 0.78rem; color: #78716c; }
+
+    /* ── TESTIMONIAL ────────────────────────── */
+    .testi-block {
+      margin-top: 1.6rem; padding: 1.2rem;
+      background: #fff7ed; border-radius: 14px;
+      border-left: 4px solid #ea580c;
+    }
+    .testi-stars { color: #ea580c; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .testi-text { font-size: 0.85rem; color: #44403c; line-height: 1.6; font-style: italic; }
+    .testi-author { margin-top: 0.7rem; font-size: 0.76rem; font-weight: 700; color: #c2410c; }
+    .testi-savings { display: inline-block; margin-top: 0.4rem; background: #ffedd5; color: #c2410c; font-size: 0.72rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 50px; }
+
+    /* ── FAQ ────────────────────────────────── */
+    .faq-block { margin-top: 1.6rem; }
+    .faq-block h3 { font-size: 1rem; font-weight: 800; color: #1c1917; margin-bottom: 0.9rem; text-align: center; }
+    .faq-item { border-bottom: 1px solid #fed7aa; }
+    .faq-q {
+      width: 100%; text-align: left; background: none; border: none;
+      padding: 0.85rem 0; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.84rem; font-weight: 700; color: #1c1917; font-family: inherit;
+    }
+    .faq-q .faq-icon { font-size: 1rem; color: #ea580c; flex-shrink: 0; margin-left: 0.5rem; }
+    .faq-a { font-size: 0.8rem; color: #57534e; line-height: 1.65; padding: 0 0 0.85rem; display: none; }
+    .faq-a.open { display: block; }
 
     /* Success */
     .success-box { display: none; text-align: center; padding: 2.5rem 0 1rem; }
@@ -207,6 +277,9 @@
 
 <div class="page">
 
+  <!-- TRUST BAR -->
+  <div class="trust-bar">⭐ 4.8/5<span>·</span>+500 avis<span>·</span>✓ Sans engagement<span>·</span>✓ Rappel sous 15 min <!-- TODO: remplacer par vrais chiffres --></div>
+
   <!-- HEADER -->
   <div class="header">
     <img
@@ -224,12 +297,12 @@
           <span>Senior</span>
         </div>
       </div>
-      <h1>La santé,<br>ça <em>n'attend pas</em></h1>
-      <p class="header-sub">Obtenez votre devis gratuit et bénéficiez d'une couverture santé adaptée à votre âge.</p>
+      <h1>Mutuelle trop chère ?<br><em>Changez maintenant</em></h1>
+      <p class="header-sub">Comparez et économisez jusqu'à 480€/an — sans changer de médecin.</p>
       <div class="pills">
-        <span class="pill">✓ Devis gratuit</span>
+        <span class="pill">✓ Simulation gratuite</span>
         <span class="pill">✓ Sans engagement</span>
-        <span class="pill">✓ Réponse &lt; 24h</span>
+        <span class="pill">✓ Rappel &lt; 15 min</span>
       </div>
     </div>
   </div>
@@ -240,7 +313,7 @@
 
       <div class="form-eyebrow">
         <div class="form-eyebrow-line"></div>
-        <div class="form-eyebrow-text">Demande de devis</div>
+        <div class="form-eyebrow-text">Simulation gratuite — 2 minutes</div>
         <div class="form-eyebrow-line" style="background: linear-gradient(to left, #fb923c, transparent);"></div>
       </div>
 
@@ -262,37 +335,124 @@
         <div class="field-err" id="ms3-tel-err">Numéro invalide.</div>
       </div>
 
+      <div class="field-group">
+        <div class="field-select-label">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Votre tranche d'âge
+        </div>
+        <div class="field-select-wrap">
+          <select class="field-select" id="ms3-age">
+            <option value="">Sélectionnez votre âge…</option>
+            <option value="18-35">18 – 35 ans</option>
+            <option value="36-55">36 – 55 ans</option>
+            <option value="55-65">55 – 65 ans</option>
+            <option value="65+">65 ans et plus</option>
+          </select>
+        </div>
+        <div class="field-err" id="ms3-age-err">Veuillez sélectionner votre âge.</div>
+      </div>
+
+      <div class="field-group">
+        <div class="field-select-label">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Votre situation actuelle
+        </div>
+        <div class="field-select-wrap">
+          <select class="field-select" id="ms3-situation">
+            <option value="">Sélectionnez votre situation…</option>
+            <option value="sans-mutuelle">Je n'ai pas de mutuelle</option>
+            <option value="trop-chere">Ma mutuelle est trop chère</option>
+            <option value="veut-changer">Je veux changer de mutuelle</option>
+            <option value="salarie">Salarié cherchant une mutuelle individuelle</option>
+          </select>
+        </div>
+        <div class="field-err" id="ms3-situation-err">Veuillez sélectionner votre situation.</div>
+      </div>
+
       <div class="sep"></div>
 
       <div class="consent-row" onclick="toggleConsent()">
         <div class="chk" id="ms3-check">
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <span>J'accepte d'être <strong>contacté(e) par un conseiller</strong> afin de recevoir mon devis mutuelle santé gratuit.</span>
+        <span>J'accepte d'être <strong>contacté(e) par un conseiller</strong> afin de recevoir ma simulation mutuelle santé gratuite.</span>
       </div>
       <div class="consent-err" id="ms3-consent-err">Veuillez cocher la case pour continuer.</div>
 
       <button type="button" class="btn-cta" id="ms3-btn" onclick="ms3Submit()">
-        Je reçois mon devis gratuit ! →
+        Comparer mes offres — Gratuit ✦
       </button>
+      <div class="btn-micro">Un expert vous rappelle sous <span>15 min</span> · Sans engagement · 100% gratuit</div>
 
-      <div class="trust-grid">
-        <div class="trust-cell">
-          <div class="trust-emoji">🏥</div>
-          <div class="trust-t">Couverture complète</div>
-          <div class="trust-s">Soins, optique, dentaire</div>
-        </div>
-        <div class="trust-cell">
-          <div class="trust-emoji">👨‍⚕️</div>
-          <div class="trust-t">Conseiller dédié</div>
-          <div class="trust-s">À votre écoute</div>
-        </div>
-        <div class="trust-cell">
-          <div class="trust-emoji">💰</div>
-          <div class="trust-t">Meilleur prix</div>
-          <div class="trust-s">Offre optimisée</div>
+      <!-- HOW IT WORKS -->
+      <div class="section-block">
+        <h3>Comment ça fonctionne ?</h3>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="how-num">1</div>
+            <div class="how-step-text">
+              <strong>Remplissez le formulaire</strong>
+              <span>2 minutes suffisent — aucun document requis</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">2</div>
+            <div class="how-step-text">
+              <strong>Un conseiller vous rappelle</strong>
+              <span>Sous 15 minutes, il compare les offres pour vous</span>
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-num">3</div>
+            <div class="how-step-text">
+              <strong>Vous économisez dès le premier mois</strong>
+              <span>Jusqu'à 480€/an sans changer de médecin</span>
+            </div>
+          </div>
         </div>
       </div>
+
+      <!-- TESTIMONIAL -->
+      <div class="testi-block">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Je payais 187€/mois pour ma mutuelle. Grâce à Ringassur, j'ai trouvé une couverture équivalente à 145€. Le conseiller m'a guidé à chaque étape."</div>
+        <div class="testi-author">Bernard L. — 63 ans, Toulouse <!-- TODO: remplacer par un vrai témoignage --></div>
+        <div class="testi-savings">Économie : 42€/mois</div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="faq-block">
+        <h3>Questions fréquentes</h3>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Y a-t-il un engagement ?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Non, la simulation est entièrement gratuite et sans engagement. Vous choisissez librement de souscrire ou non.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Y a-t-il des frais cachés ?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Aucun. Notre service de comparaison est 100% gratuit pour vous. Nous sommes rémunérés par les assureurs partenaires uniquement si vous souscrivez.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Que faites-vous de mes données ?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Vos données sont utilisées uniquement pour établir votre simulation et ne sont jamais revendues. Conformité RGPD totale.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Combien de temps ça prend ?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Le formulaire prend 2 minutes. Notre conseiller vous rappelle sous 15 minutes pour finaliser votre simulation personnalisée.</div>
+        </div>
+      </div>
+
     </div>
 
     <!-- SUCCESS -->
@@ -301,7 +461,7 @@
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
       <h3>Super, c'est bien reçu !</h3>
-      <p>Un conseiller vous rappellera dans les <strong>24 heures</strong> pour vous présenter le meilleur devis mutuelle santé senior adapté à votre profil.</p>
+      <p>Un conseiller vous rappellera dans les <strong>15 minutes</strong> pour vous présenter le meilleur devis mutuelle santé senior adapté à votre profil.</p>
     </div>
   </div>
 
@@ -318,20 +478,39 @@
     else el.classList.remove('checked');
   }
 
-  function ms3Submit() {
-    var nomEl = document.getElementById('ms3-nom');
-    var telEl = document.getElementById('ms3-tel');
-    var nom = nomEl.value.trim();
-    var tel = telEl.value.trim();
-    var ok = true;
+  function toggleFaq(btn) {
+    var answer = btn.nextElementSibling;
+    var icon = btn.querySelector('.faq-icon');
+    var isOpen = answer.classList.contains('open');
+    document.querySelectorAll('.faq-a').forEach(function(a){ a.classList.remove('open'); });
+    document.querySelectorAll('.faq-icon').forEach(function(i){ i.textContent = '+'; });
+    if (!isOpen) {
+      answer.classList.add('open');
+      icon.textContent = '−';
+    }
+  }
 
-    document.getElementById('ms3-nom-err').style.display = 'none';
-    document.getElementById('ms3-tel-err').style.display = 'none';
-    document.getElementById('ms3-consent-err').style.display = 'none';
+  function ms3Submit() {
+    var nomEl  = document.getElementById('ms3-nom');
+    var telEl  = document.getElementById('ms3-tel');
+    var ageEl  = document.getElementById('ms3-age');
+    var sitEl  = document.getElementById('ms3-situation');
+    var nom    = nomEl.value.trim();
+    var tel    = telEl.value.trim();
+    var age    = ageEl.value;
+    var sit    = sitEl.value;
+    var ok     = true;
+
+    ['ms3-nom-err','ms3-tel-err','ms3-age-err','ms3-situation-err','ms3-consent-err'].forEach(function(id){
+      document.getElementById(id).style.display = 'none';
+    });
     nomEl.classList.remove('err'); telEl.classList.remove('err');
+    ageEl.classList.remove('err'); sitEl.classList.remove('err');
 
     if (!nom) { document.getElementById('ms3-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
     if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms3-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!age) { document.getElementById('ms3-age-err').style.display = 'block'; ageEl.classList.add('err'); ok = false; }
+    if (!sit) { document.getElementById('ms3-situation-err').style.display = 'block'; sitEl.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms3-consent-err').style.display = 'block'; ok = false; }
     if (!ok) return;
 
@@ -342,13 +521,25 @@
     var eventId = 'lead_ms3_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
 
+    // UTM
+    var params = new URLSearchParams(window.location.search);
+    var utmSource   = params.get('utm_source')   || '';
+    var utmMedium   = params.get('utm_medium')   || '';
+    var utmCampaign = params.get('utm_campaign') || '';
+    var utmContent  = params.get('utm_content')  || '';
+
     if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'accompagnement_senior' });
 
     fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante%203'
-      + '&nom=' + encodeURIComponent(nom)
-      + '&telephone=' + encodeURIComponent(tel)
+      + '&nom='        + encodeURIComponent(nom)
+      + '&telephone='  + encodeURIComponent(tel)
+      + '&age='        + encodeURIComponent(age)
+      + '&situation='  + encodeURIComponent(sit)
       + '&consent=Oui'
-      + '&utm=' + encodeURIComponent(window.location.search)
+      + '&utm_source='   + encodeURIComponent(utmSource)
+      + '&utm_medium='   + encodeURIComponent(utmMedium)
+      + '&utm_campaign=' + encodeURIComponent(utmCampaign)
+      + '&utm_content='  + encodeURIComponent(utmContent)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
 

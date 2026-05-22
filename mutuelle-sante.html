@@ -252,6 +252,51 @@
     .success-box p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
     .success-box strong { color: var(--teal); }
 
+    /* ── TRUST BAR (hero) ───────────────────── */
+    .trust-bar { display:flex; flex-wrap:wrap; gap:0.3rem 0.5rem; margin-top:0.75rem; }
+    .trust-bar-item { font-size:0.75rem; font-weight:700; color:#2d5a4e; display:flex; align-items:center; gap:0.2rem; }
+    .trust-bar-sep { color:#9fb8b2; font-size:0.7rem; }
+
+    /* ── SELECT FIELD ───────────────────────── */
+    .field-select-wrap { position:relative; }
+    .field-select-wrap::after { content:'▾'; position:absolute; right:1rem; top:50%; transform:translateY(-50%); pointer-events:none; color:var(--teal); font-size:0.9rem; }
+    .field-select {
+      width:100%; padding:0.85rem 2.5rem 0.85rem 1rem;
+      border:1.5px solid #e0eee9; border-radius:10px;
+      font-size:1rem; font-family:inherit; color:var(--navy);
+      min-height:50px; outline:none; background:#f8fdfb;
+      transition:border-color 0.2s; appearance:none; -webkit-appearance:none; cursor:pointer;
+    }
+    .field-select:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(30,138,120,0.1); }
+    .field-select.err { border-color:#e53935; }
+
+    /* ── MICROCOPY ──────────────────────────── */
+    .btn-micro { text-align:center; font-size:0.71rem; color:var(--gray); margin-top:0.55rem; line-height:1.5; }
+
+    /* ── HOW IT WORKS ───────────────────────── */
+    .section-block { margin-top:1.8rem; padding-top:1.5rem; border-top:1px solid var(--border); }
+    .section-title { font-size:0.8rem; font-weight:800; color:var(--navy); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:1rem; }
+    .how-steps { display:flex; flex-direction:column; gap:0.8rem; }
+    .how-step { display:flex; gap:0.85rem; align-items:flex-start; }
+    .how-num { width:30px; height:30px; flex-shrink:0; border-radius:50%; background:var(--teal); color:#fff; font-size:0.8rem; font-weight:800; display:flex; align-items:center; justify-content:center; }
+    .how-step-text .t1 { font-size:0.86rem; font-weight:700; color:var(--navy); }
+    .how-step-text .t2 { font-size:0.76rem; color:var(--gray); }
+
+    /* ── TESTIMONIAL ────────────────────────── */
+    .testi-stars { color:#f59e0b; font-size:0.85rem; letter-spacing:1px; }
+    .testi-rating-txt { font-size:0.75rem; color:var(--gray); margin-left:0.3rem; }
+    .testi-card { background:var(--teal-bg); border-radius:12px; padding:1rem; margin-top:0.75rem; }
+    .testi-text { font-size:0.83rem; color:#2d5a4e; line-height:1.6; font-style:italic; margin-bottom:0.45rem; }
+    .testi-author { font-size:0.73rem; font-weight:700; color:var(--navy); }
+
+    /* ── FAQ ────────────────────────────────── */
+    .faq-item { border-bottom:1px solid var(--border); }
+    .faq-q { font-size:0.84rem; font-weight:700; color:var(--navy); cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:0.75rem 0; gap:0.5rem; }
+    .faq-arrow { font-size:0.65rem; flex-shrink:0; transition:transform 0.2s; }
+    .faq-arrow.open { transform:rotate(180deg); }
+    .faq-a { font-size:0.8rem; color:var(--gray); line-height:1.6; padding:0 0 0.75rem; display:none; }
+    .faq-a.open { display:block; }
+
     @media (max-width: 380px) {
       .hero-headline { font-size: 1.9rem; }
       .hero-headline em { font-size: 2rem; }
@@ -292,11 +337,18 @@
       </div>
 
       <h1 class="hero-headline">
-        Prenez soin
-        <em>de l'essentiel</em>
+        Comparez et
+        <em>économisez 480€/an</em>
       </h1>
       <div class="hero-accent"></div>
-      <p class="hero-sub">Demandez votre devis gratuit et découvrez une mutuelle santé adaptée à vos besoins.</p>
+      <p class="hero-sub">Trouvez la mutuelle senior adaptée à vos besoins en 2 minutes.</p>
+      <div class="trust-bar">
+        <span class="trust-bar-item">&#11088; 4.8/5 · +500 avis</span>
+        <span class="trust-bar-sep">·</span>
+        <span class="trust-bar-item">&#10003; Sans engagement</span>
+        <span class="trust-bar-sep">·</span>
+        <span class="trust-bar-item">&#10003; 100% gratuit</span>
+      </div>
     </div>
   </div>
 
@@ -310,8 +362,8 @@
           <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <div class="fh-text">
-          <div class="t1">Demande de</div>
-          <div class="t2">Consultation Gratuite</div>
+          <div class="t1">Simulation gratuite</div>
+          <div class="t2">Votre devis en 2 min</div>
           <div class="fh-dashes"><span></span><span></span><span></span><span></span></div>
         </div>
         <div class="fh-tick">/ /</div>
@@ -341,6 +393,46 @@
         </div>
       </div>
 
+      <!-- AGE -->
+      <div class="field-row">
+        <div class="field-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="field-body">
+          <label for="ms-age">Votre tranche d'âge</label>
+          <div class="field-select-wrap">
+            <select id="ms-age" class="field-select">
+              <option value="">— Sélectionnez —</option>
+              <option value="18-35">18 – 35 ans</option>
+              <option value="36-55">36 – 55 ans</option>
+              <option value="55-65">55 – 65 ans</option>
+              <option value="65+">65 ans et plus</option>
+            </select>
+          </div>
+          <div class="field-err" id="ms-age-err">Veuillez sélectionner votre tranche d'âge.</div>
+        </div>
+      </div>
+
+      <!-- SITUATION -->
+      <div class="field-row">
+        <div class="field-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="field-body">
+          <label for="ms-situation">Votre situation actuelle</label>
+          <div class="field-select-wrap">
+            <select id="ms-situation" class="field-select">
+              <option value="">— Sélectionnez —</option>
+              <option value="Sans mutuelle">Je n'ai pas de mutuelle</option>
+              <option value="Trop chere">Ma mutuelle est trop chère</option>
+              <option value="Veut changer">Je veux changer de mutuelle</option>
+              <option value="Salarie">Salarié cherche individuelle</option>
+            </select>
+          </div>
+          <div class="field-err" id="ms-situation-err">Veuillez sélectionner votre situation.</div>
+        </div>
+      </div>
+
       <div class="separator"></div>
 
       <!-- CONSENT -->
@@ -354,31 +446,48 @@
 
       <!-- CTA -->
       <button type="button" class="btn-cta" id="ms-btn" onclick="msSubmit()">
-        C'est simple, rapide et sans engagement ! &nbsp;✦
+        Comparer mes offres — Gratuit &#10022;
       </button>
+      <p class="btn-micro">Un expert vous rappelle sous 15 min &nbsp;·&nbsp; Sans engagement &nbsp;·&nbsp; 100% gratuit</p>
 
-      <!-- Trust -->
-      <div class="trust-row">
-        <div class="trust-item">
-          <div class="trust-ico">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          </div>
-          <span class="trust-title">Garantie<br>adaptée</span>
-          <span class="trust-sub">à vos besoins</span>
+      <!-- HOW IT WORKS -->
+      <div class="section-block">
+        <div class="section-title">Comment ça marche ?</div>
+        <div class="how-steps">
+          <div class="how-step"><div class="how-num">1</div><div class="how-step-text"><div class="t1">Remplissez le formulaire</div><div class="t2">2 minutes, depuis votre mobile</div></div></div>
+          <div class="how-step"><div class="how-num">2</div><div class="how-step-text"><div class="t1">Un conseiller vous rappelle</div><div class="t2">Sous 15 minutes, du lundi au vendredi</div></div></div>
+          <div class="how-step"><div class="how-num">3</div><div class="how-step-text"><div class="t1">Recevez vos offres personnalisées</div><div class="t2">Comparez et économisez jusqu'à 480€/an</div></div></div>
         </div>
-        <div class="trust-item">
-          <div class="trust-ico">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
-          </div>
-          <span class="trust-title">Un conseiller<br>à votre écoute</span>
-          <span class="trust-sub">et vous accompagne</span>
+      </div>
+
+      <!-- TESTIMONIAL -->
+      <div class="section-block">
+        <div class="section-title">Ce que disent nos clients</div>
+        <div><span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="testi-rating-txt">4.8/5 · +500 avis vérifiés</span></div>
+        <div class="testi-card">
+          <div class="testi-text">« J'économise 420€ par an grâce à Ringassur. Le conseiller m'a rappelé en moins de 10 minutes et a tout géré pour moi. Je recommande ! »</div>
+          <div class="testi-author">Marie-Hélène, 67 ans — Paris <!-- TODO: remplacer par un vrai avis client --></div>
         </div>
-        <div class="trust-item">
-          <div class="trust-ico">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </div>
-          <span class="trust-title">Des solutions<br>santé simples</span>
-          <span class="trust-sub">et accessibles</span>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section-block">
+        <div class="section-title">Questions fréquentes</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Y a-t-il un engagement ? <span class="faq-arrow">&#9660;</span></div>
+          <div class="faq-a">Non. La simulation et la mise en relation avec un conseiller sont entièrement gratuites et sans aucun engagement de votre part.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Le service est-il vraiment gratuit ? <span class="faq-arrow">&#9660;</span></div>
+          <div class="faq-a">Oui, 100% gratuit. Aucun frais cachés. Nous sommes rémunérés par les assureurs partenaires uniquement si vous souscrivez.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Que faites-vous de mes données ? <span class="faq-arrow">&#9660;</span></div>
+          <div class="faq-a">Vos données sont utilisées uniquement pour vous mettre en relation avec un conseiller. Elles ne sont jamais revendues. Conformité RGPD garantie.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">Combien de temps ça prend ? <span class="faq-arrow">&#9660;</span></div>
+          <div class="faq-a">2 minutes pour remplir le formulaire. Un conseiller vous rappelle sous 15 minutes pour finaliser votre simulation personnalisée.</div>
         </div>
       </div>
     </div>
@@ -389,7 +498,7 @@
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
       <h3>Demande envoyée !</h3>
-      <p>Un conseiller vous contactera dans les <strong>24 heures</strong> avec votre devis mutuelle santé senior personnalisé.<br><br>Merci pour votre confiance !</p>
+      <p>Un conseiller vous rappelle dans les <strong>15 minutes</strong> pour finaliser votre simulation mutuelle santé senior.<br><br>Merci pour votre confiance !</p>
     </div>
 
   </div>
@@ -406,21 +515,37 @@
     else el.classList.remove('checked');
   }
 
-  function msSubmit() {
-    var nomEl = document.getElementById('ms-nom');
-    var telEl = document.getElementById('ms-tel');
-    var nom   = nomEl.value.trim();
-    var tel   = telEl.value.trim();
-    var ok    = true;
+  function toggleFaq(el) {
+    var arrow = el.querySelector('.faq-arrow');
+    var answer = el.nextElementSibling;
+    var isOpen = answer.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-a').forEach(function(a){ a.classList.remove('open'); });
+    document.querySelectorAll('.faq-arrow').forEach(function(a){ a.classList.remove('open'); });
+    if (!isOpen) { answer.classList.add('open'); arrow.classList.add('open'); }
+  }
 
-    document.getElementById('ms-nom-err').style.display     = 'none';
-    document.getElementById('ms-tel-err').style.display     = 'none';
-    document.getElementById('ms-consent-err').style.display = 'none';
-    nomEl.classList.remove('err');
-    telEl.classList.remove('err');
+  function msSubmit() {
+    var nomEl  = document.getElementById('ms-nom');
+    var telEl  = document.getElementById('ms-tel');
+    var ageEl  = document.getElementById('ms-age');
+    var sitEl  = document.getElementById('ms-situation');
+    var nom    = nomEl.value.trim();
+    var tel    = telEl.value.trim();
+    var age    = ageEl.value;
+    var sit    = sitEl.value;
+    var ok     = true;
+
+    ['ms-nom-err','ms-tel-err','ms-age-err','ms-situation-err','ms-consent-err'].forEach(function(id){
+      document.getElementById(id).style.display = 'none';
+    });
+    nomEl.classList.remove('err'); telEl.classList.remove('err');
+    ageEl.classList.remove('err'); sitEl.classList.remove('err');
 
     if (!nom) { document.getElementById('ms-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
     if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageEl.classList.add('err'); ok = false; }
+    if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitEl.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms-consent-err').style.display = 'block'; ok = false; }
     if (!ok) return;
 
@@ -428,32 +553,43 @@
     btn.innerHTML = '<span class="spinner"></span> Envoi en cours...';
     btn.disabled = true;
 
-    var eventId     = 'lead_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    var eventId = 'lead_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
 
     if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'accompagnement_senior' });
 
-    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle Sante'
+    // Google Sheets + Telegram
+    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante'
       + '&nom='       + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
+      + '&age='       + encodeURIComponent(age)
+      + '&situation=' + encodeURIComponent(sit)
       + '&consent=Oui'
       + '&utm='       + encodeURIComponent(window.location.search)
       + '&ua='        + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
+    // CAPI — pixel 944605845074489 (default)
     fetch('/api/capi', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         content_name: 'Accompagnement Senior', content_category: 'Wellness',
-        sourceUrl: window.location.href,
-        nom: nom, telephone: tel,
+        sourceUrl: window.location.href, nom: nom, telephone: tel,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
     }).catch(function() {});
 
-    sessionStorage.setItem('leadEventId', eventId);
+    // CAPI — pixel 1011230188058686 (new pixel)
+    fetch('/api/capi', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'Lead', eventId: eventId + '_p2', pixelId: '1011230188058686',
+        content_name: 'Accompagnement Senior', content_category: 'Wellness',
+        sourceUrl: window.location.href, nom: nom, telephone: tel,
+        fbp: getCk('_fbp'), fbc: getCk('_fbc')
+      })
+    }).catch(function() {});
 
     setTimeout(function() {
       document.getElementById('ms-form').style.display = 'none';

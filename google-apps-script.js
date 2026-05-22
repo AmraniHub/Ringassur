@@ -39,22 +39,33 @@ var SERVICES = {
   'Mutuelle Sante 3':       { sheet: 'Mutuelle Santé 3',   emoji: '💚' }
 };
 
-// ── Parse UTM query string into individual fields ─────────────
-// Input:  "?utm_source=facebook&utm_medium=paid&utm_campaign=ringassur&utm_content=v1"
-// Output: { source:'facebook', medium:'paid', campaign:'ringassur', content:'v1' }
-function parseUtm(raw) {
+// ── Parse UTM params — supports both formats:
+//   (A) legacy: p.utm = "?utm_source=facebook&utm_medium=paid&..."
+//   (B) new:    p.utm_source, p.utm_medium, p.utm_campaign, p.utm_content (individual params)
+function parseUtm(raw, p) {
   var out = { source: '', medium: '', campaign: '', content: '' };
-  if (!raw) return out;
-  var str = raw.replace(/^\?/, '');
-  str.split('&').forEach(function(pair) {
-    var kv = pair.split('=');
-    var k  = decodeURIComponent(kv[0] || '').toLowerCase();
-    var v  = decodeURIComponent((kv[1] || '').replace(/\+/g, ' '));
-    if (k === 'utm_source')   out.source   = v;
-    if (k === 'utm_medium')   out.medium   = v;
-    if (k === 'utm_campaign') out.campaign = v;
-    if (k === 'utm_content')  out.content  = v;
-  });
+
+  // (B) Individual params take priority (new pages send these)
+  if (p) {
+    if (p.utm_source)   out.source   = p.utm_source;
+    if (p.utm_medium)   out.medium   = p.utm_medium;
+    if (p.utm_campaign) out.campaign = p.utm_campaign;
+    if (p.utm_content)  out.content  = p.utm_content;
+  }
+
+  // (A) Legacy fallback: parse the raw utm query string
+  if (!out.source && raw) {
+    var str = raw.replace(/^\?/, '');
+    str.split('&').forEach(function(pair) {
+      var kv = pair.split('=');
+      var k  = decodeURIComponent(kv[0] || '').toLowerCase();
+      var v  = decodeURIComponent((kv[1] || '').replace(/\+/g, ' '));
+      if (k === 'utm_source')   out.source   = v;
+      if (k === 'utm_medium')   out.medium   = v;
+      if (k === 'utm_campaign') out.campaign = v;
+      if (k === 'utm_content')  out.content  = v;
+    });
+  }
   return out;
 }
 
@@ -105,7 +116,7 @@ function writeServiceSheet(ss, niche, p) {
   var cfg   = SERVICES[niche] || { sheet: niche, emoji: '📋' };
   var sheet = getOrCreateSheet(ss, cfg.sheet);
   var date  = new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' });
-  var utm   = parseUtm(p.utm || '');
+  var utm   = parseUtm(p.utm || '', p);
 
   if (niche === 'RC Decennale') {
     initHeaders(sheet, [
@@ -144,13 +155,15 @@ function writeServiceSheet(ss, niche, p) {
   } else if (niche === 'Mutuelle Sante' || niche === 'Mutuelle Sante 1' ||
              niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
     initHeaders(sheet, [
-      'Date & Heure', 'Nom', 'Téléphone', 'Consentement',
+      'Date & Heure', 'Nom', 'Téléphone', 'Âge', 'Situation', 'Consentement',
       'Source', 'Médium', 'Campagne', 'Contenu'
     ]);
     sheet.appendRow([
       date,
       p.nom       || '',
       p.telephone || '',
+      p.age       || '',
+      p.situation || '',
       p.consent   || '',
       utm.source, utm.medium, utm.campaign, utm.content
     ]);
@@ -183,8 +196,12 @@ function writeMasterSheet(ss, niche, p) {
   var details = '';
   if (niche === 'Assurance Auto') details = 'Situation: ' + (p.situation || '');
   if (niche === 'RC Decennale')   details = (p.activite || '') + ' | CA: ' + (p.ca || '') + ' | SIREN: ' + (p.siren || '');
+  if (niche === 'Mutuelle Sante' || niche === 'Mutuelle Sante 1' ||
+      niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
+    details = 'Âge: ' + (p.age || '') + ' | Situation: ' + (p.situation || '');
+  }
 
-  var utm = parseUtm(p.utm || '');
+  var utm = parseUtm(p.utm || '', p);
   sheet.appendRow([
     new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }),
     niche,
@@ -215,6 +232,12 @@ function buildTelegramMsg(niche, p) {
     msg += '<b>Nom :</b> '       + (p.nom || '') + '\n';
     msg += '<b>Tel :</b> '       + (p.telephone || '') + '\n';
     msg += '<b>Situation :</b> ' + (p.situation || '') + '\n';
+  } else if (niche === 'Mutuelle Sante' || niche === 'Mutuelle Sante 1' ||
+             niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
+    msg += '<b>Nom :</b> '       + (p.nom || '') + '\n';
+    msg += '<b>Tel :</b> '       + (p.telephone || '') + '\n';
+    msg += '<b>Âge :</b> '       + (p.age || '—') + '\n';
+    msg += '<b>Situation :</b> ' + (p.situation || '—') + '\n';
   } else {
     msg += '<b>Nom :</b> ' + (p.nom || '') + '\n';
     msg += '<b>Tel :</b> ' + (p.telephone || '') + '\n';
@@ -250,10 +273,11 @@ function updateHeaders() {
   setHeader('Estimation Immo',  ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
   setHeader('Rappel',           ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
   setHeader('Test Drive',       ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
-  setHeader('Mutuelle Santé',   ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
-  setHeader('Mutuelle Santé 1', ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
-  setHeader('Mutuelle Santé 2', ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
-  setHeader('Mutuelle Santé 3', ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
+  var mutCols = ['Date & Heure', 'Nom', 'Téléphone', 'Âge', 'Situation', 'Consentement'].concat(utmCols);
+  setHeader('Mutuelle Santé',   mutCols);
+  setHeader('Mutuelle Santé 1', mutCols);
+  setHeader('Mutuelle Santé 2', mutCols);
+  setHeader('Mutuelle Santé 3', mutCols);
   setHeader('RC Décennale',     ['Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN', 'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement'].concat(utmCols));
   setHeader('Tous les Leads',   ['Date & Heure', 'Service', 'Nom', 'Prénom', 'Email', 'Téléphone', 'Consentement', 'Détails'].concat(utmCols));
 
@@ -293,15 +317,16 @@ function createAllSheets() {
   initHeaders(s6, ['Date & Heure', 'Activité', 'CA HT (€)', 'N° SIREN',
     'Civilité', 'Prénom', 'Nom', 'Email', 'Téléphone', 'Consentement'].concat(utmCols));
 
-  // 7. Mutuelle Santé (original + 3 variants)
+  // 7. Mutuelle Santé (original + 3 variants) — includes Âge + Situation
+  var mutCols = ['Date & Heure', 'Nom', 'Téléphone', 'Âge', 'Situation', 'Consentement'].concat(utmCols);
   var s8 = getOrCreateSheet(ss, 'Mutuelle Santé');
-  initHeaders(s8, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
+  initHeaders(s8, mutCols);
   var s8a = getOrCreateSheet(ss, 'Mutuelle Santé 1');
-  initHeaders(s8a, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
+  initHeaders(s8a, mutCols);
   var s8b = getOrCreateSheet(ss, 'Mutuelle Santé 2');
-  initHeaders(s8b, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
+  initHeaders(s8b, mutCols);
   var s8c = getOrCreateSheet(ss, 'Mutuelle Santé 3');
-  initHeaders(s8c, ['Date & Heure', 'Nom', 'Téléphone', 'Consentement'].concat(utmCols));
+  initHeaders(s8c, mutCols);
 
   // 8. Tous les Leads (master)
   var s7 = getOrCreateSheet(ss, 'Tous les Leads');
