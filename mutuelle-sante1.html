@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mutuelle Santé Senior — Devis Gratuit | Ringassur</title>
+  <title>Mutuelle Santé Senior — Consultation Gratuite | Ringassur</title>
   <link rel="icon" type="image/png" href="/favicon.png">
 
   <!-- GA4 -->
@@ -23,16 +23,14 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('dataProcessingOptions', ['LDU'], 0, 0);
-    fbq('init', '944605845074489');
     fbq('init', '1011230188058686');
     fbq('track', 'PageView');
     var vcId = 'vc_ms1_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Accompagnement Senior', content_category: 'Wellness' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1011230188058686&ev=PageView&noscript=1"/></noscript>
 
   <style>
@@ -343,7 +341,7 @@
     var eventId = 'lead_ms1_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
 
-    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'mutuelle_sante' });
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'accompagnement_senior' });
 
     fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante'
       + '&nom=' + encodeURIComponent(nom)
@@ -358,7 +356,7 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
-        content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health',
+        content_name: 'Accompagnement Senior', content_category: 'Wellness',
         sourceUrl: window.location.href,
         nom: nom, telephone: tel,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
@@ -369,7 +367,7 @@
       document.getElementById('ms1-form').style.display = 'none';
       document.getElementById('ms1-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: eventId });
+        fbq('track', 'Lead', { content_name: 'Accompagnement Senior', content_category: 'Wellness' }, { eventID: eventId });
       }
     }, 800);
   }
