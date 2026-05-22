@@ -90,8 +90,11 @@ module.exports = async function(req, res) {
     // URL-based Custom Conversions in Ads Manager.
 
     // ── send to Meta CAPI ──────────────────────────────────────
-    var capiToken   = process.env.META_CAPI_TOKEN || '';
-    var capiUrl     = 'https://graph.facebook.com/v19.0/' + pixelId + '/events?access_token=' + capiToken;
+    // Use dedicated token per pixel — META_CAPI_TOKEN_2 for the new pixel
+    var capiToken = (pixelId === PIXEL_ID_NEW)
+      ? (process.env.META_CAPI_TOKEN_2 || process.env.META_CAPI_TOKEN || '')
+      : (process.env.META_CAPI_TOKEN   || '');
+    var capiUrl   = 'https://graph.facebook.com/v19.0/' + pixelId + '/events?access_token=' + capiToken;
     var capiPayload = JSON.stringify({ data: events });
     await postHttps(capiUrl, capiPayload);
 
