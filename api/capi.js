@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const https  = require('https');
 
 var PIXEL_ID = '944605845074489';
-var PAGE_URL = 'https://ringassur.com';
+var PAGE_URL = 'https://www.ringassur.com';
 
 function hash(val) {
   if (!val) return undefined;
