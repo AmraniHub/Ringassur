@@ -27,7 +27,7 @@
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_auto_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Devis Assurance Auto', content_category: 'Assurance_Auto' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Assurance Auto', content_category: 'Insurance' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href,
@@ -610,7 +610,7 @@
     el.classList.add('selected');
     selectedSituation = el.getAttribute('data-value');
     document.getElementById('sit-error-msg').style.display = 'none';
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'SelectSituation', { situation: selectedSituation, niche: 'assurance_auto' });
+    if (typeof fbq !== 'undefined') fbq('trackCustom', 'SelectSituation', { content_category: 'Insurance' });
     if (typeof gtag !== 'undefined') gtag('event', 'select_situation', { situation: selectedSituation, niche: 'assurance_auto' });
   }
 
@@ -678,11 +678,9 @@
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         customEventName: 'Lead_AssuranceAuto', customEventId: custEventId,
-        content_name: 'Devis Assurance Auto', content_category: 'Assurance_Auto',
+        content_name: 'Devis Assurance Auto', content_category: 'Insurance',
         sourceUrl: window.location.href,
         nom: nom, telephone: tel,
-        activite: 'Assurance Auto',
-        situation: selectedSituation,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
     }).catch(function(){});
@@ -693,8 +691,8 @@
       document.getElementById('form-wrap').style.display = 'none';
       document.getElementById('auto-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Devis Assurance Auto', content_category: 'Assurance_Auto' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_AssuranceAuto', { content_name: 'Devis Assurance Auto', situation: selectedSituation }, { eventID: custEventId });
+        fbq('track', 'Lead', { content_name: 'Devis Assurance Auto', content_category: 'Insurance' }, { eventID: eventId });
+        fbq('trackCustom', 'Lead_AssuranceAuto', { content_name: 'Devis Assurance Auto', content_category: 'Insurance' }, { eventID: custEventId });
       }
     }, 800);
   }

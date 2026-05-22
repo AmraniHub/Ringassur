@@ -59,15 +59,15 @@ module.exports = async function(req, res) {
     if (body.prenom)    userData.fn = [hash(body.prenom)];
     if (body.nom)       userData.ln = [hash(body.nom)];
 
-    // ── custom_data (service-specific) ────────────────────────
+    // ── custom_data — ONLY generic fields sent to Meta ───────────
+    // Financial/sensitive details (activite, situation, ca, siren)
+    // are stored in Google Sheets only — never sent to Meta CAPI
+    // to avoid financial service data restrictions.
     var customData = {
       content_name:     serviceName,
       content_category: serviceCat,
       content_type:     'lead_form'
     };
-    if (body.activite)   customData.activite  = body.activite;
-    if (body.situation)  customData.situation = body.situation;
-    if (body.ca)         customData.ca        = body.ca;
 
     // ── build events batch ─────────────────────────────────────
     // Always include the standard event (Lead / ViewContent / PageView)

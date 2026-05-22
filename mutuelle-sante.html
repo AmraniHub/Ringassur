@@ -27,7 +27,7 @@
     fbq('init', '944605845074489');
     fbq('track', 'PageView');
     var vcId = 'vc_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Sante' }, { eventID: vcId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
@@ -446,9 +446,9 @@
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
         customEventName: 'Lead_MutuelleSante', customEventId: custEventId,
-        content_name: 'Devis Mutuelle Sante Senior', content_category: 'Sante',
+        content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health',
         sourceUrl: window.location.href,
-        nom: nom, telephone: tel, activite: 'Mutuelle Sante',
+        nom: nom, telephone: tel,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
     }).catch(function() {});
@@ -459,7 +459,7 @@
       document.getElementById('ms-form').style.display = 'none';
       document.getElementById('ms-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Sante' }, { eventID: eventId });
+        fbq('track', 'Lead', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: eventId });
         fbq('trackCustom', 'Lead_MutuelleSante', { content_name: 'Devis Mutuelle Sante Senior' }, { eventID: custEventId });
       }
     }, 800);

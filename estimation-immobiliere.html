@@ -440,7 +440,7 @@
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
 
     var custEventId = 'lead_c_immo_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_EstimationImmo', customEventId:custEventId, content_name:'Devis Gratuit', content_category:'Services', sourceUrl:window.location.href, nom:nom, telephone:tel, activite:'Estimation Immobiliere', fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
+    fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, customEventName:'Lead_EstimationImmo', customEventId:custEventId, content_name:'Devis Gratuit', content_category:'Services', sourceUrl:window.location.href, nom:nom, telephone:tel, fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
     sessionStorage.setItem('leadEventId', eventId);
 
     setTimeout(function(){

@@ -34,7 +34,7 @@
 
     // ViewContent — generate eventId so CAPI can deduplicate
     var vcEventId = 'vc_' + Date.now() + '_' + Math.random().toString(36).slice(2);
-    fbq('track', 'ViewContent', { content_name: 'Devis Pro Gratuit', content_category: 'Artisans_Pro' }, { eventID: vcEventId });
+    fbq('track', 'ViewContent', { content_name: 'Devis Pro Gratuit', content_category: 'Services' }, { eventID: vcEventId });
 
     // Mirror ViewContent to CAPI (server-side) for coverage
     function getCookiePixel(name) {
@@ -984,7 +984,7 @@
   function step1Next() {
     var act = document.getElementById('activite').value;
     if (!act) { alert('Veuillez sélectionner votre activité principale.'); return; }
-    pixelCustom('SelectActivity', { activity: act, content_category: 'Artisans BTP' });
+    pixelCustom('SelectActivity', { activity: act, content_category: 'Services' });
     gaEvent('select_activity', { activity: act, step: 1 });
     gaEvent('funnel_step', { step_name: 'activite', step_number: 1 });
     goToStep(2);
@@ -1111,13 +1111,13 @@
         customEventName: 'Lead_AssuranceEmprunteur',
         customEventId:   custEventIdEmp,
         content_name:    'Devis Pro Gratuit',
-        content_category:'Artisans_Pro',
+        content_category:'Services',
         fbp:             getCookie('_fbp'),
         fbc:             getCookie('_fbc')
       })
     }).catch(function(){});
     if (typeof fbq !== 'undefined') {
-      fbq('track', 'Lead', { content_name: 'Devis Pro Gratuit', content_category: 'Artisans_Pro' }, { eventID: eventId });
+      fbq('track', 'Lead', { content_name: 'Devis Pro Gratuit', content_category: 'Services' }, { eventID: eventId });
       fbq('trackCustom', 'Lead_AssuranceEmprunteur', { content_name: 'Devis Pro Gratuit' }, { eventID: custEventIdEmp });
     }
 
