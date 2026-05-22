@@ -13,6 +13,9 @@
     { "source": "/rappel",                  "destination": "/rappel.html" },
     { "source": "/test-drive",              "destination": "/test-drive.html" },
     { "source": "/rc-decennale",            "destination": "/rc-decennale.html" },
-    { "source": "/mutuelle-sante",          "destination": "/mutuelle-sante.html" }
+    { "source": "/mutuelle-sante",          "destination": "/mutuelle-sante.html" },
+    { "source": "/mutuelle-sante1",         "destination": "/mutuelle-sante1.html" },
+    { "source": "/mutuelle-sante2",         "destination": "/mutuelle-sante2.html" },
+    { "source": "/mutuelle-sante3",         "destination": "/mutuelle-sante3.html" }
   ]
 }

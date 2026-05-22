@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutuelle Santé Senior — Devis Gratuit | Ringassur</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NBQVEHT6J2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NBQVEHT6J2', { send_page_view: true });
+  </script>
+
+  <!-- META PIXEL -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('dataProcessingOptions', ['LDU'], 0, 0);
+    fbq('init', '944605845074489');
+    fbq('track', 'PageView');
+    var vcId = 'vc_ms2_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'ViewContent', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: vcId });
+    function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f0fdf4;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TOP STRIP ──────────────────────────── */
+    .top-strip {
+      background: linear-gradient(90deg, #065f46, #0891b2);
+      color: #fff; text-align: center;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.55rem 1rem; letter-spacing: 0.06em;
+    }
+    .top-strip span { color: #6ee7b7; }
+
+    /* ── HERO PHOTO BANNER ──────────────────── */
+    .hero-banner {
+      position: relative; height: 280px; overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
+    }
+    .hero-banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(6,95,70,0.88) 0%, rgba(6,95,70,0.4) 60%, transparent 100%);
+    }
+    .hero-banner-text {
+      position: absolute; left: 1.6rem; top: 50%; transform: translateY(-50%);
+      max-width: 55%;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: #6ee7b7; color: #064e3b;
+      font-size: 0.65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.25rem 0.75rem; border-radius: 50px;
+      margin-bottom: 0.75rem;
+    }
+    .hero-banner-text h1 {
+      font-size: 1.9rem; font-weight: 900;
+      color: #fff; line-height: 1.1;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .hero-banner-text h1 span { color: #6ee7b7; }
+    .hero-banner-text p {
+      font-size: 0.83rem; color: rgba(255,255,255,0.85);
+      margin-top: 0.5rem; line-height: 1.5;
+    }
+
+    /* ── FEATURES BAR ───────────────────────── */
+    .features-bar {
+      background: #065f46;
+      display: flex; justify-content: space-around;
+      padding: 0.9rem 1rem; gap: 0.5rem;
+    }
+    .feat {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.68rem; font-weight: 700;
+      color: #fff; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .feat svg { width: 16px; height: 16px; stroke: #6ee7b7; fill: none; stroke-width: 2; flex-shrink: 0; }
+
+    /* ── FORM SECTION ───────────────────────── */
+    .form-section {
+      padding: 1.8rem 1.4rem 2.5rem;
+      max-width: 480px; margin: 0 auto;
+    }
+
+    .form-title {
+      text-align: center; margin-bottom: 1.5rem;
+    }
+    .form-title .pre { font-size: 0.72rem; font-weight: 700; color: #065f46; text-transform: uppercase; letter-spacing: 0.08em; }
+    .form-title h2 { font-size: 1.5rem; font-weight: 900; color: #0f172a; margin-top: 0.2rem; line-height: 1.15; }
+    .form-title .accent-line { width: 40px; height: 3px; background: #059669; border-radius: 2px; margin: 0.6rem auto 0; }
+
+    /* Step fields */
+    .field-row { display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: flex-start; }
+    .field-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #065f46; color: #fff;
+      font-size: 0.78rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1.7rem;
+    }
+    .field-body { flex: 1; }
+    .field-body label { display: block; font-size: 0.78rem; font-weight: 700; color: #334155; margin-bottom: 0.4rem; }
+    .field-input {
+      width: 100%; padding: 0.9rem 1rem;
+      border: 2px solid #d1fae5; border-radius: 12px;
+      font-size: 1rem; font-family: inherit; color: #0f172a;
+      background: #fff; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field-input:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+    .field-input.err { border-color: #ef4444; }
+    .field-err { font-size: 0.72rem; color: #ef4444; margin-top: 0.3rem; display: none; }
+
+    .divider { height: 1px; background: #d1fae5; margin: 0.5rem 0 1.2rem; }
+
+    /* Consent */
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      cursor: pointer; margin-bottom: 0.5rem;
+    }
+    .chk-box {
+      width: 26px; height: 26px; flex-shrink: 0; border-radius: 8px;
+      border: 2px solid #a7f3d0; background: #ecfdf5;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px; transition: all 0.2s;
+    }
+    .chk-box.checked { background: #059669; border-color: #059669; }
+    .chk-box svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 3; fill: none; display: none; }
+    .chk-box.checked svg { display: block; }
+    .consent-row span { font-size: 0.84rem; color: #475569; line-height: 1.55; }
+    .consent-row span strong { color: #059669; font-weight: 700; }
+    .consent-err { font-size: 0.72rem; color: #ef4444; margin-bottom: 0.8rem; display: none; }
+
+    /* CTA */
+    .btn-cta {
+      display: block; width: 100%;
+      background: #065f46; color: #fff;
+      font-size: 1rem; font-weight: 800;
+      padding: 1.1rem; border-radius: 14px; border: none;
+      cursor: pointer; text-align: center;
+      box-shadow: 0 8px 24px rgba(6,95,70,0.35);
+      transition: background 0.2s, transform 0.15s;
+      touch-action: manipulation; margin-top: 0.5rem;
+    }
+    .btn-cta:hover { background: #047857; }
+    .btn-cta:active { transform: scale(0.98); }
+    .btn-cta:disabled { opacity: 0.5; cursor: not-allowed; }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Trust */
+    .trust-row {
+      display: flex; justify-content: space-between;
+      margin-top: 1.5rem; padding-top: 1.2rem;
+      border-top: 1px solid #d1fae5; gap: 0.5rem;
+    }
+    .trust-item { flex: 1; text-align: center; }
+    .trust-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .trust-t1 { font-size: 0.68rem; font-weight: 800; color: #065f46; }
+    .trust-t2 { font-size: 0.6rem; color: #64748b; }
+
+    /* Success */
+    .success-box { display: none; text-align: center; padding: 2rem 0; }
+    .success-box.show { display: block; }
+    .success-circle {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, #059669, #0891b2);
+      margin: 0 auto 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-circle svg { width: 40px; height: 40px; stroke: #fff; stroke-width: 2.5; fill: none; }
+    .success-box h3 { font-size: 1.4rem; font-weight: 900; color: #065f46; margin-bottom: 0.6rem; }
+    .success-box p { font-size: 0.9rem; color: #475569; line-height: 1.7; }
+    .success-box strong { color: #059669; }
+  </style>
+</head>
+<body>
+
+<!-- TOP STRIP -->
+<div class="top-strip">Service 100% gratuit — Devis en <span>moins de 24h</span></div>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=85" alt="Mutuelle Santé Senior">
+  <div class="hero-banner-overlay"></div>
+  <div class="hero-banner-text">
+    <div class="hero-tag">Mutuelle Santé Senior</div>
+    <h1>Protégez<br>votre <span>santé</span><br>dès aujourd'hui</h1>
+    <p>Couverture adaptée<br>à partir de 60 ans</p>
+  </div>
+</div>
+
+<!-- FEATURES BAR -->
+<div class="features-bar">
+  <div class="feat">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Garanti
+  </div>
+  <div class="feat">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Rapide
+  </div>
+  <div class="feat">
+    <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+    Gratuit
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-section">
+  <div id="ms2-form">
+    <div class="form-title">
+      <div class="pre">Étape unique</div>
+      <h2>Recevez votre devis<br>personnalisé gratuit</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-num">1</div>
+      <div class="field-body">
+        <label for="ms2-nom">Votre nom et prénom</label>
+        <input type="text" class="field-input" id="ms2-nom" placeholder="Ex: Marie Dupont" autocomplete="name" autocapitalize="words">
+        <div class="field-err" id="ms2-nom-err">Champ requis.</div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-num">2</div>
+      <div class="field-body">
+        <label for="ms2-tel">Votre numéro de téléphone</label>
+        <input type="tel" class="field-input" id="ms2-tel" placeholder="Ex: 06 12 34 56 78" autocomplete="tel" inputmode="tel">
+        <div class="field-err" id="ms2-tel-err">Numéro invalide.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="consent-row" onclick="toggleConsent()">
+      <div class="chk-box" id="ms2-check">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <span>J'accepte d'être <strong>rappelé(e) par un conseiller</strong> pour recevoir mon devis mutuelle santé gratuit.</span>
+    </div>
+    <div class="consent-err" id="ms2-consent-err">Veuillez cocher la case pour continuer.</div>
+
+    <button type="button" class="btn-cta" id="ms2-btn" onclick="ms2Submit()">
+      ✅ &nbsp;Je veux mon devis gratuit →
+    </button>
+
+    <div class="trust-row">
+      <div class="trust-item">
+        <div class="trust-icon">🛡️</div>
+        <div class="trust-t1">Données sécurisées</div>
+        <div class="trust-t2">100% confidentiel</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <div class="trust-t1">Réponse rapide</div>
+        <div class="trust-t2">Sous 24h</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💚</div>
+        <div class="trust-t1">Sans engagement</div>
+        <div class="trust-t2">100% gratuit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="ms2-success">
+    <div class="success-circle">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    </div>
+    <h3>Parfait, c'est envoyé !</h3>
+    <p>Un conseiller vous contactera dans les <strong>24 heures</strong> avec votre devis mutuelle santé senior personnalisé.<br><br>Merci pour votre confiance !</p>
+  </div>
+</div>
+
+<script>
+  var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgNYYkitgwCB8G5pSreeBsk1yu49J6_AOEnSVsSxNjl0bKDrL1yliP2KrJTg2yebnI/exec';
+  var consentChecked = false;
+
+  function toggleConsent() {
+    consentChecked = !consentChecked;
+    var el = document.getElementById('ms2-check');
+    if (consentChecked) el.classList.add('checked');
+    else el.classList.remove('checked');
+  }
+
+  function ms2Submit() {
+    var nomEl = document.getElementById('ms2-nom');
+    var telEl = document.getElementById('ms2-tel');
+    var nom = nomEl.value.trim();
+    var tel = telEl.value.trim();
+    var ok = true;
+
+    document.getElementById('ms2-nom-err').style.display = 'none';
+    document.getElementById('ms2-tel-err').style.display = 'none';
+    document.getElementById('ms2-consent-err').style.display = 'none';
+    nomEl.classList.remove('err'); telEl.classList.remove('err');
+
+    if (!nom) { document.getElementById('ms2-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
+    if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms2-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!consentChecked) { document.getElementById('ms2-consent-err').style.display = 'block'; ok = false; }
+    if (!ok) return;
+
+    var btn = document.getElementById('ms2-btn');
+    btn.innerHTML = '<span class="spinner"></span> Envoi en cours...';
+    btn.disabled = true;
+
+    var eventId = 'lead_ms2_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    function getCk(n) { var m = document.cookie.match(new RegExp('(^| )' + n + '=([^;]+)')); return m ? m[2] : ''; }
+
+    if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'mutuelle_sante' });
+
+    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante'
+      + '&nom=' + encodeURIComponent(nom)
+      + '&telephone=' + encodeURIComponent(tel)
+      + '&consent=Oui'
+      + '&utm=' + encodeURIComponent(window.location.search)
+      + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120)),
+      { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'Lead', eventId: eventId,
+        content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health',
+        sourceUrl: window.location.href,
+        nom: nom, telephone: tel,
+        fbp: getCk('_fbp'), fbc: getCk('_fbc')
+      })
+    }).catch(function() {});
+
+    setTimeout(function() {
+      document.getElementById('ms2-form').style.display = 'none';
+      document.getElementById('ms2-success').classList.add('show');
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead', { content_name: 'Devis Mutuelle Sante Senior', content_category: 'Health' }, { eventID: eventId });
+      }
+    }, 800);
+  }
+</script>
+</body>
+</html>
