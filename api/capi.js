@@ -1,7 +1,8 @@
 const crypto = require('crypto');
 const https  = require('https');
 
-var PIXEL_ID = '944605845074489';
+var PIXEL_ID_DEFAULT = '944605845074489';
+var PIXEL_ID_NEW     = '1011230188058686';
 var PAGE_URL = 'https://www.ringassur.com';
 
 function hash(val) {
@@ -39,6 +40,9 @@ module.exports = async function(req, res) {
     var sourceUrl = body.sourceUrl || PAGE_URL;
     var fbp       = body.fbp || '';
     var fbc       = body.fbc || '';
+
+    // Accept pixelId from the page — allows variants to use a different pixel
+    var pixelId = (body.pixelId === PIXEL_ID_NEW) ? PIXEL_ID_NEW : PIXEL_ID_DEFAULT;
 
     // ── service info (dynamic per page) ───────────────────────
     var serviceName = body.content_name     || body.activite || 'Ringassur';
@@ -87,7 +91,7 @@ module.exports = async function(req, res) {
 
     // ── send to Meta CAPI ──────────────────────────────────────
     var capiToken   = process.env.META_CAPI_TOKEN || '';
-    var capiUrl     = 'https://graph.facebook.com/v19.0/' + PIXEL_ID + '/events?access_token=' + capiToken;
+    var capiUrl     = 'https://graph.facebook.com/v19.0/' + pixelId + '/events?access_token=' + capiToken;
     var capiPayload = JSON.stringify({ data: events });
     await postHttps(capiUrl, capiPayload);
 

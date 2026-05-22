@@ -28,6 +28,8 @@
     var vcId = 'vc_ms3_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fbq('track', 'ViewContent', { content_name: 'Accompagnement Senior', content_category: 'Wellness' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, pixelId:'1011230188058686', sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1011230188058686&ev=PageView&noscript=1"/></noscript>
 
@@ -342,13 +344,25 @@
 
     if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { niche: 'accompagnement_senior' });
 
-    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante'
+    fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante%203'
       + '&nom=' + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
       + '&consent=Oui'
       + '&utm=' + encodeURIComponent(window.location.search)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: 'Lead', eventId: eventId, pixelId: '1011230188058686',
+        content_name: 'Accompagnement Senior', content_category: 'Wellness',
+        sourceUrl: window.location.href,
+        nom: nom, telephone: tel,
+        fbp: getCk('_fbp'), fbc: getCk('_fbc')
+      })
+    }).catch(function() {});
 
     setTimeout(function() {
       document.getElementById('ms3-form').style.display = 'none';
