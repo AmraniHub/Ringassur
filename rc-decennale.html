@@ -366,14 +366,13 @@
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
     // CAPI + Meta Pixel
-    var custEventId = 'lead_c_rcd_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead',
         eventId: eventId,
-        customEventName: 'Lead_RCDecennale', customEventId: custEventId,
+,
         content_name: 'Devis RC Decennale Gratuit', content_category: 'Services',
         sourceUrl: window.location.href,
         nom: nom,
@@ -391,7 +390,6 @@
       document.getElementById('rcd-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: 'Devis RC Decennale Gratuit', content_category: 'Services' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_RCDecennale', { content_name: 'Devis RC Decennale Gratuit' }, { eventID: custEventId });
       }
     }, 800);
   }

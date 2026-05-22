@@ -326,14 +326,13 @@
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
     // CAPI + Telegram
-    var custEventId = 'lead_c_rp_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead',
         eventId: eventId,
-        customEventName: 'Lead_Rappel', customEventId: custEventId,
+,
         content_name: 'Rappel Gratuit', content_category: 'Contact',
         sourceUrl: window.location.href,
         nom: nom,
@@ -353,7 +352,6 @@
       successEl.style.display = 'block';
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: 'Rappel Gratuit', content_category: 'Contact' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_Rappel', { content_name: 'Rappel Gratuit' }, { eventID: custEventId });
       }
     }, 800);
   }

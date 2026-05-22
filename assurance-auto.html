@@ -610,7 +610,6 @@
     el.classList.add('selected');
     selectedSituation = el.getAttribute('data-value');
     document.getElementById('sit-error-msg').style.display = 'none';
-    if (typeof fbq !== 'undefined') fbq('trackCustom', 'SelectSituation', { content_category: 'Insurance' });
     if (typeof gtag !== 'undefined') gtag('event', 'select_situation', { situation: selectedSituation, niche: 'assurance_auto' });
   }
 
@@ -671,13 +670,12 @@
     fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
 
     // CAPI + Telegram
-    var custEventId = 'lead_c_auto_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fetch('/api/capi', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName: 'Lead', eventId: eventId,
-        customEventName: 'Lead_AssuranceAuto', customEventId: custEventId,
+,
         content_name: 'Devis Assurance Auto', content_category: 'Insurance',
         sourceUrl: window.location.href,
         nom: nom, telephone: tel,
@@ -692,7 +690,6 @@
       document.getElementById('auto-success').classList.add('show');
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: 'Devis Assurance Auto', content_category: 'Insurance' }, { eventID: eventId });
-        fbq('trackCustom', 'Lead_AssuranceAuto', { content_name: 'Devis Assurance Auto', content_category: 'Insurance' }, { eventID: custEventId });
       }
     }, 800);
   }

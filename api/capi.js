@@ -81,19 +81,9 @@ module.exports = async function(req, res) {
       custom_data:      customData
     }];
 
-    // If caller provided a custom event name (e.g. Lead_AssuranceAuto),
-    // include it in the SAME batch call → Facebook deduplicates both separately
-    if (body.customEventName && body.customEventId) {
-      events.push({
-        event_name:       body.customEventName,
-        event_time:       Math.floor(Date.now() / 1000),
-        event_id:         body.customEventId,
-        action_source:    'website',
-        event_source_url: sourceUrl,
-        user_data:        userData,
-        custom_data:      customData
-      });
-    }
+    // Custom events (Lead_XXX) are blocked by Meta for financial service domains.
+    // We send ONLY the standard Lead event — differentiation is done via
+    // URL-based Custom Conversions in Ads Manager.
 
     // ── send to Meta CAPI ──────────────────────────────────────
     var capiToken   = process.env.META_CAPI_TOKEN || '';
