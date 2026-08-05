@@ -1,0 +1,5 @@
+.vercel
+
+# Contains a plaintext Vercel API token in the approved-command list.
+# This repo is public — never commit it.
+.claude/settings.local.json

@@ -10,6 +10,28 @@ function hash(val) {
   return crypto.createHash('sha256').update(String(val).trim().toLowerCase()).digest('hex');
 }
 
+// EMQ Fix 1 — Normalize phone to E.164 before hashing
+// 0612345678 → 33612345678 → hash. Matches Meta's user graph.
+function hashPhone(phone) {
+  if (!phone) return undefined;
+  var digits = String(phone).replace(/\D/g, '');
+  if (digits.length === 10 && digits.startsWith('0')) {
+    digits = '33' + digits.slice(1);
+  }
+  return crypto.createHash('sha256').update(digits).digest('hex');
+}
+
+// EMQ Fix 2 — Approximate DOB from age bracket
+// Ringassur form has tranche_age: 36-55, 55-65, 65+
+// Converts to approximate birth year → adds signal to user_data
+function approxDob(tranche) {
+  var yr = new Date().getFullYear();
+  var map = { '65+': yr - 67, '55-65': yr - 60, '36-55': yr - 45 };
+  var birthYear = map[tranche];
+  if (!birthYear) return undefined;
+  return hash(String(birthYear) + '0101');
+}
+
 function postHttps(url, payload) {
   return new Promise(function(resolve) {
     var req = https.request(url, {
@@ -58,10 +80,16 @@ module.exports = async function(req, res) {
     if (userAgent) userData.client_user_agent  = userAgent;
     if (fbp)       userData.fbp = fbp;
     if (fbc)       userData.fbc = fbc;
-    if (body.email)     userData.em = [hash(body.email)];
-    if (body.telephone) userData.ph = [hash(String(body.telephone).replace(/\D/g, ''))];
-    if (body.prenom)    userData.fn = [hash(body.prenom)];
-    if (body.nom)       userData.ln = [hash(body.nom)];
+    if (body.email)        userData.em          = [hash(body.email)];
+    if (body.telephone)    userData.ph          = [hashPhone(body.telephone)];  // EMQ Fix 1: E.164
+    if (body.prenom)       userData.fn          = [hash(body.prenom)];
+    if (body.nom)          userData.ln          = [hash(body.nom)];
+    if (body.tranche_age)  userData.db          = [approxDob(body.tranche_age)].filter(Boolean); // EMQ Fix 2: DOB
+
+    // EMQ Fix 3 — Stable external_id built from phone + name (no email — phone is the stable identifier)
+    // Gives Meta a consistent ID to link multiple events from same user
+    var extRaw = (body.telephone || '') + (body.nom || '');
+    if (extRaw.trim()) userData.external_id = [hash(extRaw)];
 
     // ── custom_data — ONLY generic fields sent to Meta ───────────
     // Financial/sensitive details (activite, situation, ca, siren)
