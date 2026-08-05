@@ -719,13 +719,35 @@
     if (d.indexOf('0033') === 0)                                   { d = d.slice(4); stripped = true; }
     else if (d.indexOf('33') === 0 && (hadPlus || d.length >= 11)) { d = d.slice(2); stripped = true; }
 
-    // "+33 (0)6 50 10 67 56" already carries the national 0 — don't add a second.
-    if (stripped && d.charAt(0) !== '0') d = '0' + d;
+    // Once the country code is gone, force exactly one national leading 0.
+    // "+33 (0)6 50…" carries its own and would otherwise end up "00650…".
+    if (stripped) {
+      d = d.replace(/^0+/, '');
+      if (d) d = '0' + d;
+    }
 
     return d.slice(0, 10);
   }
 
+  // True when the visitor has explicitly written a NON-French country code
+  // (+34…, 0034…). We leave those untouched rather than reformatting them:
+  // mangling "+34 612 345 678" into "34 61 23 45 67" hid what they had
+  // actually typed, so a simple typo became impossible to spot and correct.
+  function isForeignEntry(raw) {
+    var s = String(raw).trim();
+    var d = s.replace(/\D/g, '');
+    if (s.charAt(0) === '+')   return d.indexOf('33') !== 0;
+    if (d.indexOf('00') === 0) return d.length > 4 && d.indexOf('0033') !== 0;
+    return false;
+  }
+
   function formatPhone(el) {
+    // Anything written in international form is left exactly as typed while
+    // the visitor is still typing; finalizePhone() converts +33 to national
+    // on blur. Rewriting mid-entry destroyed the "+" as soon as "33" landed,
+    // which turned "+33 (0)6 50…" into "00 65 01 06 75".
+    if (String(el.value).trim().charAt(0) === '+') return;
+    if (isForeignEntry(el.value)) return;   // show it back exactly as typed
     var atEnd = el.selectionStart === el.value.length;
     var out = normalizeFrDigits(el.value).replace(/(\d{2})(?=\d)/g, '$1 ').trim();
     el.value = out;
@@ -736,6 +758,7 @@
 
   // On blur, rescue a number typed without its leading 0 (650106756 → 0650106756).
   function finalizePhone(el) {
+    if (isForeignEntry(el.value)) return;
     var d = normalizeFrDigits(el.value);
     if (d.length === 9 && /^[1-9]/.test(d)) d = '0' + d;
     el.value = d.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
@@ -792,7 +815,15 @@
     ageGrp.classList.remove('err'); sitGrp.classList.remove('err');
 
     if (!nom) { document.getElementById('ms-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
-    if (!isValidFrPhone(tel)) { document.getElementById('ms-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!isValidFrPhone(tel)) {
+      // Tell a foreign entry apart from a typo — "Numéro invalide" on a
+      // perfectly well-formed Spanish number reads as a broken form.
+      var telErr = document.getElementById('ms-tel-err');
+      telErr.textContent = isForeignEntry(tel)
+        ? 'Numéro français uniquement (01 à 09).'
+        : 'Numéro invalide.';
+      telErr.style.display = 'block'; telEl.classList.add('err'); ok = false;
+    }
     if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageGrp.classList.add('err'); ok = false; }
     if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitGrp.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms-consent-err').style.display = 'block'; ok = false; }
