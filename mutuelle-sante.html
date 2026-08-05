@@ -562,7 +562,10 @@
         </div>
         <div class="field-body">
           <label for="ms-tel">Numéro de téléphone</label>
-          <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel" maxlength="14" oninput="formatPhone(this)">
+          <!-- No maxlength: the browser enforces it BEFORE oninput fires, which
+               truncated "+33 6 50 10 67 56" mid-entry. formatPhone() caps the
+               digits itself, after normalising the country code. -->
+          <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel" oninput="formatPhone(this)" onblur="finalizePhone(this)">
           <div class="field-err" id="ms-tel-err">Numéro invalide.</div>
         </div>
       </div>
@@ -701,11 +704,47 @@
     document.getElementById(hiddenId + '-err').style.display = 'none';
   }
 
-  // ── PHONE FORMATTING ─────────────────────────────────────────
-  // Groups as 06 12 34 56 78 while typing — prevents the mistyped-number retry loop.
+  // ── PHONE NORMALISATION ──────────────────────────────────────
+  // Every way a French client writes their number collapses to the
+  // national 0X XX XX XX XX form:
+  //   +33 6 50 10 67 56 · 0033 6 50… · 33 6 50… · +33 (0)6 50… · 06 50…
+  // Landlines (01–05), mobiles (06–07) and VoIP (09) all work.
+  // Previously a country-code entry silently lost its last digit and
+  // still passed validation, producing dead numbers like "33 65 01 06 75".
+  function normalizeFrDigits(raw) {
+    var hadPlus = String(raw).trim().charAt(0) === '+';
+    var d = String(raw).replace(/\D/g, '');
+    var stripped = false;
+
+    if (d.indexOf('0033') === 0)                                   { d = d.slice(4); stripped = true; }
+    else if (d.indexOf('33') === 0 && (hadPlus || d.length >= 11)) { d = d.slice(2); stripped = true; }
+
+    // "+33 (0)6 50 10 67 56" already carries the national 0 — don't add a second.
+    if (stripped && d.charAt(0) !== '0') d = '0' + d;
+
+    return d.slice(0, 10);
+  }
+
   function formatPhone(el) {
-    var d = el.value.replace(/\D/g, '').slice(0, 10);
+    var atEnd = el.selectionStart === el.value.length;
+    var out = normalizeFrDigits(el.value).replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+    el.value = out;
+    // Keep the caret at the end — rewriting .value otherwise sends it to 0
+    // on every keystroke, which scrambles input on mobile.
+    if (atEnd) { try { el.setSelectionRange(out.length, out.length); } catch (e) {} }
+  }
+
+  // On blur, rescue a number typed without its leading 0 (650106756 → 0650106756).
+  function finalizePhone(el) {
+    var d = normalizeFrDigits(el.value);
+    if (d.length === 9 && /^[1-9]/.test(d)) d = '0' + d;
     el.value = d.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+  }
+
+  // Valid French line: 01–05 landline, 06–07 mobile, 09 VoIP.
+  // 08 is premium/special-rate and is never a personal callback number.
+  function isValidFrPhone(v) {
+    return /^0[1-79]\d{8}$/.test(String(v).replace(/\D/g, ''));
   }
 
   // ── CALLBACK COUNTDOWN ───────────────────────────────────────
@@ -753,7 +792,7 @@
     ageGrp.classList.remove('err'); sitGrp.classList.remove('err');
 
     if (!nom) { document.getElementById('ms-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
-    if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
+    if (!isValidFrPhone(tel)) { document.getElementById('ms-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
     if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageGrp.classList.add('err'); ok = false; }
     if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitGrp.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms-consent-err').style.display = 'block'; ok = false; }
