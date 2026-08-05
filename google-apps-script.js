@@ -154,9 +154,15 @@ function writeServiceSheet(ss, niche, p) {
 
   } else if (niche === 'Mutuelle Sante' || niche === 'Mutuelle Sante 1' ||
              niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
+    // 'Email' is appended LAST, not inserted after 'Téléphone', on purpose.
+    // initHeaders() only writes headers when the sheet is empty, so on an
+    // existing sheet the header row is never rewritten — inserting a column
+    // mid-array would shift every later value under the wrong heading.
+    // Appending keeps historic rows aligned; add the "Email" header to the
+    // last column by hand once.
     initHeaders(sheet, [
       'Date & Heure', 'Nom', 'Téléphone', 'Âge', 'Situation', 'Consentement',
-      'Source', 'Médium', 'Campagne', 'Contenu'
+      'Source', 'Médium', 'Campagne', 'Contenu', 'Email'
     ]);
     sheet.appendRow([
       date,
@@ -165,7 +171,8 @@ function writeServiceSheet(ss, niche, p) {
       p.age       || '',
       p.situation || '',
       p.consent   || '',
-      utm.source, utm.medium, utm.campaign, utm.content
+      utm.source, utm.medium, utm.campaign, utm.content,
+      p.email     || ''
     ]);
 
   } else {
@@ -236,6 +243,7 @@ function buildTelegramMsg(niche, p) {
              niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
     msg += '<b>Nom :</b> '       + (p.nom || '') + '\n';
     msg += '<b>Tel :</b> '       + (p.telephone || '') + '\n';
+    if (p.email) msg += '<b>Email :</b> ' + p.email + '\n';  // optional field
     msg += '<b>Âge :</b> '       + (p.age || '—') + '\n';
     msg += '<b>Situation :</b> ' + (p.situation || '—') + '\n';
   } else {

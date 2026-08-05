@@ -310,6 +310,8 @@
     .field-ico svg { width: 20px; height: 20px; stroke: var(--teal); fill: none; stroke-width: 1.8; }
     .field-body { flex: 1; }
     .field-body label { display: block; font-size: 0.87rem; font-weight: 600; color: var(--navy); margin-bottom: 0.42rem; }
+    /* Marks a field as skippable so it doesn't read as another required step */
+    .label-opt { font-weight: 500; color: var(--gray); font-size: 0.78rem; }
     .field-input {
       width: 100%; padding: 0.85rem 1rem;
       border: 1.5px solid #e0eee9; border-radius: 10px;
@@ -570,6 +572,18 @@
         </div>
       </div>
 
+      <!-- EMAIL (facultatif) — never blocks submission. Only validated if filled. -->
+      <div class="field-row">
+        <div class="field-ico">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2 6 12 13 22 6"/></svg>
+        </div>
+        <div class="field-body">
+          <label for="ms-email">Email <span class="label-opt">(facultatif)</span></label>
+          <input type="email" id="ms-email" class="field-input" placeholder="" autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="off">
+          <div class="field-err" id="ms-email-err">Email invalide.</div>
+        </div>
+      </div>
+
       <!-- AGE -->
       <div class="field-row">
         <div class="field-ico">
@@ -770,6 +784,13 @@
     return /^0[1-79]\d{8}$/.test(String(v).replace(/\D/g, ''));
   }
 
+  // Email is OPTIONAL: an empty box is always fine. We only complain when
+  // something was typed and it cannot be an address, so a typo is caught
+  // without ever blocking a lead that simply chose not to give one.
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(String(v).trim());
+  }
+
   // ── CALLBACK COUNTDOWN ───────────────────────────────────────
   // Turns the abstract "15 minutes" promise into a visible clock.
   function startCountdown() {
@@ -798,20 +819,22 @@
   function msSubmit() {
     var nomEl  = document.getElementById('ms-nom');
     var telEl  = document.getElementById('ms-tel');
+    var mailEl = document.getElementById('ms-email');
     var ageEl  = document.getElementById('ms-age');
     var sitEl  = document.getElementById('ms-situation');
     var nom    = nomEl.value.trim();
     var tel    = telEl.value.trim();
+    var email  = mailEl.value.trim();
     var age    = ageEl.value;
     var sit    = sitEl.value;
     var ok     = true;
 
-    ['ms-nom-err','ms-tel-err','ms-age-err','ms-situation-err','ms-consent-err'].forEach(function(id){
+    ['ms-nom-err','ms-tel-err','ms-email-err','ms-age-err','ms-situation-err','ms-consent-err'].forEach(function(id){
       document.getElementById(id).style.display = 'none';
     });
     var ageGrp = document.getElementById('ms-age-chips');
     var sitGrp = document.getElementById('ms-situation-chips');
-    nomEl.classList.remove('err'); telEl.classList.remove('err');
+    nomEl.classList.remove('err'); telEl.classList.remove('err'); mailEl.classList.remove('err');
     ageGrp.classList.remove('err'); sitGrp.classList.remove('err');
 
     if (!nom) { document.getElementById('ms-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
@@ -823,6 +846,10 @@
         ? 'Numéro français uniquement (01 à 09).'
         : 'Numéro invalide.';
       telErr.style.display = 'block'; telEl.classList.add('err'); ok = false;
+    }
+    // Optional: only a NON-empty, malformed address blocks submission.
+    if (email && !isValidEmail(email)) {
+      document.getElementById('ms-email-err').style.display = 'block'; mailEl.classList.add('err'); ok = false;
     }
     if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageGrp.classList.add('err'); ok = false; }
     if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitGrp.classList.add('err'); ok = false; }
@@ -842,6 +869,7 @@
     fetch(GOOGLE_SCRIPT_URL + '?niche=Mutuelle%20Sante'
       + '&nom='       + encodeURIComponent(nom)
       + '&telephone=' + encodeURIComponent(tel)
+      + '&email='     + encodeURIComponent(email)
       + '&age='       + encodeURIComponent(age)
       + '&situation=' + encodeURIComponent(sit)
       + '&consent=Oui'
@@ -856,6 +884,9 @@
         eventName: 'Lead', eventId: eventId, pixelId: '1011230188058686',
         content_name: 'Accompagnement Senior', content_category: 'Wellness',
         sourceUrl: window.location.href, nom: nom, telephone: tel,
+        // Omitted entirely when blank — capi.js guards on truthiness, so an
+        // empty string would still be hashed into a junk `em` value.
+        email: email || undefined,
         tranche_age: age,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
