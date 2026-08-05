@@ -427,19 +427,6 @@
     /* Situation options are long — give them a full row each */
     .chip-group.stack .chip { min-width:100%; text-align:left; }
 
-    /* ── INSTANT ESTIMATE ──────────────────────
-       Collapses time-to-value from "15 min + a phone call" to zero. */
-    .estimate-box {
-      display:none; margin-top:1rem; padding:1rem 1.1rem;
-      background:linear-gradient(135deg,#eaf7f3,#f4fbf9);
-      border:1.5px solid var(--teal); border-radius:12px;
-    }
-    .estimate-box.show { display:block; animation:estIn 0.35s ease-out; }
-    @keyframes estIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
-    .estimate-label { font-size:0.7rem; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:0.06em; }
-    .estimate-amount { font-size:1.6rem; font-weight:800; color:var(--navy); margin:0.25rem 0 0.15rem; line-height:1.15; }
-    .estimate-note { font-size:0.68rem; color:var(--gray); line-height:1.45; }
-
     /* ── CALLBACK COUNTDOWN (success screen) ─── */
     .countdown {
       display:inline-flex; align-items:baseline; gap:0.3rem;
@@ -615,16 +602,6 @@
         </div>
       </div>
 
-      <!-- INSTANT ESTIMATE — appears as soon as âge + situation are picked -->
-      <div class="estimate-box" id="ms-estimate">
-        <div class="estimate-label">Votre économie estimée</div>
-        <div class="estimate-amount" id="ms-estimate-amount"></div>
-        <div class="estimate-note">
-          Estimation indicative calculée sur la base des contrats comparés par Ringassur.
-          Le montant exact vous sera confirmé par votre conseiller.
-        </div>
-      </div>
-
       <div class="separator"></div>
 
       <!-- CONSENT -->
@@ -722,26 +699,6 @@
     document.getElementById(hiddenId).value = btn.getAttribute('data-val');
     group.classList.remove('err');
     document.getElementById(hiddenId + '-err').style.display = 'none';
-    updateEstimate();
-  }
-
-  // ── INSTANT ESTIMATE ─────────────────────────────────────────
-  // Ranges ladder up to the 480€/an already advertised in the hero.
-  // TODO Ringassur: remplacer par les écarts réels constatés sur vos
-  // dossiers signés — ces fourchettes doivent être justifiables (DGCCRF).
-  var EST_AGE = { '36-55': [120, 240], '55-65': [180, 360], '65+': [240, 480] };
-  var EST_SIT = { 'Sans mutuelle': 1.00, 'Trop chere': 1.00, 'Veut changer': 0.85, 'Salarie': 0.75 };
-
-  function updateEstimate() {
-    var age = document.getElementById('ms-age').value;
-    var sit = document.getElementById('ms-situation').value;
-    var box = document.getElementById('ms-estimate');
-    if (!age || !sit || !EST_AGE[age]) { box.classList.remove('show'); return; }
-    var f = EST_SIT[sit] || 1;
-    var lo = Math.round(EST_AGE[age][0] * f / 10) * 10;
-    var hi = Math.round(EST_AGE[age][1] * f / 10) * 10;
-    document.getElementById('ms-estimate-amount').textContent = lo + '€ à ' + hi + '€ / an';
-    box.classList.add('show');
   }
 
   // ── PHONE FORMATTING ─────────────────────────────────────────
