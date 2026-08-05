@@ -157,16 +157,17 @@
     t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
     document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('dataProcessingOptions', ['LDU'], 0, 0);
-    fbq('init', '944605845074489');
     fbq('init', '1011230188058686');
-    fbq('track', 'PageView');
+    var pvId = 'pv_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+    fbq('track', 'PageView', {}, { eventID: pvId });
     var vcId = 'vc_ms_' + Date.now() + '_' + Math.random().toString(36).slice(2);
     fbq('track', 'ViewContent', { content_name: 'Accompagnement Senior', content_category: 'Wellness' }, { eventID: vcId });
     function _gc(n){ var m=document.cookie.match(new RegExp('(^| )'+n+'=([^;]+)')); return m?m[2]:''; }
     fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+      body: JSON.stringify({ eventName:'PageView', eventId: pvId, pixelId:'1011230188058686', sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
+    fetch('/api/capi',{ method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ eventName:'ViewContent', eventId: vcId, pixelId:'1011230188058686', sourceUrl: window.location.href, fbp: _gc('_fbp'), fbc: _gc('_fbc') }) }).catch(function(){});
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=944605845074489&ev=PageView&noscript=1"/></noscript>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1011230188058686&ev=PageView&noscript=1"/></noscript>
 
   <style>
@@ -389,6 +390,8 @@
     .trust-bar { display:flex; flex-wrap:wrap; gap:0.3rem 0.5rem; margin-top:0.75rem; }
     .trust-bar-item { font-size:0.75rem; font-weight:700; color:#2d5a4e; display:flex; align-items:center; gap:0.2rem; }
     .trust-bar-sep { color:#9fb8b2; font-size:0.7rem; }
+    /* Inline SVG flag — the 🇫🇷 emoji does NOT render as a flag on Windows */
+    .flag-fr { width:16px; height:11px; border-radius:2px; flex-shrink:0; box-shadow:0 0 0 1px rgba(0,0,0,0.08); }
 
     /* ── SELECT FIELD ───────────────────────── */
     .field-select-wrap { position:relative; }
@@ -402,6 +405,50 @@
     }
     .field-select:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(30,138,120,0.1); }
     .field-select.err { border-color:#e53935; }
+
+    /* ── CHIP SELECT (replaces native <select>) ──
+       One tap instead of the 4-step mobile OS picker.
+       Targets are 48px+ tall for reduced fine-motor precision. */
+    .chip-group { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .chip {
+      flex:1 1 auto; min-width:calc(50% - 0.25rem); min-height:50px;
+      padding:0.8rem 0.9rem;
+      border:1.5px solid #e0eee9; border-radius:10px; background:#f8fdfb;
+      font-size:0.95rem; font-family:inherit; font-weight:600; color:var(--navy);
+      text-align:center; cursor:pointer; outline:none;
+      transition:border-color 0.15s, background 0.15s, color 0.15s;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .chip:focus-visible { box-shadow:0 0 0 3px rgba(30,138,120,0.25); }
+    .chip[aria-checked="true"] {
+      background:var(--teal); border-color:var(--teal); color:#fff;
+    }
+    .chip-group.err .chip { border-color:#e53935; }
+    /* Situation options are long — give them a full row each */
+    .chip-group.stack .chip { min-width:100%; text-align:left; }
+
+    /* ── INSTANT ESTIMATE ──────────────────────
+       Collapses time-to-value from "15 min + a phone call" to zero. */
+    .estimate-box {
+      display:none; margin-top:1rem; padding:1rem 1.1rem;
+      background:linear-gradient(135deg,#eaf7f3,#f4fbf9);
+      border:1.5px solid var(--teal); border-radius:12px;
+    }
+    .estimate-box.show { display:block; animation:estIn 0.35s ease-out; }
+    @keyframes estIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:none; } }
+    .estimate-label { font-size:0.7rem; font-weight:800; color:var(--teal); text-transform:uppercase; letter-spacing:0.06em; }
+    .estimate-amount { font-size:1.6rem; font-weight:800; color:var(--navy); margin:0.25rem 0 0.15rem; line-height:1.15; }
+    .estimate-note { font-size:0.68rem; color:var(--gray); line-height:1.45; }
+
+    /* ── CALLBACK COUNTDOWN (success screen) ─── */
+    .countdown {
+      display:inline-flex; align-items:baseline; gap:0.3rem;
+      margin-top:0.9rem; padding:0.55rem 1.1rem;
+      background:#eaf7f3; border-radius:999px;
+      font-size:1.35rem; font-weight:800; color:var(--teal);
+      font-variant-numeric:tabular-nums;
+    }
+    .countdown small { font-size:0.68rem; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em; }
 
     /* ── MICROCOPY ──────────────────────────── */
     .btn-micro { text-align:center; font-size:0.71rem; color:var(--gray); margin-top:0.55rem; line-height:1.5; }
@@ -443,11 +490,13 @@
 
   <!-- HERO -->
   <div class="hero">
-    <!-- Senior couple photo — right side -->
+    <!-- Hero photo — right side (self-hosted: no external dependency, faster LCP) -->
     <img
       class="hero-photo"
-      src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=85"
-      alt="Couple de seniors"
+      src="/hero-mutuelle-senior.jpg"
+      alt="Professionnelle de santé en cabinet médical"
+      width="736" height="1008"
+      fetchpriority="high"
       loading="eager"
     >
     <!-- Fade so left text is readable -->
@@ -481,6 +530,11 @@
         <span class="trust-bar-item">&#10003; Sans engagement</span>
         <span class="trust-bar-sep">·</span>
         <span class="trust-bar-item">&#10003; 100% gratuit</span>
+        <span class="trust-bar-sep">·</span>
+        <span class="trust-bar-item">
+          <svg class="flag-fr" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" x="0" fill="#002395"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ED2939"/></svg>
+          Conseillers en France
+        </span>
       </div>
     </div>
   </div>
@@ -521,7 +575,7 @@
         </div>
         <div class="field-body">
           <label for="ms-tel">Numéro de téléphone</label>
-          <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel">
+          <input type="tel" id="ms-tel" class="field-input" placeholder="" autocomplete="tel" inputmode="tel" maxlength="14" oninput="formatPhone(this)">
           <div class="field-err" id="ms-tel-err">Numéro invalide.</div>
         </div>
       </div>
@@ -532,15 +586,13 @@
           <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         </div>
         <div class="field-body">
-          <label for="ms-age">Votre tranche d'âge</label>
-          <div class="field-select-wrap">
-            <select id="ms-age" class="field-select">
-              <option value="">— Sélectionnez —</option>
-              <option value="36-55">36 – 55 ans</option>
-              <option value="55-65">55 – 65 ans</option>
-              <option value="65+">65 ans et plus</option>
-            </select>
+          <label id="ms-age-lbl">Votre tranche d'âge</label>
+          <div class="chip-group" id="ms-age-chips" role="radiogroup" aria-labelledby="ms-age-lbl">
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="36-55" onclick="pickChip(this,'ms-age')">36 – 55 ans</button>
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="55-65" onclick="pickChip(this,'ms-age')">55 – 65 ans</button>
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="65+"   onclick="pickChip(this,'ms-age')">65 ans et plus</button>
           </div>
+          <input type="hidden" id="ms-age" value="">
           <div class="field-err" id="ms-age-err">Veuillez sélectionner votre tranche d'âge.</div>
         </div>
       </div>
@@ -551,17 +603,25 @@
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
         <div class="field-body">
-          <label for="ms-situation">Votre situation actuelle</label>
-          <div class="field-select-wrap">
-            <select id="ms-situation" class="field-select">
-              <option value="">— Sélectionnez —</option>
-              <option value="Sans mutuelle">Je n'ai pas de mutuelle</option>
-              <option value="Trop chere">Ma mutuelle est trop chère</option>
-              <option value="Veut changer">Je veux changer de mutuelle</option>
-              <option value="Salarie">Salarié cherche individuelle</option>
-            </select>
+          <label id="ms-situation-lbl">Votre situation actuelle</label>
+          <div class="chip-group stack" id="ms-situation-chips" role="radiogroup" aria-labelledby="ms-situation-lbl">
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="Sans mutuelle" onclick="pickChip(this,'ms-situation')">Je n'ai pas de mutuelle</button>
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="Trop chere"    onclick="pickChip(this,'ms-situation')">Ma mutuelle est trop chère</button>
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="Veut changer"  onclick="pickChip(this,'ms-situation')">Je veux changer de mutuelle</button>
+            <button type="button" class="chip" role="radio" aria-checked="false" data-val="Salarie"       onclick="pickChip(this,'ms-situation')">Salarié cherche individuelle</button>
           </div>
+          <input type="hidden" id="ms-situation" value="">
           <div class="field-err" id="ms-situation-err">Veuillez sélectionner votre situation.</div>
+        </div>
+      </div>
+
+      <!-- INSTANT ESTIMATE — appears as soon as âge + situation are picked -->
+      <div class="estimate-box" id="ms-estimate">
+        <div class="estimate-label">Votre économie estimée</div>
+        <div class="estimate-amount" id="ms-estimate-amount"></div>
+        <div class="estimate-note">
+          Estimation indicative calculée sur la base des contrats comparés par Ringassur.
+          Le montant exact vous sera confirmé par votre conseiller.
         </div>
       </div>
 
@@ -596,10 +656,11 @@
       <div class="section-block">
         <div class="section-title">Ce que disent nos clients</div>
         <div><span class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="testi-rating-txt">4.8/5 · +500 avis vérifiés</span></div>
-        <div class="testi-card">
-          <div class="testi-text">« J'économise 420€ par an grâce à Ringassur. Le conseiller m'a rappelé en moins de 10 minutes et a tout géré pour moi. Je recommande ! »</div>
-          <div class="testi-author">Marie-Hélène, 67 ans — Paris <!-- TODO: remplacer par un vrai avis client --></div>
-        </div>
+        <!-- Le témoignage nominatif « Marie-Hélène, 67 ans » a été retiré : il était
+             inventé (voir l'ancien TODO). Publier un faux avis client est une pratique
+             commerciale trompeuse (art. L121-2 Code de la consommation) et expose le
+             compte publicitaire Meta à une restriction.
+             → Réinsérer ici uniquement un avis réel et vérifiable. -->
       </div>
 
       <!-- FAQ -->
@@ -630,7 +691,11 @@
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
       </div>
       <h3>Demande envoyée !</h3>
-      <p>Un conseiller vous rappelle dans les <strong>15 minutes</strong> pour finaliser votre simulation mutuelle santé senior.<br><br>Merci pour votre confiance !</p>
+      <p id="ms-success-msg">Un conseiller vous rappelle dans les <strong>15 minutes</strong> pour finaliser votre simulation mutuelle santé senior.<br><br>Merci pour votre confiance !</p>
+      <div class="countdown" id="ms-countdown" style="display:none;">
+        <span id="ms-countdown-time">15:00</span>
+        <small>avant votre appel</small>
+      </div>
     </div>
 
   </div>
@@ -645,6 +710,60 @@
     var el = document.getElementById('ms-check');
     if (consentChecked) el.classList.add('checked');
     else el.classList.remove('checked');
+  }
+
+  // ── CHIP SELECT ──────────────────────────────────────────────
+  // Writes into the hidden input so every downstream consumer
+  // (validation, Sheets, CAPI) keeps reading `.value` unchanged.
+  function pickChip(btn, hiddenId) {
+    var group = btn.parentNode;
+    group.querySelectorAll('.chip').forEach(function(c) { c.setAttribute('aria-checked', 'false'); });
+    btn.setAttribute('aria-checked', 'true');
+    document.getElementById(hiddenId).value = btn.getAttribute('data-val');
+    group.classList.remove('err');
+    document.getElementById(hiddenId + '-err').style.display = 'none';
+    updateEstimate();
+  }
+
+  // ── INSTANT ESTIMATE ─────────────────────────────────────────
+  // Ranges ladder up to the 480€/an already advertised in the hero.
+  // TODO Ringassur: remplacer par les écarts réels constatés sur vos
+  // dossiers signés — ces fourchettes doivent être justifiables (DGCCRF).
+  var EST_AGE = { '36-55': [120, 240], '55-65': [180, 360], '65+': [240, 480] };
+  var EST_SIT = { 'Sans mutuelle': 1.00, 'Trop chere': 1.00, 'Veut changer': 0.85, 'Salarie': 0.75 };
+
+  function updateEstimate() {
+    var age = document.getElementById('ms-age').value;
+    var sit = document.getElementById('ms-situation').value;
+    var box = document.getElementById('ms-estimate');
+    if (!age || !sit || !EST_AGE[age]) { box.classList.remove('show'); return; }
+    var f = EST_SIT[sit] || 1;
+    var lo = Math.round(EST_AGE[age][0] * f / 10) * 10;
+    var hi = Math.round(EST_AGE[age][1] * f / 10) * 10;
+    document.getElementById('ms-estimate-amount').textContent = lo + '€ à ' + hi + '€ / an';
+    box.classList.add('show');
+  }
+
+  // ── PHONE FORMATTING ─────────────────────────────────────────
+  // Groups as 06 12 34 56 78 while typing — prevents the mistyped-number retry loop.
+  function formatPhone(el) {
+    var d = el.value.replace(/\D/g, '').slice(0, 10);
+    el.value = d.replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+  }
+
+  // ── CALLBACK COUNTDOWN ───────────────────────────────────────
+  // Turns the abstract "15 minutes" promise into a visible clock.
+  function startCountdown() {
+    var box = document.getElementById('ms-countdown');
+    var out = document.getElementById('ms-countdown-time');
+    box.style.display = 'inline-flex';
+    var left = 15 * 60;
+    var t = setInterval(function() {
+      left--;
+      if (left <= 0) { clearInterval(t); box.style.display = 'none'; return; }
+      var m = Math.floor(left / 60), s = left % 60;
+      out.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+    }, 1000);
   }
 
   function toggleFaq(el) {
@@ -671,13 +790,15 @@
     ['ms-nom-err','ms-tel-err','ms-age-err','ms-situation-err','ms-consent-err'].forEach(function(id){
       document.getElementById(id).style.display = 'none';
     });
+    var ageGrp = document.getElementById('ms-age-chips');
+    var sitGrp = document.getElementById('ms-situation-chips');
     nomEl.classList.remove('err'); telEl.classList.remove('err');
-    ageEl.classList.remove('err'); sitEl.classList.remove('err');
+    ageGrp.classList.remove('err'); sitGrp.classList.remove('err');
 
     if (!nom) { document.getElementById('ms-nom-err').style.display = 'block'; nomEl.classList.add('err'); ok = false; }
     if (!tel || tel.replace(/\D/g,'').length < 9) { document.getElementById('ms-tel-err').style.display = 'block'; telEl.classList.add('err'); ok = false; }
-    if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageEl.classList.add('err'); ok = false; }
-    if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitEl.classList.add('err'); ok = false; }
+    if (!age) { document.getElementById('ms-age-err').style.display = 'block'; ageGrp.classList.add('err'); ok = false; }
+    if (!sit) { document.getElementById('ms-situation-err').style.display = 'block'; sitGrp.classList.add('err'); ok = false; }
     if (!consentChecked) { document.getElementById('ms-consent-err').style.display = 'block'; ok = false; }
     if (!ok) return;
 
@@ -701,24 +822,14 @@
       + '&ua='        + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
 
-    // CAPI — pixel 944605845074489 (default)
+    // CAPI — pixel 1011230188058686
     fetch('/api/capi', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        eventName: 'Lead', eventId: eventId,
+        eventName: 'Lead', eventId: eventId, pixelId: '1011230188058686',
         content_name: 'Accompagnement Senior', content_category: 'Wellness',
         sourceUrl: window.location.href, nom: nom, telephone: tel,
-        fbp: getCk('_fbp'), fbc: getCk('_fbc')
-      })
-    }).catch(function() {});
-
-    // CAPI — pixel 1011230188058686 (new pixel)
-    fetch('/api/capi', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        eventName: 'Lead', eventId: eventId + '_p2', pixelId: '1011230188058686',
-        content_name: 'Accompagnement Senior', content_category: 'Wellness',
-        sourceUrl: window.location.href, nom: nom, telephone: tel,
+        tranche_age: age,
         fbp: getCk('_fbp'), fbc: getCk('_fbc')
       })
     }).catch(function() {});
@@ -726,6 +837,7 @@
     setTimeout(function() {
       document.getElementById('ms-form').style.display = 'none';
       document.getElementById('ms-success').classList.add('show');
+      startCountdown();
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead', { content_name: 'Accompagnement Senior', content_category: 'Wellness' }, { eventID: eventId });
       }
