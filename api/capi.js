@@ -11,9 +11,9 @@ var PAGE_URL = 'https://www.ringassur.com';
 // skills/ringassur-error-log.md ERROR #008), add it to Vercel env, add one
 // line here.
 var PIXEL_REGISTRY = {
-  '944605845074489':      { tokenEnv: 'META_CAPI_TOKEN' },   // legacy default — auto/immo/energie/etc.
-  '1011230188058686':     { tokenEnv: 'META_CAPI_TOKEN_2' }, // Mutuelle Santé
-  '995355740169875': { tokenEnv: 'META_CAPI_TOKEN_3' }  // Indemnité Journalière — SWAP this key for the real pixel ID once created
+  '944605845074489':  { tokenEnv: 'META_CAPI_TOKEN'   }, // ringassurPixel — auto/immo/energie/rappel/test-drive/rc-decennale/emprunteur
+  '1011230188058686': { tokenEnv: 'META_CAPI_TOKEN_2' }, // Pixel Mutuelle Santé — mutuelle-sante + variants 1/2/3
+  '995355740169875':  { tokenEnv: 'META_CAPI_TOKEN_3' }  // Indemnité journalière — indemnite-journaliere
 };
 
 function hash(val) {
