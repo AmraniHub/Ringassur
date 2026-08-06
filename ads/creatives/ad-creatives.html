@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Ringassur — 10 Ad Creatives (1080x1350 — 4:5)</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#111; font-family:'Segoe UI',Arial,sans-serif; padding:40px; }
+  h1 { color:#fff; text-align:center; margin-bottom:6px; font-size:16px; }
+  .meta { color:#666; text-align:center; margin-bottom:40px; font-size:12px; }
+  .grid { display:flex; flex-direction:column; gap:60px; align-items:center; }
+  .wrap { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .label { color:#888; font-size:11px; letter-spacing:1px; text-transform:uppercase; }
+
+  /* Base ad — 1080x1350 (4:5 Feed optimal) */
+  .ad { width:1080px; height:1350px; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+
+  /* ── AD 1 — Direct Price Pain (Deep Blue) ── */
+  .a1 { background:linear-gradient(160deg,#002B80 0%,#0047CC 55%,#0066FF 100%); }
+  .a1 .logo { position:absolute;top:60px;left:70px;color:#fff;font-size:34px;font-weight:900;letter-spacing:-1px; }
+  .a1 .logo span{color:#FFD700;}
+  .a1 .badge{position:absolute;top:58px;right:70px;background:#FFD700;color:#002B80;font-size:18px;font-weight:800;padding:10px 22px;border-radius:30px;}
+  .a1 .main{text-align:center;color:#fff;padding:0 90px;}
+  .a1 .hook{font-size:72px;font-weight:900;line-height:1.05;margin-bottom:30px;}
+  .a1 .hook .red{color:#FF4444;}
+  .a1 .proof{font-size:32px;opacity:.8;line-height:1.5;margin-bottom:50px;}
+  .a1 .pill{background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);border-radius:50px;padding:18px 40px;font-size:28px;color:#fff;margin-bottom:50px;}
+  .a1 .cta{background:#FFD700;color:#002B80;font-size:32px;font-weight:900;padding:26px 80px;border-radius:60px;}
+
+  /* ── AD 2 — Price Anchor (Orange/Black) ── */
+  .a2{background:#0A0A0A;}
+  .a2 .stripe{position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#FF6B00,#FFB800);}
+  .a2 .logo{position:absolute;top:60px;left:70px;color:#fff;font-size:32px;font-weight:800;}
+  .a2 .logo span{color:#FF6B00;}
+  .a2 .main{text-align:center;color:#fff;padding:0 80px;}
+  .a2 .price-bad{font-size:42px;opacity:.5;text-decoration:line-through;margin-bottom:10px;}
+  .a2 .price-good{font-size:130px;font-weight:900;color:#FFB800;line-height:1;}
+  .a2 .price-label{font-size:30px;opacity:.8;margin-bottom:30px;}
+  .a2 .hook{font-size:42px;font-weight:700;line-height:1.3;margin-bottom:40px;}
+  .a2 .hook span{color:#FF6B00;}
+  .a2 .cta{background:linear-gradient(135deg,#FF6B00,#FFB800);color:#000;font-size:28px;font-weight:900;padding:22px 70px;border-radius:50px;}
+
+  /* ── AD 3 — Seasonal/News (Red Alert) ── */
+  .a3{background:#fff;}
+  .a3 .top{position:absolute;top:0;left:0;right:0;height:280px;background:#CC0000;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:30px;}
+  .a3 .breaking{color:#FFD700;font-size:22px;font-weight:800;letter-spacing:3px;margin-bottom:10px;}
+  .a3 .top h2{color:#fff;font-size:52px;font-weight:900;text-align:center;line-height:1.1;}
+  .a3 .logo{position:absolute;bottom:40px;left:70px;color:#CC0000;font-size:30px;font-weight:800;}
+  .a3 .logo span{color:#FFD700;}
+  .a3 .body{position:absolute;top:300px;bottom:110px;left:70px;right:70px;display:flex;flex-direction:column;justify-content:center;}
+  .a3 .stat{font-size:100px;font-weight:900;color:#CC0000;line-height:1;margin-bottom:10px;}
+  .a3 .stat-label{font-size:36px;color:#111;font-weight:700;margin-bottom:30px;}
+  .a3 .detail{font-size:28px;color:#444;line-height:1.5;margin-bottom:40px;}
+  .a3 .cta{background:#CC0000;color:#fff;font-size:26px;font-weight:800;padding:20px 50px;border-radius:40px;align-self:flex-start;}
+
+  /* ── AD 4 — Savings Amount (Green) ── */
+  .a4{background:linear-gradient(160deg,#003D1A 0%,#006B2E 60%,#00A844 100%);}
+  .a4 .logo{position:absolute;top:60px;left:70px;color:#fff;font-size:32px;font-weight:800;}
+  .a4 .logo span{color:#FFD700;}
+  .a4 .cert{position:absolute;top:55px;right:70px;border:2px solid rgba(255,255,255,.4);border-radius:30px;padding:10px 22px;color:rgba(255,255,255,.8);font-size:18px;}
+  .a4 .main{text-align:center;color:#fff;padding:0 80px;}
+  .a4 .saving{font-size:160px;font-weight:900;color:#FFD700;line-height:1;}
+  .a4 .saving-label{font-size:32px;opacity:.85;margin-bottom:30px;}
+  .a4 .hook{font-size:44px;font-weight:800;line-height:1.2;margin-bottom:40px;}
+  .a4 .checks{text-align:left;background:rgba(255,255,255,.1);border-radius:20px;padding:30px 40px;margin-bottom:50px;}
+  .a4 .check{font-size:26px;margin-bottom:12px;display:flex;gap:15px;}
+  .a4 .check::before{content:"✓";color:#FFD700;font-weight:900;}
+  .a4 .cta{background:#FFD700;color:#003D1A;font-size:28px;font-weight:900;padding:22px 70px;border-radius:50px;}
+
+  /* ── AD 5 — Quiz/Test Hook (Purple) ── */
+  .a5{background:linear-gradient(160deg,#1A0050 0%,#3D0099 60%,#6600FF 100%);}
+  .a5 .logo{position:absolute;top:60px;left:70px;color:#fff;font-size:32px;font-weight:800;}
+  .a5 .logo span{color:#FFD700;}
+  .a5 .main{text-align:center;color:#fff;padding:0 80px;}
+  .a5 .question{font-size:34px;color:rgba(255,255,255,.7);margin-bottom:15px;}
+  .a5 .hook{font-size:62px;font-weight:900;line-height:1.1;margin-bottom:40px;}
+  .a5 .hook span{color:#FFD700;}
+  .a5 .steps{display:flex;flex-direction:column;gap:15px;text-align:left;margin-bottom:50px;}
+  .a5 .step{display:flex;gap:20px;align-items:center;background:rgba(255,255,255,.08);border-radius:16px;padding:20px 25px;}
+  .a5 .step-n{width:44px;height:44px;border-radius:50%;background:#FFD700;color:#1A0050;font-size:22px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .a5 .step-t{font-size:24px;}
+  .a5 .cta{background:#FFD700;color:#1A0050;font-size:28px;font-weight:900;padding:22px 70px;border-radius:50px;}
+
+  /* ── AD 6 — Stat/Social Proof (Navy) ── */
+  .a6{background:#F5F7FF;}
+  .a6 .header{position:absolute;top:0;left:0;right:0;height:200px;background:#0047AB;display:flex;justify-content:center;align-items:center;}
+  .a6 .logo-w{color:#fff;font-size:32px;font-weight:800;}
+  .a6 .logo-w span{color:#FFD700;}
+  .a6 .body{position:absolute;top:220px;bottom:100px;left:70px;right:70px;display:flex;flex-direction:column;justify-content:center;}
+  .a6 .big-stat{font-size:160px;font-weight:900;color:#0047AB;line-height:1;}
+  .a6 .stat-label{font-size:36px;font-weight:700;color:#111;margin-bottom:20px;line-height:1.2;}
+  .a6 .detail{font-size:26px;color:#555;line-height:1.5;margin-bottom:40px;}
+  .a6 .source{font-size:18px;color:#999;margin-bottom:40px;}
+  .a6 .cta{background:#0047AB;color:#fff;font-size:26px;font-weight:800;padding:20px 55px;border-radius:40px;align-self:flex-start;}
+  .a6 .footer{position:absolute;bottom:0;left:0;right:0;height:90px;background:#0047AB;display:flex;align-items:center;justify-content:center;}
+  .a6 .footer p{color:#fff;font-size:22px;font-weight:700;}
+
+  /* ── AD 7 — Low Friction (Clean White) ── */
+  .a7{background:#fff;}
+  .a7 .accent{position:absolute;top:0;left:0;width:12px;height:100%;background:linear-gradient(180deg,#0047AB,#0088FF);}
+  .a7 .logo{position:absolute;top:60px;left:100px;color:#0047AB;font-size:32px;font-weight:800;}
+  .a7 .logo span{color:#FFD700;}
+  .a7 .body{position:absolute;top:160px;bottom:100px;left:100px;right:70px;display:flex;flex-direction:column;justify-content:center;}
+  .a7 .hook{font-size:64px;font-weight:900;color:#0A1628;line-height:1.1;margin-bottom:30px;}
+  .a7 .hook span{color:#0047AB;}
+  .a7 .promise{font-size:30px;color:#555;line-height:1.5;margin-bottom:50px;}
+  .a7 .features{display:flex;flex-direction:column;gap:18px;margin-bottom:50px;}
+  .a7 .feat{font-size:26px;color:#333;display:flex;gap:15px;align-items:center;}
+  .a7 .feat::before{content:"✓";color:#0047AB;font-weight:900;font-size:28px;}
+  .a7 .cta{background:#0047AB;color:#fff;font-size:28px;font-weight:800;padding:22px 60px;border-radius:50px;align-self:flex-start;}
+  .a7 .footer{position:absolute;bottom:0;left:0;right:0;height:90px;background:#f0f4ff;display:flex;align-items:center;justify-content:center;}
+  .a7 .footer p{color:#0047AB;font-size:20px;font-weight:600;}
+
+  /* ── AD 8 — Contrast Hook (Split) ── */
+  .a8{background:#fff;}
+  .a8 .top-half{position:absolute;top:0;left:0;right:0;height:500px;background:#CC0000;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px;}
+  .a8 .bad{font-size:38px;color:rgba(255,255,255,.7);margin-bottom:10px;}
+  .a8 .bad-val{font-size:80px;font-weight:900;color:#fff;text-decoration:line-through;opacity:.6;}
+  .a8 .arrow{font-size:80px;color:#FFD700;margin:20px 0;}
+  .a8 .good{font-size:38px;color:#FFD700;margin-bottom:5px;}
+  .a8 .good-val{font-size:80px;font-weight:900;color:#FFD700;}
+  .a8 .bottom-half{position:absolute;bottom:0;left:0;right:0;height:820px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:50px 80px;}
+  .a8 .logo-b{color:#0047AB;font-size:30px;font-weight:800;margin-bottom:30px;}
+  .a8 .logo-b span{color:#FFD700;}
+  .a8 .hook-b{font-size:50px;font-weight:800;color:#0A1628;text-align:center;line-height:1.2;margin-bottom:30px;}
+  .a8 .sub{font-size:26px;color:#555;text-align:center;line-height:1.5;margin-bottom:40px;}
+  .a8 .cta{background:#0047AB;color:#fff;font-size:28px;font-weight:800;padding:22px 70px;border-radius:50px;}
+
+  /* ── AD 9 — Objection Killer (Teal) ── */
+  .a9{background:linear-gradient(160deg,#003344 0%,#005566 55%,#007799 100%);}
+  .a9 .logo{position:absolute;top:60px;left:70px;color:#fff;font-size:32px;font-weight:800;}
+  .a9 .logo span{color:#FFD700;}
+  .a9 .main{text-align:center;color:#fff;padding:0 80px;}
+  .a9 .myth{font-size:28px;color:rgba(255,255,255,.6);margin-bottom:10px;letter-spacing:1px;}
+  .a9 .hook{font-size:58px;font-weight:900;line-height:1.1;margin-bottom:40px;}
+  .a9 .hook .cross{color:#FF4444;text-decoration:line-through;}
+  .a9 .truth-box{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:20px;padding:35px 40px;margin-bottom:40px;text-align:left;}
+  .a9 .truth-title{font-size:26px;color:#FFD700;font-weight:700;margin-bottom:15px;}
+  .a9 .truth-item{font-size:24px;margin-bottom:12px;padding-left:30px;position:relative;}
+  .a9 .truth-item::before{content:"✓";position:absolute;left:0;color:#FFD700;font-weight:900;}
+  .a9 .cta{background:#FFD700;color:#003344;font-size:28px;font-weight:900;padding:22px 70px;border-radius:50px;}
+
+  /* ── AD 10 — Urgency/Seasonal Countdown (Dark Red) ── */
+  .a10{background:linear-gradient(160deg,#1A0000 0%,#4D0000 60%,#800000 100%);}
+  .a10 .logo{position:absolute;top:60px;left:70px;color:#fff;font-size:32px;font-weight:800;}
+  .a10 .logo span{color:#FFD700;}
+  .a10 .flame{position:absolute;top:55px;right:70px;font-size:50px;}
+  .a10 .main{text-align:center;color:#fff;padding:0 80px;}
+  .a10 .eyebrow{font-size:24px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;}
+  .a10 .hook{font-size:66px;font-weight:900;line-height:1.1;margin-bottom:30px;}
+  .a10 .hook span{color:#FFD700;}
+  .a10 .stat-row{display:flex;gap:25px;justify-content:center;margin-bottom:40px;}
+  .a10 .stat-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:25px 30px;text-align:center;min-width:180px;}
+  .a10 .stat-val{font-size:52px;font-weight:900;color:#FFD700;line-height:1;}
+  .a10 .stat-lbl{font-size:18px;color:rgba(255,255,255,.7);margin-top:5px;}
+  .a10 .cta{background:#FFD700;color:#1A0000;font-size:28px;font-weight:900;padding:22px 70px;border-radius:50px;}
+</style>
+</head>
+<body>
+<h1>Ringassur — 10 Ad Creatives (1080×1350 · 4:5)</h1>
+<p class="meta">10 visually distinct hooks · Export via DevTools → Capture node screenshot · Deploy to Meta Ads Manager</p>
+
+<div class="grid">
+
+  <!-- AD 1 -->
+  <div class="wrap"><div class="label">Ad 1 — Direct Price Pain</div>
+  <div class="ad a1">
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="badge">🏥 GRATUIT</div>
+    <div class="main">
+      <div class="hook">Votre mutuelle vous coûte<br><span class="red">trop cher.</span> 🔴</div>
+      <div class="proof">Les Français de 60 ans paient<br>en moyenne <strong>150€/mois.</strong><br>Avez-vous comparé récemment ?</div>
+      <div class="pill">⏱ Simulation gratuite en 2 minutes</div>
+      <div class="cta">Comparer maintenant →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 2 -->
+  <div class="wrap"><div class="label">Ad 2 — Price Anchor</div>
+  <div class="ad a2">
+    <div class="stripe"></div>
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="main">
+      <div class="price-bad">150€/mois</div>
+      <div class="price-good">112€</div>
+      <div class="price-label">/mois · même couverture</div>
+      <div class="hook">Vous payez peut-être<br><span>40€ de trop</span> chaque mois.</div>
+      <div class="cta">Vérifier mon tarif →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 3 -->
+  <div class="wrap"><div class="label">Ad 3 — Seasonal News Hook</div>
+  <div class="ad a3">
+    <div class="top">
+      <div class="breaking">⚡ JANVIER 2026</div>
+      <h2>Votre mutuelle a encore augmenté.</h2>
+    </div>
+    <div class="body">
+      <div class="stat">+8%</div>
+      <div class="stat-label">d'augmentation moyenne<br>sur les mutuelles seniors en 2026</div>
+      <div class="detail">Vos remboursements n'ont pas augmenté.<br>Votre facture, si. C'est le moment de comparer.</div>
+      <div class="cta">Comparer en 2 minutes →</div>
+    </div>
+    <div class="logo">Ring<span>assur</span></div>
+  </div></div>
+
+  <!-- AD 4 -->
+  <div class="wrap"><div class="label">Ad 4 — Savings Amount</div>
+  <div class="ad a4">
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="cert">✓ Courtier ORIAS</div>
+    <div class="main">
+      <div class="saving">480€</div>
+      <div class="saving-label">économisés par an en moyenne</div>
+      <div class="hook">Votre mutuelle actuelle<br>vous coûte trop cher.</div>
+      <div class="checks">
+        <div class="check">Comparaison 100% gratuite</div>
+        <div class="check">Vous gardez votre médecin</div>
+        <div class="check">Résultat en 2 minutes</div>
+      </div>
+      <div class="cta">Je compare maintenant →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 5 -->
+  <div class="wrap"><div class="label">Ad 5 — Quiz Hook</div>
+  <div class="ad a5">
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="main">
+      <div class="question">3 questions pour savoir si…</div>
+      <div class="hook">Vous payez<br><span>trop cher</span><br>votre mutuelle</div>
+      <div class="steps">
+        <div class="step"><div class="step-n">1</div><div class="step-t">Votre âge et situation actuelle</div></div>
+        <div class="step"><div class="step-n">2</div><div class="step-t">Votre mutuelle actuelle et tarif</div></div>
+        <div class="step"><div class="step-n">3</div><div class="step-t">Résultat immédiat + devis gratuit</div></div>
+      </div>
+      <div class="cta">Tester maintenant →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 6 -->
+  <div class="wrap"><div class="label">Ad 6 — Stat Social Proof</div>
+  <div class="ad a6">
+    <div class="header"><div class="logo-w">Ring<span>assur</span></div></div>
+    <div class="body">
+      <div class="big-stat">80%</div>
+      <div class="stat-label">des seniors français paient<br>trop cher leur mutuelle santé</div>
+      <div class="detail">La plupart n'ont pas comparé<br>depuis plus de 2 ans.<br>Un simple devis peut tout changer.</div>
+      <div class="source">Source : UFC-Que Choisir 2025</div>
+      <div class="cta">Je vérifie mon tarif →</div>
+    </div>
+    <div class="footer"><p>🌐 ringassur.com · Devis gratuit en 2 minutes</p></div>
+  </div></div>
+
+  <!-- AD 7 -->
+  <div class="wrap"><div class="label">Ad 7 — Low Friction</div>
+  <div class="ad a7">
+    <div class="accent"></div>
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="body">
+      <div class="hook">Comparez votre mutuelle en <span>2 minutes.</span> Gratuit.</div>
+      <div class="promise">Sans engagement. Sans appel commercial.<br>Résultat immédiat.</div>
+      <div class="features">
+        <div class="feat">Toutes les mutuelles comparées</div>
+        <div class="feat">Tarif courtier — moins cher qu'en direct</div>
+        <div class="feat">Vous gardez votre médecin actuel</div>
+        <div class="feat">Souscription 100% en ligne</div>
+      </div>
+      <div class="cta">Comparer gratuitement →</div>
+    </div>
+    <div class="footer"><p>ringassur.com · Certifié ORIAS</p></div>
+  </div></div>
+
+  <!-- AD 8 -->
+  <div class="wrap"><div class="label">Ad 8 — Before/After Split</div>
+  <div class="ad a8">
+    <div class="top-half">
+      <div class="bad">Ce que vous payez</div>
+      <div class="bad-val">150€/mois</div>
+      <div class="arrow">↓</div>
+      <div class="good">Ce que vous pourriez payer</div>
+      <div class="good-val">110€/mois</div>
+    </div>
+    <div class="bottom-half">
+      <div class="logo-b">Ring<span>assur</span></div>
+      <div class="hook-b">Votre mutuelle a augmenté.<br>Pas vos remboursements.</div>
+      <div class="sub">Comparez en 2 minutes et découvrez<br>combien vous pouvez économiser.</div>
+      <div class="cta">Comparer maintenant →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 9 -->
+  <div class="wrap"><div class="label">Ad 9 — Objection Killer</div>
+  <div class="ad a9">
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="main">
+      <div class="myth">⚠ IDÉE REÇUE</div>
+      <div class="hook">"Changer de mutuelle,<br>c'est <span class="cross">compliqué</span>"</div>
+      <div class="truth-box">
+        <div class="truth-title">La réalité en 2026 :</div>
+        <div class="truth-item">Vous gardez votre médecin actuel</div>
+        <div class="truth-item">2 minutes pour comparer</div>
+        <div class="truth-item">On s'occupe de la résiliation</div>
+        <div class="truth-item">Couverture immédiate dès signature</div>
+      </div>
+      <div class="cta">Comparer sans risque →</div>
+    </div>
+  </div></div>
+
+  <!-- AD 10 -->
+  <div class="wrap"><div class="label">Ad 10 — Urgency</div>
+  <div class="ad a10">
+    <div class="logo">Ring<span>assur</span></div>
+    <div class="flame">🔥</div>
+    <div class="main">
+      <div class="eyebrow">Saison résiliation 2026</div>
+      <div class="hook">Vous pouvez changer<br>de mutuelle<br><span>maintenant.</span></div>
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-val">2min</div>
+          <div class="stat-lbl">pour comparer</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">480€</div>
+          <div class="stat-lbl">économisés/an</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val">100%</div>
+          <div class="stat-lbl">gratuit</div>
+        </div>
+      </div>
+      <div class="cta">Je compare maintenant →</div>
+    </div>
+  </div></div>
+
+</div>
+<p style="color:#555;text-align:center;margin:60px 0 20px;font-size:12px;">
+  Export: Chrome → DevTools → click .ad element → right-click → Capture node screenshot → 1080×1350px PNG
+</p>
+</body>
+</html>

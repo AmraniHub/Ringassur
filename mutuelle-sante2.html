@@ -358,6 +358,9 @@
     .success-box p { font-size: 0.9rem; color: #475569; line-height: 1.7; }
     .success-box strong { color: #059669; }
   </style>
+<!-- XLead24 CRM bridge — sends the lead into the CRM so it is scored,
+     routed to a paying courtier and billed. Non-blocking. -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -456,6 +459,11 @@
 
     <div class="divider"></div>
 
+      <!-- Anti-spam: hidden from humans, filled by bots. Never remove. -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+        <label for="ms2-website">Ne pas remplir</label>
+        <input type="text" id="ms2-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
     <div class="consent-row" onclick="toggleConsent()">
       <div class="chk-box" id="ms2-check">
         <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -625,6 +633,23 @@
       + '&utm_content='  + encodeURIComponent(utmContent)
       + '&ua=' + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // Without this the lead only reaches the spreadsheet above: no
+    // scoring, no routing to a paying courtier, no billing.
+    // Fire-and-forget — the success screen never waits on it.
+    if (window.LXLeadora) {
+      var _lxParts = String(nom || '').trim().split(/\s+/);
+      window.LXLeadora.submit({
+        vertical: 'mutuelle_sante',
+        source: 'meta_lp',
+        first_name: _lxParts[0],
+        last_name: _lxParts.slice(1).join(' '),
+        phone: tel,
+        vertical_data: { age_band: age, situation: sit },
+        honeypot: (document.getElementById('ms2-website') || {}).value || ''
+      });
+    }
 
     fetch('/api/capi', {
       method: 'POST',

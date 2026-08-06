@@ -392,6 +392,9 @@
       .hero-form-card h2 { font-size: 1rem; }
     }
   </style>
+<!-- XLead24 CRM bridge — sends the lead into the CRM so it is scored,
+     routed to a paying courtier and billed. Non-blocking. -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -514,6 +517,11 @@
           <p id="sit-error-msg">Veuillez sélectionner votre situation.</p>
         </div>
 
+      <!-- Anti-spam: hidden from humans, filled by bots. Never remove. -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+        <label for="auto-website">Ne pas remplir</label>
+        <input type="text" id="auto-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
         <label class="consent-row">
           <input type="checkbox" id="auto-consent">
           <span>J'accepte d'être contacté par un conseiller.</span>
@@ -668,6 +676,23 @@
       return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
     }).join('&');
     fetch(url, { method: 'GET', mode: 'no-cors' }).catch(function(){});
+
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // Without this the lead only reaches the spreadsheet above: no
+    // scoring, no routing to a paying courtier, no billing.
+    // Fire-and-forget — the success screen never waits on it.
+    if (window.LXLeadora) {
+      var _lxParts = String(nom || '').trim().split(/\s+/);
+      window.LXLeadora.submit({
+        vertical: 'assurance_auto',
+        source: 'meta_lp',
+        first_name: _lxParts[0],
+        last_name: _lxParts.slice(1).join(' '),
+        phone: tel,
+        vertical_data: { profil: selectedSituation },
+        honeypot: (document.getElementById('auto-website') || {}).value || ''
+      });
+    }
 
     // CAPI + Telegram
     fetch('/api/capi', {

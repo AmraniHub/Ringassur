@@ -509,6 +509,8 @@
       -webkit-overflow-scrolling: touch;
     }
   </style>
+<!-- XLead24 CRM bridge -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -753,6 +755,10 @@
       </div>
     </div>
 
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+      <label for="rcdl-website">Ne pas remplir</label>
+      <input type="text" id="rcdl-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
     <button class="btn-primary" id="btnSubmit" onclick="submitForm()">Obtenir mon devis gratuit</button>
 
     <p style="font-size:0.75rem;color:var(--text-gray);max-width:350px;margin:1rem auto 0;text-align:center;">
@@ -1093,6 +1099,27 @@
       fetch(sheetsUrl, { method: 'GET', mode: 'no-cors' }).catch(function(){});
     }
 
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // Despite the filename this page is RC Décennale (see its title),
+    // so it is sent as rc_decennale. It is the richest form of the set:
+    // activité, CA, SIREN and a real postal code all feed the scorer.
+    if (window.LXLeadora) {
+      window.LXLeadora.submit({
+        vertical: 'rc_decennale',
+        source: 'meta_lp',
+        first_name: data.prenom,
+        last_name: data.nom,
+        phone: data.telephone,
+        email: data.email,
+        postal_code: (document.getElementById('codePostal') || {}).value || '',
+        metier: data.activite || 'non precise',
+        situation: 'no_insurance',
+        siret: data.siren || undefined,
+        ca_band: data.ca || undefined,
+        honeypot: (document.getElementById('rcdl-website') || {}).value || ''
+      });
+    }
+
     // Send to Meta CAPI (server-side) + Telegram
     fetch('/api/capi', {
       method: 'POST',
@@ -1106,7 +1133,6 @@
         ca:              data.ca,
         siren:           data.siren,
         eventId:         eventId,
-,
         content_name:    'Devis Pro Gratuit',
         content_category:'Services',
         fbp:             getCookie('_fbp'),

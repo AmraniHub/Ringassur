@@ -277,6 +277,8 @@
       .hero-left h1 { font-size: 1.9rem; }
     }
   </style>
+<!-- XLead24 CRM bridge -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -426,6 +428,10 @@
         </label>
         <div class="consent-err" id="ij-consent-err">Veuillez cocher la case pour continuer.</div>
 
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+        <label for="ij-website">Ne pas remplir</label>
+        <input type="text" id="ij-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
         <button type="button" class="btn-cta" id="ij-btn" onclick="ijSubmit()">
           Demander un rappel gratuit
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -659,6 +665,24 @@
       + '&utm='            + encodeURIComponent(window.location.search)
       + '&ua='             + encodeURIComponent(navigator.userAgent.substring(0, 120)),
       { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // The spreadsheet alone means no scoring, no routing, no billing.
+    if (window.LXLeadora) {
+      window.LXLeadora.submit({
+        vertical: 'indemnite_journaliere',
+        source: 'meta_lp',
+        first_name: pre,
+        last_name: nom,
+        phone: tel,
+        honeypot: (document.getElementById('ij-website') || {}).value || '',
+        vertical_data: {
+          birth_date: dob,
+          callback_date: rdate,
+          callback_time: rtime
+        }
+      });
+    }
 
     // CAPI — pixel 995355740169875 (Indemnité Journalière)
     fetch('/api/capi', {

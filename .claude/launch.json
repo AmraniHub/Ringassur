@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "social-posts",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "ads/social-posts", "-p", "3456", "--no-clipboard"],
+      "port": 3456
+    },
+    {
+      "name": "static-root",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "4321"],
+      "port": 4321
+    }
+  ]
+}

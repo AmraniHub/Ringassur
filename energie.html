@@ -196,6 +196,9 @@
       .hero-h1 { font-size: 1.7rem; }
     }
   </style>
+<!-- XLead24 CRM bridge — sends the lead into the CRM so it is scored,
+     routed to a paying courtier and billed. Non-blocking. -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -247,6 +250,11 @@
               <span class="field-err" id="en-tel-err">Numéro invalide.</span>
             </div>
           </div>
+      <!-- Anti-spam: hidden from humans, filled by bots. Never remove. -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+        <label for="en-website">Ne pas remplir</label>
+        <input type="text" id="en-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
           <label class="consent-row">
             <input type="checkbox" id="en-consent">
             <span>Acceptez-vous d'être contacté par un conseiller ?</span>
@@ -394,6 +402,22 @@
 
     var data = { niche:'Energie', nom:nom, telephone:tel, consent:'Oui', utm:window.location.search, ua:navigator.userAgent.substring(0,120) };
     if(GOOGLE_SCRIPT_URL){ fetch(GOOGLE_SCRIPT_URL+'?'+Object.keys(data).map(function(k){ return encodeURIComponent(k)+'='+encodeURIComponent(data[k]); }).join('&'),{method:'GET',mode:'no-cors'}).catch(function(){}); }
+
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // Without this the lead only reaches the spreadsheet above: no
+    // scoring, no routing to a paying courtier, no billing.
+    // Fire-and-forget — the success screen never waits on it.
+    if (window.LXLeadora) {
+      var _lxParts = String(nom || '').trim().split(/\s+/);
+      window.LXLeadora.submit({
+        vertical: 'energie',
+        source: 'meta_lp',
+        first_name: _lxParts[0],
+        last_name: _lxParts.slice(1).join(' '),
+        phone: tel,
+        honeypot: (document.getElementById('en-website') || {}).value || ''
+      });
+    }
     fetch('/api/capi',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ eventName:'Lead', eventId:eventId, content_name:'Devis Energie Gratuit', content_category:'Services', sourceUrl:window.location.href, nom:nom, telephone:tel, fbp:getCk('_fbp'), fbc:getCk('_fbc') })}).catch(function(){});
     sessionStorage.setItem('leadEventId', eventId);
 

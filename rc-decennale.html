@@ -218,6 +218,9 @@
       .main-title { font-size: 1.9rem; }
     }
   </style>
+<!-- XLead24 CRM bridge — sends the lead into the CRM so it is scored,
+     routed to a paying courtier and billed. Non-blocking. -->
+<script src="/lxleadora-lead.js" data-crm="https://xlead24.com"></script>
 </head>
 <body>
 
@@ -266,6 +269,11 @@
     </div>
 
     <!-- CONSENT -->
+      <!-- Anti-spam: hidden from humans, filled by bots. Never remove. -->
+      <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;overflow:hidden;">
+        <label for="rcd-website">Ne pas remplir</label>
+        <input type="text" id="rcd-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
     <label class="consent-row">
       <input type="checkbox" id="rcd-consent">
       <span>J'accepte d'être contacté par un conseiller Ringassur</span>
@@ -364,6 +372,24 @@
       + '&utm='       + encodeURIComponent(window.location.search)
       + '&ua='        + encodeURIComponent(navigator.userAgent.substring(0, 120));
     fetch(GOOGLE_SCRIPT_URL + '?' + sheetParams, { method: 'GET', mode: 'no-cors' }).catch(function() {});
+
+    // ── Into the XLead24 CRM ──────────────────────────────────
+    // Without this the lead only reaches the spreadsheet above: no
+    // scoring, no routing to a paying courtier, no billing.
+    // Fire-and-forget — the success screen never waits on it.
+    if (window.LXLeadora) {
+      var _lxParts = String(nom || '').trim().split(/\s+/);
+      window.LXLeadora.submit({
+        vertical: 'rc_decennale',
+        source: 'meta_lp',
+        first_name: _lxParts[0],
+        last_name: _lxParts.slice(1).join(' '),
+        phone: tel,
+        metier: 'non precise',
+        situation: 'no_insurance',
+        honeypot: (document.getElementById('rcd-website') || {}).value || ''
+      });
+    }
 
     // CAPI + Meta Pixel
     fetch('/api/capi', {
