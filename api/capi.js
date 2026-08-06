@@ -53,6 +53,10 @@ function hashExactDob(dateStr) {
   return hash(digits);
 }
 
+// Reads Meta's response instead of discarding it. Previously this called
+// r.resume() and resolved with nothing, so a rejected token, a wrong pixel
+// ID and a genuine success were all indistinguishable — the endpoint always
+// answered {status:'ok'} and CAPI failures were invisible for days.
 function postHttps(url, payload) {
   return new Promise(function(resolve) {
     var req = https.request(url, {
@@ -61,8 +65,12 @@ function postHttps(url, payload) {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(payload)
       }
-    }, function(r) { r.resume(); r.on('end', resolve); });
-    req.on('error', resolve);
+    }, function(r) {
+      var data = '';
+      r.on('data', function(d) { data += d; });
+      r.on('end', function() { resolve({ status: r.statusCode, body: data }); });
+    });
+    req.on('error', function(e) { resolve({ status: 0, body: 'request_error: ' + e.message }); });
     req.write(payload);
     req.end();
   });
@@ -149,12 +157,31 @@ module.exports = async function(req, res) {
     var capiToken = process.env[tokenEnv] || process.env.META_CAPI_TOKEN || '';
     var capiUrl   = 'https://graph.facebook.com/v19.0/' + pixelId + '/events?access_token=' + capiToken;
     var capiPayload = JSON.stringify({ data: events });
-    await postHttps(capiUrl, capiPayload);
+    var capiRes = await postHttps(capiUrl, capiPayload);
+
+    // Surface Meta's verdict. NOTE: never echo capiUrl — it carries the token.
+    var capiOk = capiRes.status >= 200 && capiRes.status < 300;
+    if (!capiOk) {
+      console.error('[capi] Meta rejected event', {
+        pixelId: pixelId, tokenEnv: tokenEnv, tokenPresent: !!capiToken,
+        eventName: eventName, httpStatus: capiRes.status, metaResponse: capiRes.body
+      });
+    }
 
     // Telegram notifications are handled by Google Apps Script (client-side)
     // to avoid duplicate messages. CAPI handles Meta tracking only.
 
-    return res.status(200).json({ status: 'ok', eventName: eventName, eventId: eventId });
+    return res.status(200).json({
+      status:    capiOk ? 'ok' : 'capi_error',
+      eventName: eventName,
+      eventId:   eventId,
+      pixelId:   pixelId,
+      // Lets you tell a rejected token from a genuine success instead of
+      // always seeing "ok". Kept on a 200 so a CAPI failure never breaks
+      // the form's success path for the visitor.
+      capiStatus: capiRes.status,
+      capiError:  capiOk ? undefined : capiRes.body
+    });
 
   } catch (err) {
     return res.status(500).json({ status: 'error', message: err.message });
