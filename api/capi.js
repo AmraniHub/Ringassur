@@ -57,6 +57,27 @@ function hashExactDob(dateStr) {
 // r.resume() and resolved with nothing, so a rejected token, a wrong pixel
 // ID and a genuine success were all indistinguishable — the endpoint always
 // answered {status:'ok'} and CAPI failures were invisible for days.
+// Strips the query string from event_source_url, keeping scheme + host + path.
+//
+// Meta restricts "custom parameters and parts of URLs after the domain" for
+// sensitive verticals, and these are health-adjacent pages (mutuelle santé,
+// arrêt de travail). Pages send window.location.href, so every UTM and any
+// stray param a partner appends would otherwise reach Meta verbatim.
+//
+// The PATH is deliberately kept: Lead events are differentiated by URL-based
+// Custom Conversions in Ads Manager (custom Lead_XXX events are blocked for
+// this vertical), so dropping the path would break campaign reporting.
+// Nothing is lost by dropping the query — Meta attributes via fbc/fbp in
+// user_data, not via URL parameters.
+function sanitizeSourceUrl(raw) {
+  try {
+    var u = new URL(String(raw));
+    return u.origin + u.pathname;
+  } catch (e) {
+    return PAGE_URL;
+  }
+}
+
 function postHttps(url, payload) {
   return new Promise(function(resolve) {
     var req = https.request(url, {
@@ -88,7 +109,7 @@ module.exports = async function(req, res) {
     var body      = req.body || {};
     var eventName = body.eventName || 'Lead';
     var eventId   = body.eventId   || (eventName.toLowerCase() + '_capi_' + Date.now());
-    var sourceUrl = body.sourceUrl || PAGE_URL;
+    var sourceUrl = sanitizeSourceUrl(body.sourceUrl || PAGE_URL);
     var fbp       = body.fbp || '';
     var fbc       = body.fbc || '';
 
