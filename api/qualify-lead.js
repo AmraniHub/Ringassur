@@ -83,17 +83,24 @@ module.exports = async function(req, res) {
     // ── Purchase event ─────────────────────────────────────────────────────
     const eventId = 'qual_' + Date.now() + '_' + Math.random().toString(36).slice(2);
 
+    // The lead's own landing page, so qualified conversions are attributed to
+    // the campaign that produced them. Hardcoding one page sent every vertical's
+    // Purchase to /mutuelle-sante3 and made cross-niche attribution meaningless.
+    const sourceUrl = typeof body.sourceUrl === 'string' && /^https:\/\/(www\.)?ringassur\.com\//.test(body.sourceUrl)
+      ? body.sourceUrl
+      : 'https://www.ringassur.com/';
+
     const events = [{
       event_name:       'Purchase',
       event_time:       Math.floor(Date.now() / 1000),
       event_id:         eventId,
       action_source:    'website',
-      event_source_url: 'https://www.ringassur.com/mutuelle-sante3',
+      event_source_url: sourceUrl,
       user_data:        userData,
       custom_data: {
         value:        value,
         currency:     'EUR',
-        content_name: 'Lead qualifié — Mutuelle Santé',
+        content_name: body.contentName || 'Lead qualifié',
         content_type: 'lead_qualified'
       }
     }];
