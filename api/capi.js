@@ -2,8 +2,19 @@ const crypto = require('crypto');
 const https  = require('https');
 
 var PIXEL_ID_DEFAULT = '944605845074489';
-var PIXEL_ID_NEW     = '1011230188058686';
 var PAGE_URL = 'https://www.ringassur.com';
+
+// ── Pixel registry — one entry per active pixel, each with its own token ──
+// A page opts in by sending pixelId in the CAPI body; anything unset or
+// unrecognised falls back to PIXEL_ID_DEFAULT. To add a pixel: create it in
+// Meta, generate a System User token (never a short-lived user token — see
+// skills/ringassur-error-log.md ERROR #008), add it to Vercel env, add one
+// line here.
+var PIXEL_REGISTRY = {
+  '944605845074489':      { tokenEnv: 'META_CAPI_TOKEN' },   // legacy default — auto/immo/energie/etc.
+  '1011230188058686':     { tokenEnv: 'META_CAPI_TOKEN_2' }, // Mutuelle Santé
+  '995355740169875': { tokenEnv: 'META_CAPI_TOKEN_3' }  // Indemnité Journalière — SWAP this key for the real pixel ID once created
+};
 
 function hash(val) {
   if (!val) return undefined;
@@ -30,6 +41,16 @@ function approxDob(tranche) {
   var birthYear = map[tranche];
   if (!birthYear) return undefined;
   return hash(String(birthYear) + '0101');
+}
+
+// EMQ Fix 2b — Exact DOB, for forms that actually collect one (e.g. an
+// <input type="date"> gives YYYY-MM-DD). Meta wants YYYYMMDD before hashing.
+// Stronger signal than approxDob() — use this whenever a real date exists.
+function hashExactDob(dateStr) {
+  if (!dateStr) return undefined;
+  var digits = String(dateStr).replace(/\D/g, '');
+  if (!/^\d{8}$/.test(digits)) return undefined;
+  return hash(digits);
 }
 
 function postHttps(url, payload) {
@@ -63,8 +84,9 @@ module.exports = async function(req, res) {
     var fbp       = body.fbp || '';
     var fbc       = body.fbc || '';
 
-    // Accept pixelId from the page — allows variants to use a different pixel
-    var pixelId = (body.pixelId === PIXEL_ID_NEW) ? PIXEL_ID_NEW : PIXEL_ID_DEFAULT;
+    // Accept pixelId from the page — allows variants to use a different pixel.
+    // Unset or unrecognised falls back to the legacy default pixel + its token.
+    var pixelId = PIXEL_REGISTRY[body.pixelId] ? body.pixelId : PIXEL_ID_DEFAULT;
 
     // ── service info (dynamic per page) ───────────────────────
     var serviceName = body.content_name     || body.activite || 'Ringassur';
@@ -84,7 +106,10 @@ module.exports = async function(req, res) {
     if (body.telephone)    userData.ph          = [hashPhone(body.telephone)];  // EMQ Fix 1: E.164
     if (body.prenom)       userData.fn          = [hash(body.prenom)];
     if (body.nom)          userData.ln          = [hash(body.nom)];
-    if (body.tranche_age)  userData.db          = [approxDob(body.tranche_age)].filter(Boolean); // EMQ Fix 2: DOB
+    // Exact DOB (date_naissance) beats an approximated bracket when a form
+    // actually collects one — prefer it whenever both could apply.
+    if (body.date_naissance) userData.db = [hashExactDob(body.date_naissance)].filter(Boolean);
+    else if (body.tranche_age) userData.db = [approxDob(body.tranche_age)].filter(Boolean); // EMQ Fix 2: DOB
 
     // EMQ Fix 3 — Stable external_id built from phone + name (no email — phone is the stable identifier)
     // Gives Meta a consistent ID to link multiple events from same user
@@ -118,10 +143,10 @@ module.exports = async function(req, res) {
     // URL-based Custom Conversions in Ads Manager.
 
     // ── send to Meta CAPI ──────────────────────────────────────
-    // Use dedicated token per pixel — META_CAPI_TOKEN_2 for the new pixel
-    var capiToken = (pixelId === PIXEL_ID_NEW)
-      ? (process.env.META_CAPI_TOKEN_2 || process.env.META_CAPI_TOKEN || '')
-      : (process.env.META_CAPI_TOKEN   || '');
+    // Each pixel has its own token; fall back to the legacy default token
+    // if a pixel's dedicated one isn't set yet in Vercel.
+    var tokenEnv  = PIXEL_REGISTRY[pixelId].tokenEnv;
+    var capiToken = process.env[tokenEnv] || process.env.META_CAPI_TOKEN || '';
     var capiUrl   = 'https://graph.facebook.com/v19.0/' + pixelId + '/events?access_token=' + capiToken;
     var capiPayload = JSON.stringify({ data: events });
     await postHttps(capiUrl, capiPayload);

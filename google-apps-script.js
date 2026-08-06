@@ -36,7 +36,8 @@ var SERVICES = {
   'Mutuelle Sante':         { sheet: 'Mutuelle Santé',     emoji: '💚' },
   'Mutuelle Sante 1':       { sheet: 'Mutuelle Santé 1',   emoji: '💚' },
   'Mutuelle Sante 2':       { sheet: 'Mutuelle Santé 2',   emoji: '💚' },
-  'Mutuelle Sante 3':       { sheet: 'Mutuelle Santé 3',   emoji: '💚' }
+  'Mutuelle Sante 3':       { sheet: 'Mutuelle Santé 3',   emoji: '💚' },
+  'Indemnite Journaliere':  { sheet: 'Indemnité Journ.',   emoji: '🩺' }
 };
 
 // ── Parse UTM params — supports both formats:
@@ -175,6 +176,26 @@ function writeServiceSheet(ss, niche, p) {
       p.email     || ''
     ]);
 
+  } else if (niche === 'Indemnite Journaliere') {
+    // Brand-new sheet — safe to order columns naturally, unlike the
+    // Mutuelle Sante branch above where an existing sheet forces appending.
+    initHeaders(sheet, [
+      'Date & Heure', 'Nom', 'Prénom', 'Date naissance', 'Téléphone',
+      'Date rappel souhaitée', 'Heure rappel souhaitée', 'Consentement',
+      'Source', 'Médium', 'Campagne', 'Contenu'
+    ]);
+    sheet.appendRow([
+      date,
+      p.nom            || '',
+      p.prenom         || '',
+      p.date_naissance || '',
+      p.telephone      || '',
+      p.date_rappel    || '',
+      p.heure_rappel   || '',
+      p.consent        || '',
+      utm.source, utm.medium, utm.campaign, utm.content
+    ]);
+
   } else {
     // Energie / Estimation Immobiliere / Rappel / Test Drive
     initHeaders(sheet, [
@@ -206,6 +227,9 @@ function writeMasterSheet(ss, niche, p) {
   if (niche === 'Mutuelle Sante' || niche === 'Mutuelle Sante 1' ||
       niche === 'Mutuelle Sante 2' || niche === 'Mutuelle Sante 3') {
     details = 'Âge: ' + (p.age || '') + ' | Situation: ' + (p.situation || '');
+  }
+  if (niche === 'Indemnite Journaliere') {
+    details = 'Né(e) le: ' + (p.date_naissance || '') + ' | Rappel: ' + (p.date_rappel || '') + ' ' + (p.heure_rappel || '');
   }
 
   var utm = parseUtm(p.utm || '', p);
@@ -246,6 +270,11 @@ function buildTelegramMsg(niche, p) {
     if (p.email) msg += '<b>Email :</b> ' + p.email + '\n';  // optional field
     msg += '<b>Âge :</b> '       + (p.age || '—') + '\n';
     msg += '<b>Situation :</b> ' + (p.situation || '—') + '\n';
+  } else if (niche === 'Indemnite Journaliere') {
+    msg += '<b>Nom :</b> '            + (p.prenom || '') + ' ' + (p.nom || '') + '\n';
+    msg += '<b>Tel :</b> '            + (p.telephone || '') + '\n';
+    msg += '<b>Né(e) le :</b> '       + (p.date_naissance || '—') + '\n';
+    msg += '<b>Rappel souhaité :</b> ' + (p.date_rappel || '—') + ' à ' + (p.heure_rappel || '—') + '\n';
   } else {
     msg += '<b>Nom :</b> ' + (p.nom || '') + '\n';
     msg += '<b>Tel :</b> ' + (p.telephone || '') + '\n';

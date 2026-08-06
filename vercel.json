@@ -20,6 +20,7 @@
     { "source": "/mutuelle-sante",          "destination": "/mutuelle-sante.html" },
     { "source": "/mutuelle-sante1",         "destination": "/mutuelle-sante1.html" },
     { "source": "/mutuelle-sante2",         "destination": "/mutuelle-sante2.html" },
-    { "source": "/mutuelle-sante3",         "destination": "/mutuelle-sante3.html" }
+    { "source": "/mutuelle-sante3",         "destination": "/mutuelle-sante3.html" },
+    { "source": "/indemnite-journaliere",   "destination": "/indemnite-journaliere.html" }
   ]
 }
