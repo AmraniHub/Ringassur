@@ -184,9 +184,13 @@
     .field-err.show { display: block; }
 
     .consent-row { display: flex; align-items: flex-start; gap: 0.7rem; margin: 0.3rem 0 1.1rem; cursor: pointer; }
+    /* border was var(--border) #dcece5 on #fbfcfe — 1.16:1 contrast, so the
+       unchecked box was effectively invisible against the page background.
+       This is a required field: if the box can't be seen, submission stalls
+       silently right here. var(--gray) against white clears 5:1. */
     .consent-box {
       width: 20px; height: 20px; flex-shrink: 0; border-radius: 5px;
-      border: 1.5px solid var(--border); background: #fbfcfe;
+      border: 1.75px solid var(--gray); background: #fff;
       display: flex; align-items: center; justify-content: center; margin-top: 1px;
       transition: background 0.15s, border-color 0.15s; cursor: pointer;
     }
