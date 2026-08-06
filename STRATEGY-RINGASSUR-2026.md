@@ -105,7 +105,7 @@ CAMPAIGN  Mutuelle 2026/08/05          ← KEEP, do not recreate
         Optimisation     OFFSITE_CONVERSIONS → Lead
         Attribution      7-day click / 1-day view
         Geo              France
-        Age              50 → 65+       ← NO UPPER CAP (see below)
+        Age              50 → 65+       ← raise the floor; 65 already means 65+
         Gender           All
         Detailed target  NONE — broad, Advantage audience ON
         Placements       Advantage+ (keep current)
@@ -118,17 +118,34 @@ CAMPAIGN  Mutuelle 2026/08/05          ← KEEP, do not recreate
   ⨯ NO retargeting ad set yet — see "Do not build this" below
 ```
 
-### The age fix — the most expensive single error in the account
+### The age fix — raise the floor, leave the ceiling alone
 
-Five of seven ad sets run `age_min: 18, age_max: 65`. The product is **senior** mutuelle.
-Your landing page offers a "65 ans et plus" qualification chip.
+Five of seven ad sets run `age_min: 18, age_max: 65` on a **senior** product.
 
-So the ads **cannot reach anyone over 65** — the segment the research identifies as
-highest premium (1,700 €/yr vs 850 €) and longest retention (4.2 years) — while paying to
-show senior insurance to 18-year-olds.
+**Correction to an earlier draft of this document:** that draft claimed `age_max: 65`
+excluded the 65+ segment. **It does not.** Verified against the API on 2026-08-06:
 
-Meta's top bracket is `65+` and is open-ended. `age_max: 65` is a hard exclusion of your
-best buyer. **Set 50 → 65+ with no cap.**
+```
+FR, age 63 only :   452,900 users
+FR, age 64 only :   416,700 users
+FR, age 65 only : 5,200,000 users   ← 12x the adjacent year
+age_max: 70     : rejected, INVALID_AGE_MAX
+```
+
+`65` is the open-ended **65+ bucket**, and 65 is the highest value the API accepts. The
+account was already reaching over-65s. Nothing was being excluded.
+
+**The real problem is the floor, not the ceiling.** `age_min: 18` pays to show senior
+mutuelle to people who cannot convert:
+
+| Targeting | Reach |
+|---|---|
+| FR 18–65+ | 43.2M – 50.8M |
+| FR 50–65+ | **13.4M – 15.8M** |
+| FR 55–65+ | 10.2M – 12.0M |
+
+Roughly **two thirds of the addressable pool is below 50** and worthless for this offer.
+Set **`age_min: 50`, `age_max: 65`** — 13.4M+ is far more than broad delivery needs.
 
 ### Drop detailed targeting entirely
 
