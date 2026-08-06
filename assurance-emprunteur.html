@@ -1105,8 +1105,9 @@
     // activité, CA, SIREN and a real postal code all feed the scorer.
     if (window.LXLeadora) {
       window.LXLeadora.submit({
-        vertical: 'rc_decennale',
+        vertical: 'assurance_emprunteur',
         source: 'meta_lp',
+        consent_text: "En cliquant, j'accepte d'être contacté par Ringassur dans le cadre de ma demande de devis. Vos données ne seront pas cédées à des tiers.",
         first_name: data.prenom,
         last_name: data.nom,
         phone: data.telephone,
